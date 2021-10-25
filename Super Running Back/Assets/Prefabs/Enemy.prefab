@@ -860,7 +860,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 565ba4f6a3629214c867c2a808e56104, type: 2}
   detectDistance: 30
-  divingDistance: 10
   player: {fileID: 0}
 --- !u!114 &1914847095096297749
 MonoBehaviour:

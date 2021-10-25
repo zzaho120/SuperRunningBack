@@ -20,9 +20,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 80f6da55bea88874cb5565168da28072, type: 2}
   - {fileID: 11400000, guid: ae9fd0efb988f40449ffeaccec3b6b79, type: 2}
   - {fileID: 11400000, guid: adb5db8dc8d0b1f48ab6593341e9b2c9, type: 2}
-  currentLevel: {fileID: 11400000, guid: bf7a42a5adb720544a71524fb2648ca9, type: 2}
-  currentItemCnt: 11
-  currentWeight: 199
-  currentKickScore: 1800
-  currentRagdollCnt: 7
+  currentLevel: {fileID: 11400000, guid: 072f104229980e942bf2ae9ce6981860, type: 2}
+  currentItemCnt: 0
+  currentWeight: 0
+  currentKickScore: 0
+  currentRagdollCnt: 0
   initLevel: 1

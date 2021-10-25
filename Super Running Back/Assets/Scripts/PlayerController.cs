@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private int ragdollIndex;
     private float speed = 10f;
+    private float decreaseSpeed = 0.7f;
 
     private void Awake()
     {
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        rigid.velocity = new Vector3(slideSpeed, rigid.velocity.y, stats.currentLevel.moveSpeed);
+        rigid.velocity = new Vector3(slideSpeed, rigid.velocity.y, stats.currentLevel.moveSpeed * decreaseSpeed);
     }
 
     public void horizontalMove(Touch touch)
@@ -84,6 +85,11 @@ public class PlayerController : MonoBehaviour
         slideSpeed = horizontal * speed;
         var aniValue = horizontal + 0.5f;
         animator.SetFloat("MoveX", aniValue);
+
+        if (horizontal == 0)
+            decreaseSpeed = 1f;
+        else
+            decreaseSpeed = 0.5f;
     }
 
     private void OnTriggerEnter(Collider other)

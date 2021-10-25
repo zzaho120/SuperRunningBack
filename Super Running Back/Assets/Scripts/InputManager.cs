@@ -37,7 +37,6 @@ public class InputManager : MonoBehaviour
     private void KeyboardInput()
     {
         var h = Input.GetAxis("Horizontal");
-
         onKeyboardEvents.Invoke(h);
     }
 }

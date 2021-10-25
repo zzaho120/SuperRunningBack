@@ -11,12 +11,13 @@ public class GameManager : MonoBehaviour
     public PlayerController player;
     public UIManager UI;
     public EnemyController[] enemys;
+    public ScoreManager scoreManager;
     
     private float gameStartTime;
     public int playTime;
     private int totalScore;
     private bool isTutorial = true;
-    // Start is called before the first frame update
+
     private void Awake()
     {
         Instance = this;
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<CameraManager>();
         UI = GameObject.FindWithTag("UI").GetComponent<UIManager>();
+        scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
         gameStartTime = Time.time;
     }
 
@@ -85,5 +87,6 @@ public class GameManager : MonoBehaviour
     {
         player.AnimationSpeedUp();
         player.SizeSetting();
+        mainCamera.GetPlayerLevel();
     }
 }
