@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    private int finishTime;
-    private int holdEnemyNumber;
-    private int kickEnemyNumber;
-    private int itemNumber;
+    public int finishTime;
+    public int itemNumber;
+    public int holdEnemyNumber;
+    public int kickEnemyNumber;
     private bool isClear;
 
     private int clearScore = 5000;
@@ -20,16 +20,14 @@ public class ScoreManager : MonoBehaviour
         finishTime = time;
     }
 
-    public void SetHoldEnemyNumber(int weight)
+    public void SetHoldEnemyNumber()
     {
-        if (weight > 0)
-            holdEnemyNumber += weight;
+        holdEnemyNumber++;
     }
 
-    public void SetKickEnemyNumber(int enemyNumber)
+    public void SetKickEnemyNumber()
     {
-        if (enemyNumber > 0)
-            kickEnemyNumber += enemyNumber;
+        kickEnemyNumber++;
     }
 
     public void SetItemNumber(int itemNum)

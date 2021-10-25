@@ -149,8 +149,6 @@ public class PlayerController : MonoBehaviour
     public void SetActiveRagdoll(EnemyStats stats)
     {
         var maxCnt = this.stats.currentRagdollCnt;
-        //Debug.Log(maxCnt);
-        //Debug.Log(ragdolls.Length);
         for (; ragdollIndex < maxCnt; ragdollIndex++)
         {
             ragdolls[ragdollIndex].SetActive(true);

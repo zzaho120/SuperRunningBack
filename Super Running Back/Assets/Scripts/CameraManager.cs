@@ -31,11 +31,6 @@ public class CameraManager : MonoBehaviour
         transform.LookAt(newTarget);
     }
 
-    public void RotateCameraView(Touch touch)
-    {
-
-    }
-
     public void RotateCameraView(float horizontal)
     {
         horizontal += 1.0f;

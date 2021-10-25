@@ -11,6 +11,7 @@ public class IncreaseStatsByCollision : MonoBehaviour, ICollisable
         {
             player.stats.currentItemCnt++;
             player.stats.CheckItem();
+            GameManager.Instance.scoreManager.SetItemNumber(player.stats.currentItemCnt);
         }
     }
 }

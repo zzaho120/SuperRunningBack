@@ -10,7 +10,8 @@ public class ActionByCollision : MonoBehaviour, ICollisable
     public void onActionByCollision(GameObject other)
     {
         var enemyStats = GetComponent<EnemyController>().stats;
-        var player = other.GetComponent<PlayerController>();
+        var player = other.GetComponent<PlayerController>(); 
+        var scoreManager = GameManager.Instance.scoreManager;
 
         var isKick = player.stats.currentLevel.level >= enemyStats.level &&
             Random.Range(0, 100) < enemyStats.kickRate;
@@ -19,10 +20,12 @@ public class ActionByCollision : MonoBehaviour, ICollisable
         {
             var ragdoll = Instantiate(ragdollPrefab, transform.position, transform.rotation);
             var ragdollMgr = ragdoll.GetComponent<RagdollManager>();
+            
 
             ragdollMgr.SetStats(enemyStats);
 
             player.stats.KickScoreUp(enemyStats.level);
+            scoreManager.SetKickEnemyNumber();
 
             var dir = ragdoll.transform.position - other.transform.position;
 
@@ -41,6 +44,7 @@ public class ActionByCollision : MonoBehaviour, ICollisable
             playerStat.currentWeight += enemyStats.weight;
             
             player.SetActiveRagdoll(enemyStats);
+            scoreManager.SetHoldEnemyNumber();
         }
     }
 }
