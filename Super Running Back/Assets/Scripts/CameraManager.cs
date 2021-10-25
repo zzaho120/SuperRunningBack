@@ -35,7 +35,6 @@ public class CameraManager : MonoBehaviour
     {
         horizontal += 1.0f;
         horizontal *= 0.5f;
-        Debug.Log(horizontal);
         rotateValue = Mathf.Lerp(-maxRotateValue, maxRotateValue, horizontal);
     }
 
