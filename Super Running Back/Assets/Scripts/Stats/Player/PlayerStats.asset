@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f797a6112d44478eb168ebe55bd61, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: 
+  playerLevels:
+  - {fileID: 11400000, guid: 072f104229980e942bf2ae9ce6981860, type: 2}
+  - {fileID: 11400000, guid: 582d65f8f097390409a449f6abe7340c, type: 2}
+  - {fileID: 11400000, guid: 43c359c3eec64434fa4422a9eb8cf9ca, type: 2}
+  - {fileID: 11400000, guid: bf7a42a5adb720544a71524fb2648ca9, type: 2}
+  - {fileID: 11400000, guid: 80f6da55bea88874cb5565168da28072, type: 2}
+  - {fileID: 11400000, guid: ae9fd0efb988f40449ffeaccec3b6b79, type: 2}
+  - {fileID: 11400000, guid: adb5db8dc8d0b1f48ab6593341e9b2c9, type: 2}
+  currentLevel: {fileID: 11400000, guid: bf7a42a5adb720544a71524fb2648ca9, type: 2}
+  currentItemCnt: 11
+  currentWeight: 199
+  currentKickScore: 1800
+  currentRagdollCnt: 7
+  initLevel: 1
