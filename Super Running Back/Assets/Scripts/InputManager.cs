@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour
     public UnityEvent<Touch> onPressEvents;
     public UnityEvent<float> onKeyboardEvents;
 
-    private void FixedUpdate()
+    private void Update()
     {
         horizontalMove();
         KeyboardInput();

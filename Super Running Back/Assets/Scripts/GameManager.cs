@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class GameManager : MonoBehaviour
     public UIManager UI;
     public EnemyController[] enemys;
     public ScoreManager scoreManager;
-    
+    public int yardInGround;
+    public GameState state;
+
+
     private float gameStartTime;
     public int playTime;
     private int totalScore;
@@ -28,42 +32,81 @@ public class GameManager : MonoBehaviour
         UI = GameObject.FindWithTag("UI").GetComponent<UIManager>();
         scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
         gameStartTime = Time.time;
+
+        inputManager.enabled = false;
+    }
+
+    private void Start()
+    {
+        var level = player.stats.currentLevel.level;
+
+        mainCamera.SetPlayerLevel(level);
+        scoreManager.SetPlayerLevel(level);
     }
 
     private void Update()
     {
-        playTime = (int)(Time.time - gameStartTime);
-
-        if(isTutorial && playTime > 2f)
+        switch (state)
         {
-            isTutorial = false;
-            var gameUI = UI.GetComponentInChildren<GameUIContorller>();
-            gameUI.TutorialBarOff();
+            case GameState.None:
+            case GameState.MainMenu:
+            case GameState.Gameover:
+            case GameState.Result:
+                break;
+            case GameState.Game:
+                GameUpdate();
+                break;
         }
+        
     }
 
     public void Finish()
     {
         scoreManager.SetFinishTime(playTime);
         UI.Open(UIs.Result);
-        scoreManager.isClear = true;
     }
 
     public void PlayerDie()
     {
-        //Time.timeScale = 0f;
-        //PrintScore();
         UI.Open(UIs.Gameover);
         player.PlayerDead();
         player.enabled = false;
         inputManager.enabled = false;
-        
     }
 
     public void PlayerLevelUp()
     {
         player.AnimationSpeedUp();
         player.SizeSetting();
-        mainCamera.GetPlayerLevel();
+
+        var level = player.stats.currentLevel.level;
+
+        mainCamera.SetPlayerLevel(level);
+        scoreManager.SetPlayerLevel(level);
+    }
+
+    public void GameStart()
+    {
+        state = GameState.Game;
+        UI.Open(UIs.Game);
+        inputManager.enabled = true;
+        player.GameStart();
+
+        foreach(var elem in enemys)
+        {
+            elem.GameStart();
+        }
+    }
+
+    public void GameUpdate()
+    {
+        playTime = (int)(Time.time - gameStartTime);
+
+        if (isTutorial && playTime > 2f)
+        {
+            isTutorial = false;
+            var gameUI = UI.GetComponentInChildren<GameUIContorller>();
+            gameUI.TutorialBarOff();
+        }
     }
 }

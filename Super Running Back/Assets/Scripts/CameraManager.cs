@@ -47,8 +47,9 @@ public class CameraManager : MonoBehaviour
             playerLevel = 0;
     }
 
-    public void GetPlayerLevel()
+    public void SetPlayerLevel(int level)
     {
-        playerLevel = GameManager.Instance.player.stats.currentLevel.level - 1;
+        if(level > 0)
+            playerLevel = level - 1;
     }
 }

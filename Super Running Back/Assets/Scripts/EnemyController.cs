@@ -19,11 +19,11 @@ public class EnemyController : MonoBehaviour
     private Rigidbody rigid;
     private Animator animator;
     private STATE state;
+    private bool isPlaying;
     private bool isDiving;
     private bool isDivingCheck;
     private float animaitorNomalize = 5f;
     private float divingDistance;
-
     public STATE State
     {
         get { return state; }
@@ -81,23 +81,26 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        switch (State)
+        if(isPlaying)
         {
-            case STATE.IDLE:
-                IdleUpdate();
-                break;
-            case STATE.MOVE:
-                MoveUpdate();
-                break;
-            case STATE.TRACE:
-                TraceUpdate();
-                break;
-            case STATE.DIVING:
-                DivingUpdate();
-                break;
-            case STATE.PASSOVER:
-                Destroy(gameObject, 2f);
-                break;
+            switch (State)
+            {
+                case STATE.IDLE:
+                    IdleUpdate();
+                    break;
+                case STATE.MOVE:
+                    MoveUpdate();
+                    break;
+                case STATE.TRACE:
+                    TraceUpdate();
+                    break;
+                case STATE.DIVING:
+                    DivingUpdate();
+                    break;
+                case STATE.PASSOVER:
+                    Destroy(gameObject, 2f);
+                    break;
+            }
         }
     }
 
@@ -150,5 +153,10 @@ public class EnemyController : MonoBehaviour
             result = 0f;
 
         return result;
+    }
+
+    public void GameStart()
+    {
+        isPlaying = true;
     }
 }

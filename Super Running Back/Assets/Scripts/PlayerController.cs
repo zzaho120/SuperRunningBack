@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public List<Transform> armsShape;
     public Transform dumbbellUI;
     public bool isDead;
+    
 
     private Rigidbody rigid;
     private Animator animator;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private int ragdollIndex;
     private float speed = 10f;
     private float decreaseSpeed = 0.7f;
+    private bool isPlaying;
 
     private void Awake()
     {
@@ -45,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!isDead)
+        if(!isDead && isPlaying)
         {
             Move();
         }
@@ -185,5 +187,11 @@ public class PlayerController : MonoBehaviour
         rigid.velocity = Vector3.zero;
         animator.SetTrigger("Dead");
         animator.applyRootMotion = true;
+    }
+
+    public void GameStart()
+    {
+        isPlaying = true;
+        animator.SetTrigger("StartGame");
     }
 }

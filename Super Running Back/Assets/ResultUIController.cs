@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,8 @@ public class ResultUIController : UIController
 {
     private Image[] images;
     private Text[] texts;
-    private float showDelayTime = 1f;
-    private float totalScoreDelayTime = 2f;
+    private float showDelayTime = 0.5f;
+    private float totalScoreDelayTime = 0.5f;
     private ScoreManager scoreManager;
 
     public override void Open()
@@ -24,7 +25,7 @@ public class ResultUIController : UIController
             image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);
         }
 
-        for (int idx = 1; idx < texts.Length; idx++)
+        for (int idx = 2; idx < texts.Length; idx++)
         {
             var text = texts[idx];
             text.color = new Color(text.color.r, text.color.g, text.color.b, 0f);
@@ -35,11 +36,13 @@ public class ResultUIController : UIController
 
         texts[2].text = $"Time : {min} min {sec} sec";
 
-        texts[3].text = $"Item : {scoreManager.itemNumber}";
+        texts[3].text = $"Player level : {scoreManager.playerLevel}";
 
-        texts[4].text = $"Hold Enemy : {scoreManager.holdEnemyNumber}";
+        texts[4].text = $"Item : {scoreManager.itemNumber}";
 
-        texts[5].text = $"Kick Enemy : {scoreManager.kickEnemyNumber}";
+        texts[5].text = $"Hold Enemy : {scoreManager.holdEnemyNumber}";
+
+        texts[6].text = $"Kick Enemy : {scoreManager.kickEnemyNumber}";
         
         StartCoroutine(CoStartShowResult());
     }
@@ -51,10 +54,17 @@ public class ResultUIController : UIController
 
     private IEnumerator CoStartShowResult()
     {
-        yield return new WaitForSeconds(showDelayTime);
+        var startTotalScore = 0;
+        var totalScore = 0;
+            
+        var scoreList = scoreManager.ScoreList;
+        var scoreListIdx = 0;
 
-        for (int idx = 2; idx < texts.Length; idx++)
+        scoreManager.GetTotalScore();
+        for (int idx = 2; idx < texts.Length - 1; idx++, scoreListIdx++)
         {
+            yield return new WaitForSeconds(showDelayTime);
+
             var text = texts[idx];
             text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
 
@@ -62,21 +72,28 @@ public class ResultUIController : UIController
             image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
 
             yield return new WaitForSeconds(showDelayTime);
+
+            var timer = 0f;
+
+            if(scoreListIdx < scoreList.Count)
+                totalScore += scoreList[scoreListIdx];
+
+            while (timer < totalScoreDelayTime)
+            {
+                timer += Time.deltaTime;
+
+                var score = (int)Mathf.Lerp(startTotalScore, totalScore, timer / totalScoreDelayTime);
+                texts[1].text = score.ToString();
+
+                if (scoreList[scoreListIdx] != 0)
+                    yield return null;
+            }
+
+            startTotalScore = totalScore;
         }
 
-        texts[1].color = new Color(texts[1].color.r, texts[1].color.g, texts[1].color.b, 1f);
-        images[2].color = new Color(images[2].color.r, images[2].color.g, images[2].color.b, 1f);
-
-        var timer = 0f;
-        var totalScore = scoreManager.GetTotalScore();
-        while(timer < totalScoreDelayTime)
-        {
-            timer += Time.deltaTime;
-
-            var score = (int)Mathf.Lerp(0f, totalScore, timer / totalScoreDelayTime);
-            texts[1].text = score.ToString();
-
-            yield return null;
-        }
+        yield return new WaitForSeconds(showDelayTime);
+        texts[texts.Length - 1].color = new Color(texts[texts.Length - 1].color.r, texts[texts.Length - 1].color.g, texts[texts.Length - 1].color.b, 1f);
+        images[images.Length - 1].color = new Color(images[images.Length - 1].color.r, images[images.Length - 1].color.g, images[images.Length - 1].color.b, 1f);
     }
 }
