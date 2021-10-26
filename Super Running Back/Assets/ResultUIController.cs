@@ -33,7 +33,7 @@ public class ResultUIController : UIController
         var min = scoreManager.finishTime / 60;
         var sec = scoreManager.finishTime % 60;
 
-        texts[2].text = $"Play Time : {min} min {sec} sec";
+        texts[2].text = $"Time : {min} min {sec} sec";
 
         texts[3].text = $"Item : {scoreManager.itemNumber}";
 

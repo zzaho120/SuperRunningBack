@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         scoreManager.SetFinishTime(playTime);
         UI.Open(UIs.Result);
+        scoreManager.isClear = true;
     }
 
     public void PlayerDie()
@@ -55,6 +56,8 @@ public class GameManager : MonoBehaviour
         UI.Open(UIs.Gameover);
         player.PlayerDead();
         player.enabled = false;
+        inputManager.enabled = false;
+        
     }
 
     public void PlayerLevelUp()

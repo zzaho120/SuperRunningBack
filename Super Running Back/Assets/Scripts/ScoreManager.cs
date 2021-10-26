@@ -8,9 +8,10 @@ public class ScoreManager : MonoBehaviour
     public int itemNumber;
     public int holdEnemyNumber;
     public int kickEnemyNumber;
-    private bool isClear;
+    public int YardInGround;
+    public bool isClear;
 
-    private int clearScore = 5000;
+    private int clearScore;
     private int holdScore = 200;
     private int KickScore = 100;
     private int itemScore = 100;
@@ -18,6 +19,25 @@ public class ScoreManager : MonoBehaviour
     public void SetFinishTime(int time)
     {
         finishTime = time;
+
+        switch(YardInGround)
+        {
+            case 50:
+                if (finishTime <= 20)
+                    ;
+                break;
+            case 60:
+                break;
+
+            case 70:
+                break;
+            case 80:
+                break;
+            case 90:
+                break;
+            case 100:
+                break;
+        }
     }
 
     public void SetHoldEnemyNumber()
