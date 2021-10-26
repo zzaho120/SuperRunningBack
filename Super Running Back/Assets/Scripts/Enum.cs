@@ -5,7 +5,8 @@ public enum UIs
 	Gameover,
 	Result,
 	MainMenu,
-	Stage
+	Stage,
+	Option,
 }
 
 public enum Scores

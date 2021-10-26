@@ -31,8 +31,7 @@ public class GameManager : MonoBehaviour
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<CameraManager>();
         UI = GameObject.FindWithTag("UI").GetComponent<UIManager>();
         scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
-        gameStartTime = Time.time;
-
+        
         inputManager.enabled = false;
     }
 
@@ -91,8 +90,8 @@ public class GameManager : MonoBehaviour
         UI.Open(UIs.Game);
         inputManager.enabled = true;
         player.GameStart();
-
-        foreach(var elem in enemys)
+        gameStartTime = Time.time;
+        foreach (var elem in enemys)
         {
             elem.GameStart();
         }
@@ -108,5 +107,25 @@ public class GameManager : MonoBehaviour
             var gameUI = UI.GetComponentInChildren<GameUIContorller>();
             gameUI.TutorialBarOff();
         }
+    }
+
+    public void BackToMainMenu()
+    {
+        UI.Open(UIs.MainMenu);
+    }
+
+    public void OpenStageUI()
+    {
+        UI.Open(UIs.Stage);
+    }
+
+    public void OpenOptionUI()
+    {
+        UI.Open(UIs.Option);
+    }
+
+    public void NextStage()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
