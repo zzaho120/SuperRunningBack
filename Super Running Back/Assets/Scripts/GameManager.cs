@@ -123,6 +123,10 @@ public class GameManager : MonoBehaviour
     {
         UI.Open(UIs.Option);
     }
+    public void OpenCareerUI()
+    {
+        UI.Open(UIs.Career);
+    }
 
     public void NextStage()
     {

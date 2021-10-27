@@ -7,6 +7,7 @@ public enum UIs
 	MainMenu,
 	Stage,
 	Option,
+	Career
 }
 
 public enum Scores
