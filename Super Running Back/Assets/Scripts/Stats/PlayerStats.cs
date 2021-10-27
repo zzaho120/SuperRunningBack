@@ -46,7 +46,7 @@ public class PlayerStats : ScriptableObject
         if(check)
         {
             currentLevel = playerLevels[currentLevel.level];
-            GameManager.Instance.PlayerLevelUp();
+            GameManager.Instance.PlayerLevelUpMsg();
         }
     }
 
@@ -67,7 +67,7 @@ public class PlayerStats : ScriptableObject
             {
                 currentLevel = playerLevels[0];
             }
-            else if(playerLevels.Count > initLevel)
+            else if(playerLevels.Count >= initLevel)
                 currentLevel = playerLevels[initLevel - 1];
             else
             {

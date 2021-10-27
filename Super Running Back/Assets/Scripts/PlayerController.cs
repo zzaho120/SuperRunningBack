@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     public List<Transform> variableThreeShape;
     public List<Transform> armsShape;
     public Transform dumbbellUI;
-    public bool isDead;
     
 
     private Rigidbody rigid;
@@ -26,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private float speed = 10f;
     private float decreaseSpeed = 0.7f;
     private bool isPlaying;
+    private bool isDead;
 
     private void Awake()
     {
@@ -33,11 +33,14 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         ragdolls = GameObject.FindGameObjectsWithTag("EnemyRagdoll");
         animator.SetFloat("MoveX", 0.5f);
+
+        transform.rotation = Quaternion.Euler(0f, -90f, 0f);
     }
 
-    private void Start()
+
+    public void Init()
     {
-        foreach(var elem in ragdolls)
+        foreach (var elem in ragdolls)
         {
             elem.SetActive(false);
         }
@@ -97,22 +100,9 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var collisable = other.GetComponents<ICollisable>();
-        foreach(var elem in collisable)
-        {
-            elem.onActionByCollision(gameObject);
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        var collisable = collision.gameObject.GetComponents<ICollisable>();
-
-        // 나중에 래그돌로 만들어서 소멸한다음에 충돌 멀리보내기를 하자.
-        var colliEnemy = collision.gameObject.GetComponent<EnemyController>();
-        if(colliEnemy != null)
+        var colliEnemy = other.GetComponent<EnemyController>();
+        if (colliEnemy != null)
             colliEnemy.State = EnemyController.STATE.PASSOVER;
-        // =====================================================================
-
         foreach (var elem in collisable)
         {
             elem.onActionByCollision(gameObject);

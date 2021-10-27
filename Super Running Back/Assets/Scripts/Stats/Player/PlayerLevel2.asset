@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 2
   moveSpeed: 12
-  shapeSize: 1.2
+  shapeSize: 1.6
   armSize: 0.9
   ragdollCount: 3
   itemCount: 3

@@ -9,6 +9,7 @@ public class ScoreManager : MonoBehaviour
     public int holdEnemyNumber;
     public int kickEnemyNumber;
     public int playerLevel;
+    public int totalScore;
     public List<int> ScoreList;
 
     private int clearScore;
@@ -75,20 +76,22 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public void SetHoldEnemyNumber()
+    public void AddHoldEnemyNumber()
     {
         holdEnemyNumber++;
+        totalScore += holdScore;
     }
 
-    public void SetKickEnemyNumber()
+    public void AddKickEnemyNumber()
     {
         kickEnemyNumber++;
+        totalScore += KickScore;
     }
 
-    public void SetItemNumber(int itemNum)
+    public void AddItemNumber()
     {
-        if (itemNum > 0)
-            itemNumber = itemNum;
+        itemNumber++;
+        totalScore += itemScore;
     }
 
     public void SetPlayerLevel(int level)
@@ -96,7 +99,7 @@ public class ScoreManager : MonoBehaviour
         if (level > 0)
             playerLevel = level;
     }
-    public void GetTotalScore()
+    public void SetTotalScore()
     {
         if (ScoreList == null)
             ScoreList = new List<int>();
@@ -109,9 +112,15 @@ public class ScoreManager : MonoBehaviour
         ScoreList.Add(GetHoldEnemyScore());
         ScoreList.Add(GetKickEnemyScore());
     }
+    
+    public int GetTotalScore()
+    {
+        return totalScore;
+    }
 
     private int GetClearScore()
     {
+        totalScore += clearScore;
         return clearScore;
     }
 
@@ -132,6 +141,8 @@ public class ScoreManager : MonoBehaviour
     
     private int GetLevelScore()
     {
-        return playerLevel * levelScore;
+        var levelScore = playerLevel * this.levelScore;
+        totalScore += levelScore;
+        return levelScore;
     }
 }

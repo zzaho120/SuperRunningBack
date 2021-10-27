@@ -8,17 +8,22 @@ public class CameraManager : MonoBehaviour
     private Vector3 levelCorrection = new Vector3(0f, 1f, -0.5f);
     private float cameraCorrection = 10f;
     private float maxRotateValue = 5f;
-
+    private Transform startCamera;
     private int playerLevel;
 
     private float rotateValue;
     private float rotateInput;
 
+    private void Awake()
+    {
+        startCamera = GameObject.FindGameObjectWithTag("StartCamera").transform;
+        transform.position = startCamera.position;
+        transform.rotation = startCamera.rotation;
+    }
+
     private void Start()
     {
         InitPlayerLevel();
-        Debug.Log(playerLevel);
-        Debug.Log(levelCorrection * playerLevel);
     }
 
     void FixedUpdate()

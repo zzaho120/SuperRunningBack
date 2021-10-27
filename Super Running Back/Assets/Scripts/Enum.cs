@@ -28,3 +28,8 @@ public enum GameState
 	Gameover,
 	Result,
 }
+
+public enum SceneName
+{
+
+}

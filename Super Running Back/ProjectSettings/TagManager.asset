@@ -11,6 +11,8 @@ TagManager:
   - Enemys
   - InputManager
   - ScoreManager
+  - StartGameTimeLine
+  - StartCamera
   layers:
   - Default
   - TransparentFX
