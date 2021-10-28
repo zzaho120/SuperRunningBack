@@ -68,12 +68,18 @@ public class GameManager : MonoBehaviour
 
     public void Finish()
     {
+        var ui = UI.GetUI(UIs.Game) as GameUIContorller;
+        ui.StopIncreasceScore();
+
         scoreManager.SetFinishTime(playTime);
         UI.Open(UIs.Result);
     }
 
     public void PlayerDieMsg()
     {
+        var ui = UI.GetUI(UIs.Game) as GameUIContorller;
+        ui.StopIncreasceScore();
+
         UI.Open(UIs.Gameover);
         player.PlayerDead();
         player.enabled = false;

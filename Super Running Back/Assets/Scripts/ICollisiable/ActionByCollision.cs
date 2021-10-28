@@ -9,7 +9,12 @@ public class ActionByCollision : MonoBehaviour, ICollisable
 
     public void onActionByCollision(GameObject other)
     {
-        var enemyStats = GetComponent<EnemyController>().stats;
+        EnemyStats enemyStats = null;
+        if(gameObject.CompareTag("Enemy"))
+            enemyStats = GetComponent<EnemyController>().stats;
+        else if (gameObject.CompareTag("FixedEnemy"))
+            enemyStats = GetComponent<FixedEnemyController>().stats;
+
         var player = other.GetComponent<PlayerController>(); 
         var scoreManager = GameManager.Instance.scoreManager;
 

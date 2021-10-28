@@ -116,6 +116,11 @@ public class GameUIContorller : UIController
         StartCoroutine(CoPrintScore());
     }
 
+    public void StopIncreasceScore()
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator CoPrintScore()
     {
         var timer = 0f;

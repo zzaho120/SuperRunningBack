@@ -69,6 +69,8 @@ public class EnemyController : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+
+        transform.rotation = Quaternion.Euler(0f, -180f, 0f);
     }
 
     private void Start()
