@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;
     public PlayableDirector startGameTimeLine;
     public CinemachineBrain cinemachineBrain;
+    public RandomGenerateStage randomGenerateStage;
 
     public int yardInGround;
     public GameState state;
@@ -30,15 +31,18 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         inputManager = GameObject.FindWithTag("InputManager").GetComponent<InputManager>();
-        enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<CameraManager>();
         cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
         UI = GameObject.FindWithTag("UI").GetComponent<UIManager>();
         scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
         startGameTimeLine = GameObject.FindWithTag("StartGameTimeLine").GetComponent<PlayableDirector>();
+        randomGenerateStage = GetComponent<RandomGenerateStage>();
+        randomGenerateStage.Generate();
+        
+        enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
 
-        if(state != GameState.Game)
+        if (state != GameState.Game)
             inputManager.enabled = false;
     }
 

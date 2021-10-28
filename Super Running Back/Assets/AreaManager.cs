@@ -4,43 +4,57 @@ using UnityEngine;
 
 public class AreaManager : MonoBehaviour
 {
-    public GameObject enemys;
     public List<GameObject> parts;
-    public List<GameObject> enemysByLevel;
-    public List<GameObject> fixedEnemyByLevel;
 
     public Difficulty difficulty;
 
-    private int emptyOrItemPart;
-    private bool isExistItemPart;
+    private bool isGenerateFixedEnemy;
+    private bool isGenerateItem;
+    private RandomGenerateStage randomGenerateStage;
 
-    public void Awake()
+    private void Start()
     {
-        emptyOrItemPart = Random.Range(0, parts.Count);
-        isExistItemPart = Random.Range(0, 1) == 1 ? true : false;
+        randomGenerateStage = GameManager.Instance.randomGenerateStage;
     }
 
     public void Generate()
     {
-        for(int idx = 0; idx < parts.Count; idx++)
+        var emptyOrItemPart = Random.Range(0, parts.Count);
+        var fixedEnemyIdx = Random.Range(0, parts.Count);
+        randomGenerateStage = GameObject.FindWithTag("GameManager").GetComponent<RandomGenerateStage>();
+
+        for (int idx = 0; idx < parts.Count; idx++)
         {
-            if (idx == emptyOrItemPart && isExistItemPart)
+            if(isGenerateItem)
             {
-                // 아이템 생성
+                if(emptyOrItemPart == idx)
+                {
+                    GenerateItem(parts[idx]);
+                }
+                else
+                    GenerateEnemy(parts[idx]);
             }
-            else 
+            else
             {
-                GeneratePart(parts[idx]);
+                if (emptyOrItemPart != idx)
+                    GenerateEnemy(parts[idx]);
+            }
+
+            if(isGenerateFixedEnemy && idx == fixedEnemyIdx)
+            {
+                GenerateFixedEnemy(parts[idx]);
+                isGenerateFixedEnemy = false;
             }
         }
     }
 
-    private void GeneratePart(GameObject part)
+    private void GenerateEnemy(GameObject part)
     {
         var totalCost = 0;
         var enemyCount = 0;
         var costCondition = totalCost < difficulty.maxCost - difficulty.minErrorRange;
         var numberCondition = enemyCount < difficulty.maxEnemyNumber;
+
         while (costCondition && numberCondition)
         {
             var originPosition = part.transform.position;
@@ -55,13 +69,13 @@ public class AreaManager : MonoBehaviour
             var randomPosition = new Vector3(rangeX, 0f, rangeZ);
             var respawnPosition = originPosition + randomPosition;
 
-            var randomEnemy = Random.Range(difficulty.minEnemyLevel, difficulty.maxEnemyLevel) - 1;
+            var randomEnemy = Random.Range(difficulty.minEnemyLevel - 1, difficulty.maxEnemyLevel);
 
-            var enemy = enemysByLevel[randomEnemy];
+            var enemy = randomGenerateStage.enemysByLevel[randomEnemy];
 
             var newGo = Instantiate(enemy, respawnPosition, Quaternion.identity);
 
-            newGo.transform.SetParent(enemys.transform);
+            newGo.transform.SetParent(randomGenerateStage.enemys);
 
             totalCost += (randomEnemy + 1) * 10;
             enemyCount++;
@@ -69,5 +83,46 @@ public class AreaManager : MonoBehaviour
             costCondition = totalCost < difficulty.maxCost - difficulty.minErrorRange;
             numberCondition = enemyCount < difficulty.maxEnemyNumber;
         }
+    }
+
+    private void GenerateItem(GameObject part)
+    {
+        var newGo = Instantiate(randomGenerateStage.itemSet, part.transform.position, Quaternion.identity);
+
+        newGo.transform.SetParent(randomGenerateStage.items);
+    }
+
+    private void GenerateFixedEnemy(GameObject part)
+    {
+        var originPosition = part.transform.position;
+        var rangeCollider = part.GetComponent<BoxCollider>();
+
+        var rangeX = rangeCollider.bounds.size.x;
+        var rangeZ = rangeCollider.bounds.size.z;
+
+
+        var stageInfo = randomGenerateStage.stageInfo;
+        var maxEnemyCnt = stageInfo.fixedEnemyNumCnt;
+        var distance = rangeX / maxEnemyCnt;
+        var enemyLevel = stageInfo.fixedEnemyLevel - 1;
+        var enemy = randomGenerateStage.fixedEnemyByLevel[enemyLevel];
+        for (int idx = 0; idx < maxEnemyCnt; idx++)
+        {
+            var position = new Vector3(-rangeX * 0.5f + distance * idx, 0f, -rangeZ * 0.5f);
+            var respawnPosition = originPosition + position;
+            var newGo = Instantiate(enemy, respawnPosition, Quaternion.identity);
+
+            newGo.transform.SetParent(randomGenerateStage.fixedEnemys);
+        }
+    }
+
+    public void SetGenerateFixedEnemy()
+    {
+        isGenerateFixedEnemy = true;
+    }
+
+    public void SetGenerateItem()
+    {
+        isGenerateItem = true;
     }
 }

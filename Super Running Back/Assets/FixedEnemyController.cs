@@ -6,6 +6,10 @@ public class FixedEnemyController : MonoBehaviour
 {
     public EnemyStats stats;
 
+    private void Awake()
+    {
+        transform.rotation = Quaternion.Euler(0f, -180f, 0f);
+    }
     private void Start()
     {
         transform.localScale *= stats.shapeSize;

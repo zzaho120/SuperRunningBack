@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2906617740488395901}
   - component: {fileID: 2906617740488395890}
   - component: {fileID: 1667864381}
+  - component: {fileID: 1471523730}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -52,6 +53,7 @@ MonoBehaviour:
   scoreManager: {fileID: 0}
   startGameTimeLine: {fileID: 0}
   cinemachineBrain: {fileID: 0}
+  randomGenerateStage: {fileID: 0}
   yardInGround: 50
   state: 0
   playTime: 0
@@ -85,3 +87,56 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1471523730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906617740488395891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cded1a473b105479e40cb9d92b9d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  areas:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stageInfo: {fileID: 11400000, guid: 41078a39978e17342b8efbfb8127b164, type: 2}
+  difficulties:
+  - {fileID: 11400000, guid: 5dbf73bc27024264688a57b50221f0ce, type: 2}
+  - {fileID: 11400000, guid: 0d7b0afe4fc73094e9e6622d1d214ca8, type: 2}
+  - {fileID: 11400000, guid: c6e6517fbc3d0e24daeb1586e537208d, type: 2}
+  - {fileID: 11400000, guid: 2d9a5050e1716904bbab76abff8f8f9c, type: 2}
+  - {fileID: 11400000, guid: f3eee1ef335f7e242959b3421c5b54c5, type: 2}
+  - {fileID: 11400000, guid: 6d33596d5bf623f4d9a2d78cda61352d, type: 2}
+  enemysByLevel:
+  - {fileID: 1877908036325388784, guid: 7ad7455fcb158ab4ba178c0667be599b, type: 3}
+  - {fileID: 1877908036325388784, guid: 3be9d41ab63180c418b15e3deaca5ab0, type: 3}
+  - {fileID: 1877908036325388784, guid: bee0b011efc3dd94992e72a2f3da6d1f, type: 3}
+  - {fileID: 1877908036325388784, guid: c7faf48f80554174ba41c874087f18f6, type: 3}
+  - {fileID: 1877908036325388784, guid: f3f5a4d8dd720654e85e8727864813e6, type: 3}
+  - {fileID: 1877908036325388784, guid: ff8148a9d17a5344b931871ad1e7cda9, type: 3}
+  - {fileID: 1877908036325388784, guid: 4101f5f892293b4459ec4577503b2966, type: 3}
+  fixedEnemyByLevel:
+  - {fileID: 2772911091036784005, guid: 3c7d703c6a14f784490b36b62c04139e, type: 3}
+  - {fileID: 2772911091036784005, guid: f16df6f08dcdb9549a874bebd892add2, type: 3}
+  - {fileID: 2772911091036784005, guid: 979bc1e92abc1a047b5a50a07f8e9f05, type: 3}
+  - {fileID: 2772911091036784005, guid: 1552c67015275754fba1b639de1263bc, type: 3}
+  - {fileID: 2772911091036784005, guid: 95b9a1a728292724a902f7627e98eeae, type: 3}
+  - {fileID: 2772911091036784005, guid: 1caaae03325c09742a38d2b467eff96d, type: 3}
+  - {fileID: 2772911091036784005, guid: 9e9af9e6272e3d94897d7cd31d3bd55d, type: 3}
+  randomFixedEnemyIndex: 0000000000000000
+  enemys: {fileID: 0}
+  items: {fileID: 0}
+  fixedEnemys: {fileID: 0}
+  itemSet: {fileID: 5128810346183605440, guid: e165639b0f5c4fd44baba2c5d3417b36, type: 3}
