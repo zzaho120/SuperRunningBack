@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
+    public float speed;
     public PlayerStats stats;
     public UnityEvent onDieEvent;
     public List<Transform> variableTwoShape;
@@ -22,7 +23,6 @@ public class PlayerController : MonoBehaviour
     private float animaitorNomalize = 10f;
 
     private int ragdollIndex;
-    private float speed = 10f;
     private float decreaseSpeed = 0.7f;
     private bool isPlaying;
     private bool isDead;

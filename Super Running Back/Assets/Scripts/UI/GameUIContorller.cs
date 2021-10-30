@@ -14,7 +14,8 @@ public class GameUIContorller : UIController
     private Vector3 startPosition;
     private Transform dumbbelUI;
     private float totalScoreDelayTime = 0.5f;
-    private float statusWidth = 160f;
+    private float statusWidth = 200f;
+    private float growWidth = 80f;
     private float statusHeight = 120f;
 
     private int startTotalScore;
@@ -142,7 +143,7 @@ public class GameUIContorller : UIController
     {
         var rectTr = sliders[1].GetComponent<RectTransform>();
 
-        var width = statusWidth * player.stats.currentLevel.level;
+        var width = statusWidth + growWidth * (player.stats.currentLevel.level - 1);
         rectTr.sizeDelta = new Vector2(width, statusHeight);
     }
 }

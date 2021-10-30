@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b6169ec21d02b6409c35afa94b2dd45, type: 3}
   m_Name: Difficulty Level5
   m_EditorClassIdentifier: 
-  difficulty: 3
-  maxCost: 700
+  difficulty: 5
+  maxCost: 300
   minEnemyLevel: 3
   maxEnemyLevel: 6
   minEnemyNumber: 10
-  maxEnemyNumber: 40
+  maxEnemyNumber: 20
   minErrorRange: 20

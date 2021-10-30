@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
     public PlayableDirector startGameTimeLine;
     public CinemachineBrain cinemachineBrain;
     public RandomGenerateStage randomGenerateStage;
+    public StartSetting startSetting;
 
-    public int yardInGround;
     public GameState state;
 
     private float gameStartTime;
@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
         randomGenerateStage.Generate();
         
         enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
+        startSetting = GetComponent<StartSetting>();
+        startSetting.GameStartInit(randomGenerateStage.stageInfo.yard);
 
         if (state != GameState.Game)
             inputManager.enabled = false;

@@ -22,7 +22,7 @@ public class ScoreManager : MonoBehaviour
     public void SetFinishTime(int time)
     {
         finishTime = time;
-        var yardInGround = GameManager.Instance.yardInGround;
+        var yardInGround = GameManager.Instance.randomGenerateStage.stageInfo.yard;
         switch (yardInGround)
         {
             case 50:

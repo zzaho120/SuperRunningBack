@@ -15,6 +15,12 @@ public class Stage : ScriptableObject
     public int[] stageLevelArray;
 
     private int randomTime = 100;
+
+    public void Init()
+    {
+        yard = Mathf.Clamp(yard, 50, 100);
+        itemAreaCnt = Mathf.Clamp(itemAreaCnt, 0, (int)(yard * 0.1f));
+    }
     public void RandomSortLevelArray()
     {
         for(int idx = 0; idx < randomTime; idx++)

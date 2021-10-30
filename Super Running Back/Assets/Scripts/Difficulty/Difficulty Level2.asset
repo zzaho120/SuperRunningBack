@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Difficulty Level2
   m_EditorClassIdentifier: 
   difficulty: 2
-  maxCost: 400
+  maxCost: 150
   minEnemyLevel: 1
   maxEnemyLevel: 4
   minEnemyNumber: 10
-  maxEnemyNumber: 40
+  maxEnemyNumber: 20
   minErrorRange: 20

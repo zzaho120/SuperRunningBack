@@ -135,7 +135,8 @@ MonoBehaviour:
   - {fileID: 2772911091036784005, guid: 95b9a1a728292724a902f7627e98eeae, type: 3}
   - {fileID: 2772911091036784005, guid: 1caaae03325c09742a38d2b467eff96d, type: 3}
   - {fileID: 2772911091036784005, guid: 9e9af9e6272e3d94897d7cd31d3bd55d, type: 3}
-  randomFixedEnemyIndex: 0000000000000000
+  randomFixedEnemyIndex: 
+  itemIndex: 
   enemys: {fileID: 0}
   items: {fileID: 0}
   fixedEnemys: {fileID: 0}
