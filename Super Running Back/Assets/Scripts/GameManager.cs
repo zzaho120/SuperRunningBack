@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
     {
         player.AnimationSpeedUp();
         player.SizeSetting();
+        player.SetLevelUpEffect();
 
         var level = player.stats.currentLevel.level;
         var ui = UI.GetUI(UIs.Game) as GameUIContorller;

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2906617740488395890}
   - component: {fileID: 1667864381}
   - component: {fileID: 1471523730}
+  - component: {fileID: 1736579285}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -54,7 +55,7 @@ MonoBehaviour:
   startGameTimeLine: {fileID: 0}
   cinemachineBrain: {fileID: 0}
   randomGenerateStage: {fileID: 0}
-  yardInGround: 50
+  startSetting: {fileID: 0}
   state: 0
   playTime: 0
 --- !u!114 &1667864381
@@ -111,7 +112,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  stageInfo: {fileID: 11400000, guid: 41078a39978e17342b8efbfb8127b164, type: 2}
+  stageInfo: {fileID: 11400000, guid: 2a62edd01b51d7646b581bdb31c5b239, type: 2}
   difficulties:
   - {fileID: 11400000, guid: 5dbf73bc27024264688a57b50221f0ce, type: 2}
   - {fileID: 11400000, guid: 0d7b0afe4fc73094e9e6622d1d214ca8, type: 2}
@@ -141,3 +142,20 @@ MonoBehaviour:
   items: {fileID: 0}
   fixedEnemys: {fileID: 0}
   itemSet: {fileID: 5128810346183605440, guid: e165639b0f5c4fd44baba2c5d3417b36, type: 3}
+--- !u!114 &1736579285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906617740488395891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 979fb77d4652f78439f612021916fce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transforms:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

@@ -1254,6 +1254,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ragdollPrefab: {fileID: 7407397830281441163, guid: f7b0682e4b0181a40bc8c194df1ea87d, type: 3}
   forcePower: 600
+  kickEffect: {fileID: 6403252182692130976, guid: 3967e0ce26e4a7a44b735c12d0668f5d, type: 3}
+  holdEffect: {fileID: 3223031359271505891, guid: 7b3991a32a1e14347afade7c2f19ed7a, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: bf7265a718338e14889e2967eca39581, type: 3}
+  - {fileID: 8300000, guid: 09bbeaf53f511f341b7479dc4143bda2, type: 3}
 --- !u!114 &6949581765543554497
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,12 +6,16 @@ using UnityEngine.UI;
 
 public class ResultUIController : UIController
 {
+    public List<ParticleSystem> particles;
+    public List<AudioClip> resultSounds;
+    public AudioClip scoreSound;
+
     private Image[] images;
     private Text[] texts;
     private float showDelayTime = 0.5f;
-    private float totalScoreDelayTime = 0.5f;
+    private float totalScoreDelayTime = 1f;
     private ScoreManager scoreManager;
-
+    
     public override void Open()
     {
         base.Open();
@@ -60,10 +64,15 @@ public class ResultUIController : UIController
         var scoreList = scoreManager.ScoreList;
         var scoreListIdx = 0;
 
+        var audio = GetComponent<AudioSource>();
+        audio.clip = scoreSound;
+
         scoreManager.SetTotalScore();
         for (int idx = 2; idx < texts.Length - 1; idx++, scoreListIdx++)
         {
             yield return new WaitForSeconds(showDelayTime);
+
+            audio.PlayOneShot(resultSounds[0]);
 
             var text = texts[idx];
             text.color = new Color(text.color.r, text.color.g, text.color.b, 1f);
@@ -78,6 +87,7 @@ public class ResultUIController : UIController
             if(scoreListIdx < scoreList.Count)
                 totalScore += scoreList[scoreListIdx];
 
+            audio.Play();
             while (timer < totalScoreDelayTime)
             {
                 timer += Time.deltaTime;
@@ -88,8 +98,19 @@ public class ResultUIController : UIController
                 if (scoreList[scoreListIdx] != 0)
                     yield return null;
             }
+            audio.Stop();
 
             startTotalScore = totalScore;
+        }
+
+        foreach(var elem in particles)
+        {
+            elem.Play();
+        }
+
+        foreach(var elem in resultSounds)
+        {
+            audio.PlayOneShot(elem);
         }
 
         yield return new WaitForSeconds(showDelayTime);

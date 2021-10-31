@@ -87,7 +87,7 @@ public class GameUIContorller : UIController
 
     private void FixedUpdate()
     {
-        dumbbelUI.position = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(0, -1f - 0.4f * player.stats.currentLevel.level, 0));
+        //dumbbelUI.position += new Vector3(0, -1f - 0.4f * player.stats.currentLevel.level, 0);
     }
 
     public void TutorialBarOff()

@@ -13,10 +13,14 @@ public class PlayerController : MonoBehaviour
     public List<Transform> variableThreeShape;
     public List<Transform> armsShape;
     public Transform dumbbellUI;
-    
+    public GameObject levelUpEffect;
+    public AudioClip levelUpSound;
+    public AudioClip kickSound;
+    public AudioClip holdSound;
 
     private Rigidbody rigid;
     private Animator animator;
+    private AudioSource audioSource;
     private GameObject[] ragdolls;
     private float slideSpeed;
     private float runAniSpeed = 0.25f;
@@ -31,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         ragdolls = GameObject.FindGameObjectsWithTag("EnemyRagdoll");
         animator.SetFloat("MoveX", 0.5f);
 
@@ -183,5 +188,26 @@ public class PlayerController : MonoBehaviour
     {
         isPlaying = true;
         animator.SetTrigger("StartGame");
+    }
+
+    public void SetLevelUpEffect()
+    {
+        var particle = Instantiate(levelUpEffect, transform);
+        var scale = particle.transform.localScale;
+        var level = stats.currentLevel.level - 2;
+        particle.transform.localScale = scale * 0.5f + new Vector3(0.1f, 0.1f, 0.1f) * level;
+        Destroy(particle, 2f);
+
+        audioSource.PlayOneShot(levelUpSound);
+    }
+
+    public void hitSoundPlay()
+    {
+        audioSource.PlayOneShot(kickSound);
+    }
+
+    public void holdSoundPlay()
+    {
+        audioSource.PlayOneShot(holdSound);
     }
 }

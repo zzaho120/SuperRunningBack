@@ -6,6 +6,8 @@ public class ActionByCollision : MonoBehaviour, ICollisable
 {
     public GameObject ragdollPrefab;
     public float forcePower;
+    public GameObject kickEffect;
+    public GameObject holdEffect;
 
     public void onActionByCollision(GameObject other)
     {
@@ -23,10 +25,16 @@ public class ActionByCollision : MonoBehaviour, ICollisable
 
         if (isKick)
         {
+            var effectPos = transform.position + new Vector3(0f, 5f, 2f);
+            var effect = Instantiate(kickEffect, effectPos, Quaternion.identity);
+            effect.transform.localScale *= 0.2f;
+            Destroy(effect, 1f);
+
+            player.hitSoundPlay();
+
             var ragdoll = Instantiate(ragdollPrefab, transform.position, transform.rotation);
             var ragdollMgr = ragdoll.GetComponent<RagdollManager>();
             
-
             ragdollMgr.SetStats(enemyStats);
 
             player.stats.KickScoreUp(enemyStats.level);
@@ -41,6 +49,12 @@ public class ActionByCollision : MonoBehaviour, ICollisable
         }
         else
         {
+            var effectPos = transform.position + new Vector3(0f, 3f, 0f);
+            var effect = Instantiate(holdEffect, effectPos, Quaternion.identity);
+            effect.transform.localScale *= 0.2f;
+
+            player.holdSoundPlay();
+
             var playerStat = player.stats; 
 
             if (playerStat.currentRagdollCnt < playerStat.currentLevel.ragdollCount)
