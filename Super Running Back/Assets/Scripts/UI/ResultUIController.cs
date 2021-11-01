@@ -70,7 +70,6 @@ public class ResultUIController : UIController
         scoreManager.SetTotalScore();
         for (int idx = 2; idx < texts.Length - 1; idx++, scoreListIdx++)
         {
-            yield return new WaitForSeconds(showDelayTime);
 
             audio.PlayOneShot(resultSounds[0]);
 
@@ -79,8 +78,6 @@ public class ResultUIController : UIController
 
             var image = images[idx + 1];
             image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
-
-            yield return new WaitForSeconds(showDelayTime);
 
             var timer = 0f;
 

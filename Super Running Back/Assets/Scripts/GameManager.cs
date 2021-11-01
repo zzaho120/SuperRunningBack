@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public EnemyController[] enemys;
     public ScoreManager scoreManager;
     public PlayableDirector startGameTimeLine;
+    public PlayableDirector weakTouchdownTimeLine;
     public CinemachineBrain cinemachineBrain;
     public RandomGenerateStage randomGenerateStage;
     public StartSetting startSetting;
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
         scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
         startGameTimeLine = GameObject.FindWithTag("StartGameTimeLine").GetComponent<PlayableDirector>();
         randomGenerateStage = GetComponent<RandomGenerateStage>();
-        randomGenerateStage.Generate();
+        //randomGenerateStage.Generate();
         
         enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
         startSetting = GetComponent<StartSetting>();
@@ -62,6 +63,8 @@ public class GameManager : MonoBehaviour
         {
             case GameState.None:
             case GameState.MainMenu:
+                advertise();
+                break;
             case GameState.Gameover:
             case GameState.Result:
                 break;
@@ -78,6 +81,7 @@ public class GameManager : MonoBehaviour
         ui.StopIncreasceScore();
 
         scoreManager.SetFinishTime(playTime);
+        player.PlayerFinish();
         UI.Open(UIs.Result);
     }
 
@@ -85,6 +89,7 @@ public class GameManager : MonoBehaviour
     {
         var ui = UI.GetUI(UIs.Game) as GameUIContorller;
         ui.StopIncreasceScore();
+
 
         UI.Open(UIs.Gameover);
         player.PlayerDead();
@@ -109,12 +114,18 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         state = GameState.Game;
+        
         UI.Open(UIs.Game);
+
         startGameTimeLine.gameObject.SetActive(false);
         cinemachineBrain.enabled = false;
+        
         inputManager.enabled = true;
+        
         player.GameStart();
+        
         gameStartTime = Time.time;
+        
         foreach (var elem in enemys)
         {
             elem.GameStart();
@@ -176,6 +187,14 @@ public class GameManager : MonoBehaviour
         UI.Close();
     }
 
+    public void PlayWeakTouchdownTimeLine()
+    {
+        cinemachineBrain.enabled = true;
+        weakTouchdownTimeLine.gameObject.SetActive(true);
+        weakTouchdownTimeLine.Play();
+        UI.Close();
+    }
+
     public void InplayPrintScore()
     {
         var ui = UI.GetUI(UIs.Game) as GameUIContorller;
@@ -188,5 +207,13 @@ public class GameManager : MonoBehaviour
         player.stats.CheckItem();
         scoreManager.AddItemNumber();
         InplayPrintScore();
+    }
+
+    private void advertise()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            PlayStartGameTimeLine();
+        }
     }
 }

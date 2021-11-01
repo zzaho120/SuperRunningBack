@@ -104,13 +104,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var collisable = other.GetComponents<ICollisable>();
-        var colliEnemy = other.GetComponent<EnemyController>();
-        if (colliEnemy != null)
-            colliEnemy.State = EnemyController.STATE.PASSOVER;
-        foreach (var elem in collisable)
+        if(isPlaying)
         {
-            elem.onActionByCollision(gameObject);
+            var collisable = other.GetComponents<ICollisable>();
+            var colliEnemy = other.GetComponent<EnemyController>();
+            if (colliEnemy != null)
+                colliEnemy.State = EnemyController.STATE.PASSOVER;
+            foreach (var elem in collisable)
+            {
+                elem.onActionByCollision(gameObject);
+            }
         }
     }
 
@@ -209,5 +212,12 @@ public class PlayerController : MonoBehaviour
     public void holdSoundPlay()
     {
         audioSource.PlayOneShot(holdSound);
+    }
+
+    public void PlayerFinish()
+    {
+        isPlaying = false;
+        rigid.velocity = Vector3.zero;
+        animator.SetTrigger("Finish");
     }
 }

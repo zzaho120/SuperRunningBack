@@ -7,7 +7,6 @@ public class InputManager : MonoBehaviour
 {
     public UnityEvent<Touch> onPressEvents;
     public UnityEvent<float> onKeyboardEvents;
-
     private void Update()
     {
         horizontalMove();

@@ -259,7 +259,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: CM vcam1 (1)
+    m_DisplayName: Game Camera
   - m_Version: 1
     m_Start: 0
     m_ClipIn: 0
@@ -310,7 +310,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: CM vcam1
+    m_DisplayName: Start Camera
   m_Markers:
     m_Objects: []
 --- !u!114 &3406628085332892118

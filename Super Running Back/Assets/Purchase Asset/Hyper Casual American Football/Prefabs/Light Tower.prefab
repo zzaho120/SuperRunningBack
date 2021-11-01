@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8902539346099848910}
   - component: {fileID: 3469924163743704140}
   - component: {fileID: 2777193413839931216}
-  - component: {fileID: 1933977108417651026}
   m_Layer: 0
   m_Name: Light Tower.001
   m_TagString: Untagged
@@ -52,6 +51,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -82,20 +82,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1933977108417651026
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2092280898817903477}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -510171703935484086, guid: ce63a3ee0c1c46408d64720f5dea34c3, type: 3}
 --- !u!1 &3292113078445196899
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +91,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2802435011718192345}
+  - component: {fileID: 1840419393913344739}
+  - component: {fileID: 2977565982436268838}
   m_Layer: 0
   m_Name: Light Tower
   m_TagString: Untagged
@@ -129,6 +117,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1840419393913344739
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292113078445196899}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &2977565982436268838
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292113078445196899}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8862487891045039725
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +157,6 @@ GameObject:
   - component: {fileID: 3983711352110944194}
   - component: {fileID: 2748418310151195812}
   - component: {fileID: 4747531951077862791}
-  - component: {fileID: 8960082039983133104}
   m_Layer: 0
   m_Name: Light Tower.002
   m_TagString: Untagged
@@ -181,6 +197,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -211,20 +228,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8960082039983133104
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8862487891045039725}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7639261670160042634, guid: ce63a3ee0c1c46408d64720f5dea34c3, type: 3}
 --- !u!1 &8864003258788184219
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +239,6 @@ GameObject:
   - component: {fileID: 9104628413019064766}
   - component: {fileID: 8684583618404960642}
   - component: {fileID: 3664857093687503007}
-  - component: {fileID: 6276810786895369068}
   m_Layer: 0
   m_Name: Light Tower
   m_TagString: Untagged
@@ -277,6 +279,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -307,17 +310,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6276810786895369068
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8864003258788184219}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7634161688583092150, guid: ce63a3ee0c1c46408d64720f5dea34c3, type: 3}

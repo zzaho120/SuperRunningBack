@@ -57,4 +57,6 @@ public class CameraManager : MonoBehaviour
         if(level > 0)
             playerLevel = level - 1;
     }
+
+    
 }
