@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
     public StartSetting startSetting;
 
     public GameState state;
+    public int playTime;
 
     private float gameStartTime;
-    public int playTime;
     private int totalScore;
     private bool isTutorial = true;
 
@@ -81,7 +81,9 @@ public class GameManager : MonoBehaviour
         ui.StopIncreasceScore();
 
         scoreManager.SetFinishTime(playTime);
-        player.PlayerFinish();
+
+        var yard = (randomGenerateStage.stageInfo.yard * 0.1f) - 5;
+        //startSetting.PlayerResultSetting();
         UI.Open(UIs.Result);
     }
 

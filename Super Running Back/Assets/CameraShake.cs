@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
-    private float shakeAmplitude = 1.2f;
-    private float shakeDuration = 2.5f;
-    private float shakeFrequency = 2.0f;
+    public float shakeAmplitude = 1.2f;
+    public float shakeDuration = 2.5f;
+    public float shakeFrequency = 2.0f;
 
     private float shakeElapsedTime = 0f;
 

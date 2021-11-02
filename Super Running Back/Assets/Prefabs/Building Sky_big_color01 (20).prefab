@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3826398170443086099}
   - component: {fileID: 3826398170442087379}
   - component: {fileID: -9025946069888577752}
+  - component: {fileID: 929450151}
   m_Layer: 0
   m_Name: Building Sky_big_color01 (20)
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3826398170439820563}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -55.2, y: 0, z: 37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -99,3 +100,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &929450151
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3826398170439820563}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 13.659741, y: 24.802341, z: 12.296451}
+  m_Center: {x: -0.0000023841862, y: 12.401167, z: 0.124479085}
