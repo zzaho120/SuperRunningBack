@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    private Vector3 offset = new Vector3(0f, 16f, -8f);
-    private Vector3 levelCorrection = new Vector3(0f, 1f, -0.5f);
-    private float cameraCorrection = 10f;
-    private float maxRotateValue = 5f;
+    public Vector3 offset;
+    public float cameraCorrection;
+    private Vector3 levelCorrection;
     private Transform startCamera;
     private int playerLevel;
 
@@ -17,6 +16,7 @@ public class CameraManager : MonoBehaviour
     private void Awake()
     {
         startCamera = GameObject.FindGameObjectWithTag("StartCamera").transform;
+        levelCorrection = offset * 0.1f;
         transform.position = startCamera.position;
         transform.rotation = startCamera.rotation;
     }
@@ -30,17 +30,10 @@ public class CameraManager : MonoBehaviour
     {
         var target = GameManager.Instance.player.transform;
         transform.position = target.position + offset + (levelCorrection * playerLevel);
-        var newTarget = new Vector3(target.position.x + rotateValue, 
+        var newTarget = new Vector3(target.position.x, 
             target.position.y, 
             target.position.z + cameraCorrection);
         transform.LookAt(newTarget);
-    }
-
-    public void RotateCameraView(float horizontal)
-    {
-        horizontal += 1.0f;
-        horizontal *= 0.5f;
-        rotateValue = Mathf.Lerp(-maxRotateValue, maxRotateValue, horizontal);
     }
 
     private void InitPlayerLevel()

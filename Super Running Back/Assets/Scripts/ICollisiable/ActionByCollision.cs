@@ -30,7 +30,7 @@ public class ActionByCollision : MonoBehaviour, ICollisable
             effect.transform.localScale *= 0.2f;
             Destroy(effect, 1f);
 
-            player.hitSoundPlay();
+            player.SoundPlay(PlayerSound.Kick);
 
             var ragdoll = Instantiate(ragdollPrefab, transform.position, transform.rotation);
             var ragdollMgr = ragdoll.GetComponent<RagdollManager>();
@@ -53,7 +53,7 @@ public class ActionByCollision : MonoBehaviour, ICollisable
             var effect = Instantiate(holdEffect, effectPos, Quaternion.identity);
             effect.transform.localScale *= 0.2f;
 
-            player.holdSoundPlay();
+            player.SoundPlay(PlayerSound.Hold);
 
             var playerStat = player.stats; 
 

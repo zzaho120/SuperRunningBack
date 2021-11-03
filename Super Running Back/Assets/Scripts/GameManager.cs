@@ -213,6 +213,7 @@ public class GameManager : MonoBehaviour
     {
         player.stats.currentItemCnt++;
         player.stats.CheckItem();
+        player.SoundPlay(PlayerSound.Item);
         scoreManager.AddItemNumber();
         InplayPrintScore();
     }

@@ -40,3 +40,12 @@ public enum Touchdown
 	Middle,
 	Strong
 }
+
+public enum PlayerSound
+{
+	None = -1,
+	Kick,
+	Hold,
+	Item,
+	LevelUp
+}

@@ -14,9 +14,9 @@ public class PlayerController : MonoBehaviour
     public List<Transform> armsShape;
     public Transform dumbbellUI;
     public GameObject levelUpEffect;
-    public AudioClip levelUpSound;
-    public AudioClip kickSound;
-    public AudioClip holdSound;
+    public LevelUpText levelUptext;
+
+    public List<AudioClip> playerSound;
 
     private Rigidbody rigid;
     private Animator animator;
@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour
     private float animaitorNomalize = 10f;
 
     private int ragdollIndex;
-    private float decreaseSpeed = 0.7f;
+    private float decreaseSpeed;
+    public float minDecreaseSpeed;
     private bool isPlaying;
     private bool isDead;
 
@@ -99,12 +100,12 @@ public class PlayerController : MonoBehaviour
         if (horizontal == 0)
             decreaseSpeed = 1f;
         else
-            decreaseSpeed = 0.5f;
+            decreaseSpeed = minDecreaseSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(isPlaying)
+        if(!isDead)
         {
             var collisable = other.GetComponents<ICollisable>();
             var colliEnemy = other.GetComponent<EnemyController>();
@@ -201,19 +202,15 @@ public class PlayerController : MonoBehaviour
         particle.transform.localScale = scale * 0.5f + new Vector3(0.1f, 0.1f, 0.1f) * level;
         Destroy(particle, 2f);
 
-        audioSource.PlayOneShot(levelUpSound);
+        levelUptext.ShowLevelUp();
+
+        SoundPlay(PlayerSound.LevelUp);
     }
 
-    public void hitSoundPlay()
+    public void SoundPlay(PlayerSound sound)
     {
-        audioSource.PlayOneShot(kickSound);
+        audioSource.PlayOneShot(playerSound[(int)sound]);
     }
-
-    public void holdSoundPlay()
-    {
-        audioSource.PlayOneShot(holdSound);
-    }
-
     public void PlayerFinish()
     {
         isPlaying = false;
