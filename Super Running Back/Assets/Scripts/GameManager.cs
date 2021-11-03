@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     private float gameStartTime;
     private bool isTutorial = true;
     private bool isTouchdown;
+
     private void Awake()
     {
         Instance = this;
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
         scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
         startGameTimeLine = GameObject.FindWithTag("StartGameTimeLine").GetComponent<PlayableDirector>();
         randomGenerateStage = GetComponent<RandomGenerateStage>();
-        //randomGenerateStage.Generate();
+        randomGenerateStage.Generate();
         
         enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
         startSetting = GetComponent<StartSetting>();
@@ -180,6 +181,7 @@ public class GameManager : MonoBehaviour
     {
         UI.Close();
         startGameTimeLine.Play();
+        
     }
 
     public void PlayTouchdown()

@@ -209,6 +209,7 @@ public class PlayerController : MonoBehaviour
     {
         isPlaying = true;
         animator.SetTrigger("StartGame");
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     public void SetLevelUpEffect()

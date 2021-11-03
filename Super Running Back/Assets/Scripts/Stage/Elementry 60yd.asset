@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd63bdec6f061d74f8223c08edc6e911, type: 3}
   m_Name: Elementry 60yd
   m_EditorClassIdentifier: 
-  yard: 70
+  yard: 60
   fixedEnemyLevel: 2
   fixedEnemyNumCnt: 12
   fixedEnemyAreaCnt: 2
   itemAreaCnt: 4
-  stageLevelArray: 0200000003000000020000000100000001000000010000000100000003000000
+  stageLevelArray: 0100000001000000030000000300000002000000010000000100000002000000
