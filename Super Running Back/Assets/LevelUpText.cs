@@ -10,6 +10,7 @@ public class LevelUpText : MonoBehaviour
     private IEnumerator curCoroutine;
     private TextMesh textMesh;
     private Color color;
+    private Vector3 levelCorrection = new Vector3(0f, 0.7f, 0f);
     private void Start()
     {
         cameraTr = GameManager.Instance.mainCamera.transform;
@@ -23,7 +24,8 @@ public class LevelUpText : MonoBehaviour
 
     public void ShowLevelUp()
     {
-        transform.localPosition = originPos;
+        var level = GameManager.Instance.player.stats.currentLevel.level;
+        transform.localPosition = originPos + levelCorrection * (level - 1);
         textMesh.color = new Color(color.r, color.g, color.b, 1f);
         if (curCoroutine != null)
         {

@@ -135,6 +135,7 @@ public class EnemyController : MonoBehaviour
         else if (player.position.z > transform.position.z)
             State = STATE.PASSOVER;
     }
+
     private void DivingUpdate()
     {
         rigid.AddForce(DirectionFromPlayer.normalized * stats.weight * stats.moveSpeed);

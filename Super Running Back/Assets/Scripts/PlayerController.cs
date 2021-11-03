@@ -27,10 +27,14 @@ public class PlayerController : MonoBehaviour
     private float animaitorNomalize = 10f;
 
     private int ragdollIndex;
-    private float decreaseSpeed;
+    private float decreaseSpeed = 1f;
     public float minDecreaseSpeed;
     private bool isPlaying;
     private bool isDead;
+
+    private Vector3 touchPos;
+    private Vector3 touchViewPos;
+    private float aniValue;
 
     private void Awake()
     {
@@ -76,31 +80,46 @@ public class PlayerController : MonoBehaviour
     {
         switch (touch.phase)
         {
+            case TouchPhase.Began:
             case TouchPhase.Moved:
-                slideSpeed = touch.deltaPosition.x;
-                var aniValue = SetAnimationValue(touch.deltaPosition.x);
-                //Math.Round(aniValue, 1);
-                animator.SetFloat("MoveX", (float)Math.Round((double)aniValue, 1));
-                break;
             case TouchPhase.Stationary:
+                touchPos = touch.position;
+                touchViewPos = Camera.main.ScreenToViewportPoint(touchPos);
+
+                if (touchViewPos.x < 0.3f)
+                {
+                    SetMoveValue(-speed, -Time.deltaTime, minDecreaseSpeed);
+                }
+                else if(touchViewPos.x > 0.7f)
+                {
+                    SetMoveValue(speed, Time.deltaTime, minDecreaseSpeed);
+                }
+                else
+                {
+                    SetMoveValue(0, 0.5f, 1f, true);
+                }
+                break;
             case TouchPhase.Ended:
             case TouchPhase.Canceled:
-                slideSpeed = 0f;
-                animator.SetFloat("MoveX", 0.5f);
+                SetMoveValue(0, 0.5f, 1f, true);
                 break;
         }
+        animator.SetFloat("MoveX", (float)Math.Round((double)aniValue, 1));
     }
 
-    public void horizontalKeyboardMove(float horizontal)
+    private void SetMoveValue(float slide, float ani, float decrease, bool isCenter = false)
     {
-        slideSpeed = horizontal * speed;
-        var aniValue = horizontal + 0.5f;
-        animator.SetFloat("MoveX", aniValue);
-
-        if (horizontal == 0)
-            decreaseSpeed = 1f;
-        else
-            decreaseSpeed = minDecreaseSpeed;
+        if (isCenter)
+        {
+            aniValue = ani;
+        }
+        else 
+        {
+            aniValue += ani;
+            aniValue = Mathf.Clamp(aniValue, -1f, 1f);
+        }
+        slideSpeed = slide;
+        decreaseSpeed = decrease;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -109,8 +128,6 @@ public class PlayerController : MonoBehaviour
         {
             var collisable = other.GetComponents<ICollisable>();
             var colliEnemy = other.GetComponent<EnemyController>();
-            if (colliEnemy != null)
-                colliEnemy.State = EnemyController.STATE.PASSOVER;
             foreach (var elem in collisable)
             {
                 elem.onActionByCollision(gameObject);

@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
         startGameTimeLine = GameObject.FindWithTag("StartGameTimeLine").GetComponent<PlayableDirector>();
         randomGenerateStage = GetComponent<RandomGenerateStage>();
-        randomGenerateStage.Generate();
+        //randomGenerateStage.Generate();
         
         enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
         startSetting = GetComponent<StartSetting>();
