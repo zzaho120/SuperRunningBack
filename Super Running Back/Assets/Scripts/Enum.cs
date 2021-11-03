@@ -33,3 +33,10 @@ public enum SceneName
 {
 
 }
+
+public enum Touchdown
+{
+	Weak,
+	Middle,
+	Strong
+}

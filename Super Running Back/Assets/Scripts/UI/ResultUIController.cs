@@ -67,7 +67,6 @@ public class ResultUIController : UIController
         var audio = GetComponent<AudioSource>();
         audio.clip = scoreSound;
 
-        scoreManager.SetTotalScore();
         for (int idx = 2; idx < texts.Length - 1; idx++, scoreListIdx++)
         {
 

@@ -16,18 +16,17 @@ public class GameManager : MonoBehaviour
     public EnemyController[] enemys;
     public ScoreManager scoreManager;
     public PlayableDirector startGameTimeLine;
-    public PlayableDirector weakTouchdownTimeLine;
     public CinemachineBrain cinemachineBrain;
     public RandomGenerateStage randomGenerateStage;
     public StartSetting startSetting;
+    public List<PlayableDirector> touchdowns;
 
     public GameState state;
     public int playTime;
 
     private float gameStartTime;
-    private int totalScore;
     private bool isTutorial = true;
-
+    private bool isTouchdown;
     private void Awake()
     {
         Instance = this;
@@ -39,7 +38,7 @@ public class GameManager : MonoBehaviour
         scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
         startGameTimeLine = GameObject.FindWithTag("StartGameTimeLine").GetComponent<PlayableDirector>();
         randomGenerateStage = GetComponent<RandomGenerateStage>();
-        //randomGenerateStage.Generate();
+        randomGenerateStage.Generate();
         
         enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
         startSetting = GetComponent<StartSetting>();
@@ -72,18 +71,12 @@ public class GameManager : MonoBehaviour
                 GameUpdate();
                 break;
         }
-        
     }
 
     public void Finish()
     {
         var ui = UI.GetUI(UIs.Game) as GameUIContorller;
         ui.StopIncreasceScore();
-
-        scoreManager.SetFinishTime(playTime);
-
-        var yard = (randomGenerateStage.stageInfo.yard * 0.1f) - 5;
-        //startSetting.PlayerResultSetting();
         UI.Open(UIs.Result);
     }
 
@@ -185,22 +178,35 @@ public class GameManager : MonoBehaviour
 
     public void PlayStartGameTimeLine()
     {
-        startGameTimeLine.Play();
         UI.Close();
+        startGameTimeLine.Play();
     }
 
-    public void PlayWeakTouchdownTimeLine()
+    public void PlayTouchdown()
     {
-        cinemachineBrain.enabled = true;
-        weakTouchdownTimeLine.gameObject.SetActive(true);
-        weakTouchdownTimeLine.Play();
-        UI.Close();
+        if(!isTouchdown)
+        {
+            isTouchdown = true;
+
+            UI.Close();
+            cinemachineBrain.enabled = true;
+
+            scoreManager.SetFinishTime(playTime);
+            scoreManager.SetTotalScore();
+
+            var totalScore = scoreManager.GetTotalScore();
+            var yard = randomGenerateStage.stageInfo.yard;
+            PlayTouchdownByScore(totalScore);
+        }
     }
 
     public void InplayPrintScore()
     {
-        var ui = UI.GetUI(UIs.Game) as GameUIContorller;
-        ui.IncreaseScore();
+        if (!isTouchdown)
+        {
+            var ui = UI.GetUI(UIs.Game) as GameUIContorller;
+            ui.IncreaseScore();
+        }
     }
 
     public void GetItemMsg()
@@ -217,5 +223,25 @@ public class GameManager : MonoBehaviour
         {
             PlayStartGameTimeLine();
         }
+    }
+    
+    private void PlayTouchdownByScore(int score)
+    {
+        Debug.Log(score);
+        PlayableDirector touchdown;
+        if(score < 20000)
+        {
+            touchdown = touchdowns[(int)Touchdown.Weak];
+        }
+        else if(score < 30000)
+        {
+            touchdown = touchdowns[(int)Touchdown.Middle];
+        }
+        else
+        {
+            touchdown = touchdowns[(int)Touchdown.Strong];
+        }
+        touchdown.gameObject.SetActive(true);
+        touchdown.Play();
     }
 }
