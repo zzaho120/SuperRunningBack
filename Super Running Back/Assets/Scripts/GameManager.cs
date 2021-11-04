@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public List<PlayableDirector> touchdowns;
     public EnemyController[] enemys;
+    public FixedEnemyController[] fixedEnemys;
+    public IncreaseStatsByCollision[] items;
 
     public GameState state;
     public int playTime;
@@ -30,22 +32,33 @@ public class GameManager : MonoBehaviour
     private bool isTutorial = true;
     private bool isTouchdown;
 
+    public GameObject cityPrefab;
+    public Transform cityPosition;
+
     private void Awake()
     {
         Instance = this;
         
-        startSetting.GameStartInit(randomGenerateStage.stageInfo.yard);
-
         if (state != GameState.Game)
             inputManager.enabled = false;
     }
 
     private void Start()
     {
-        randomGenerateStage.Generate();
-        enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
+        startSetting.GameStartInit(randomGenerateStage.stageInfo.yard);
+        Init();
+    }
 
+    private void Init()
+    {
         player.Init();
+        startSetting.Init();
+        randomGenerateStage.Generate();
+
+        enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
+        fixedEnemys = GameObject.FindWithTag("FixedEnemys").GetComponentsInChildren<FixedEnemyController>();
+        items = GameObject.FindWithTag("Items").GetComponentsInChildren<IncreaseStatsByCollision>();
+
         var level = player.stats.currentLevel.level;
         mainCamera.SetPlayerLevel(level);
         scoreManager.SetPlayerLevel(level);
@@ -113,7 +126,8 @@ public class GameManager : MonoBehaviour
         player.GameStart();
         
         gameStartTime = Time.time;
-        
+
+        Debug.Log(enemys.Length);
         foreach (var elem in enemys)
         {
             elem.GameStart();
@@ -166,14 +180,33 @@ public class GameManager : MonoBehaviour
 
     public void ReStart()
     {
-        Loader.Load(SceneManager.GetActiveScene().buildIndex);
+        state = GameState.MainMenu;
+        UI.Open(UIs.MainMenu);
+
+        startGameTimeLine.gameObject.SetActive(true);
+        cinemachineBrain.enabled = true;
+
+        player.enabled = true;
+
+        foreach (var enemy in enemys)
+        {
+            ObjectPool.ReturnObject(PoolName.Enemy, enemy.gameObject);
+        }
+        foreach(var fixedEnemy in fixedEnemys)
+        {
+            ObjectPool.ReturnObject(PoolName.FixedEnemy, fixedEnemy.gameObject);
+        }
+        foreach(var item in items)
+        {
+            ObjectPool.ReturnObject(PoolName.Item, item.gameObject);
+        }
+        Init();
     }
 
     public void PlayStartGameTimeLine()
     {
         UI.Close();
         startGameTimeLine.Play();
-        
     }
 
     public void PlayTouchdown()

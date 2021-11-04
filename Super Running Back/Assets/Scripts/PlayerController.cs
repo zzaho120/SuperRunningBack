@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Transform dumbbellUI;
     public GameObject levelUpEffect;
     public LevelUpText levelUptext;
+    public Transform originTr;
 
     private Rigidbody rigid;
     private Animator animator;
@@ -42,14 +43,22 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         ragdolls = GameObject.FindGameObjectsWithTag("EnemyRagdoll");
-        animator.SetFloat("MoveX", 0.5f);
-
-        transform.rotation = Quaternion.Euler(0f, -90f, 0f);
     }
 
 
     public void Init()
     {
+        isDead = false;
+        isPlaying = false;
+        animator.SetBool("Restart", true);
+
+        animator.SetBool("StartGame", false);
+        animator.SetBool("Dead", false);
+
+        transform.localPosition = originTr.localPosition;
+        transform.rotation = originTr.rotation;
+        animator.applyRootMotion = false;
+        animator.SetFloat("MoveX", 0.5f);
         foreach (var elem in ragdolls)
         {
             elem.SetActive(false);
@@ -214,14 +223,15 @@ public class PlayerController : MonoBehaviour
     public void PlayerDead()
     {
         rigid.velocity = Vector3.zero;
-        animator.SetTrigger("Dead");
+        animator.SetBool("Dead", true);
         animator.applyRootMotion = true;
     }
 
     public void GameStart()
     {
         isPlaying = true;
-        animator.SetTrigger("StartGame");
+        animator.SetBool("StartGame", true);
+        animator.SetBool("Restart", false);
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
@@ -233,12 +243,5 @@ public class PlayerController : MonoBehaviour
 
         levelUptext.ShowLevelUp();
         audioSource.Play();
-    }
-
-    public void PlayerFinish()
-    {
-        isPlaying = false;
-        rigid.velocity = Vector3.zero;
-        animator.SetTrigger("Finish");
     }
 }

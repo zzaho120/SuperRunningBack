@@ -5,6 +5,22 @@ using UnityEngine.SceneManagement;
 
 public static class DataManager
 {
+    private static int currentChapterIndex;
+    public static int CurrentChapterIndex
+    {
+        get
+        {
+            return currentChapterIndex;
+        }
+        set
+        {
+            if (SceneManager.sceneCount > value)
+            {
+                currentStageIndex = value;
+                CurrentStageIndex = 0;
+            }
+        }
+    }
     private static int currentStageIndex;
     public static int CurrentStageIndex
     {
@@ -15,8 +31,7 @@ public static class DataManager
 
         set
         {
-            if (SceneManager.sceneCount > value)
-                currentStageIndex = value;
+            currentStageIndex = value;
         }
     }
 

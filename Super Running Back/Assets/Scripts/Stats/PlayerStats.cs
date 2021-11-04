@@ -69,11 +69,6 @@ public class PlayerStats : ScriptableObject
             }
             else if(playerLevels.Count >= initLevel)
                 currentLevel = playerLevels[initLevel - 1];
-            else
-            {
-                Debug.Log($"플레이어 레벨 배열은 {playerLevels.Count}개인데 참조하려는" +
-                    $"인덱스는 {initLevel - 1}이다.");
-            }
         }
     }
 

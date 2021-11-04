@@ -76,13 +76,17 @@ public class GameUIContorller : UIController
         texts[3].text = $"{playerStats.currentLevel.power}";
         texts[4].text = $"{playerStats.currentLevel.level} Level";
 
-        if (tutorialValueDirection)
-            sliders[3].value -= Time.deltaTime;
-        else
-            sliders[3].value += Time.deltaTime;
+        if(sliders.Length > 3)
+        {
+            if (tutorialValueDirection)
+                sliders[3].value -= Time.deltaTime;
+            else
+                sliders[3].value += Time.deltaTime;
 
-        if (sliders[3].value >= 1.0f || sliders[3].value <= 0f)
-            tutorialValueDirection = !tutorialValueDirection;
+            if (sliders[3].value >= 1.0f || sliders[3].value <= 0f)
+                tutorialValueDirection = !tutorialValueDirection;
+
+        }
     }
 
     private void FixedUpdate()
@@ -97,19 +101,22 @@ public class GameUIContorller : UIController
 
     private IEnumerator CoTutorialBarOff()
     {
-        var images = sliders[3].gameObject.GetComponentsInChildren<Image>();
-        var alpha = images[0].color.a;
-        while(alpha >= 0f)
+        if(sliders[3].gameObject.activeSelf)
         {
-            alpha -= Time.deltaTime;
-            foreach(var elem in images)
+            var images = sliders[3].gameObject.GetComponentsInChildren<Image>();
+            var alpha = images[0].color.a;
+            while (alpha >= 0f)
             {
-                elem.color = new Color(elem.color.r, elem.color.g, elem.color.b, alpha);
+                alpha -= Time.deltaTime;
+                foreach (var elem in images)
+                {
+                    elem.color = new Color(elem.color.r, elem.color.g, elem.color.b, alpha);
+                }
+                yield return null;
             }
-            yield return null;
-        }
 
-        sliders[3].gameObject.SetActive(false);
+            sliders[3].gameObject.SetActive(false);
+        }
     }
 
     public void IncreaseScore()

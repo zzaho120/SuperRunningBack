@@ -70,8 +70,6 @@ public class EnemyController : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-
-        transform.rotation = Quaternion.Euler(0f, -180f, 0f);
     }
 
     private void Start()
@@ -82,7 +80,11 @@ public class EnemyController : MonoBehaviour
 
     public void Init()
     {
-        transform.localScale *= stats.shapeSize;
+        isPlaying = false;
+        State = STATE.IDLE;
+        rigid.velocity = Vector3.zero;
+        transform.rotation = Quaternion.Euler(0f, -180f, 0f);
+        transform.localScale = new Vector3(stats.shapeSize, stats.shapeSize, stats.shapeSize);
         divingDistance = 10f + 2f * (stats.level - 1);
         animator.SetFloat("MoveX", 0.5f);
     }
@@ -112,7 +114,7 @@ public class EnemyController : MonoBehaviour
                     DivingUpdate();
                     break;
                 case STATE.PASSOVER:
-                    Destroy(gameObject, 2f);
+                    StartCoroutine(CoReturnObj(2f));
                     break;
             }
         }
@@ -173,5 +175,11 @@ public class EnemyController : MonoBehaviour
     public void GameStart()
     {
         isPlaying = true;
+    }
+
+    private IEnumerator CoReturnObj(float time)
+    {
+        yield return new WaitForSeconds(time);
+        ObjectPool.ReturnObject(PoolName.Enemy, gameObject);
     }
 }
