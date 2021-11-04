@@ -1256,9 +1256,6 @@ MonoBehaviour:
   forcePower: 600
   kickEffect: {fileID: 6403252182692130976, guid: 3967e0ce26e4a7a44b735c12d0668f5d, type: 3}
   holdEffect: {fileID: 3223031359271505891, guid: 7b3991a32a1e14347afade7c2f19ed7a, type: 3}
-  audioClips:
-  - {fileID: 8300000, guid: bf7265a718338e14889e2967eca39581, type: 3}
-  - {fileID: 8300000, guid: 09bbeaf53f511f341b7479dc4143bda2, type: 3}
 --- !u!114 &6949581765543554497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1284,6 +1281,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6010048f5a30f34188fcf37dd9491d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statsLevels:
+  - {fileID: 11400000, guid: 565ba4f6a3629214c867c2a808e56104, type: 2}
+  - {fileID: 11400000, guid: dabbdfce1b2b5ca49a359c72f308465d, type: 2}
+  - {fileID: 11400000, guid: 6bcf081ff4567fe4badc84765bcad8e9, type: 2}
+  - {fileID: 11400000, guid: c533b18fe663d0245a7d0afa3010d5cc, type: 2}
+  - {fileID: 11400000, guid: 6cdb59e6a2f453d4ca17e588ce4ae1c1, type: 2}
+  - {fileID: 11400000, guid: a0dab8ba9b8bd534ca5e3931bd273e2b, type: 2}
+  - {fileID: 11400000, guid: f0bb0b07c329eb44697b88d5f01776f4, type: 2}
   stats: {fileID: 11400000, guid: 6bcf081ff4567fe4badc84765bcad8e9, type: 2}
 --- !u!1 &2839720327370282647
 GameObject:

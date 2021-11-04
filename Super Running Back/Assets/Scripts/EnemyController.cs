@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
         PASSOVER
     }
 
+    public List<EnemyStats> statsLevels;
     public EnemyStats stats;
     public float detectDistance;
     public Transform player;
@@ -76,6 +77,11 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         player = GameManager.Instance.player.transform;
+        Init();
+    }
+
+    public void Init()
+    {
         transform.localScale *= stats.shapeSize;
         divingDistance = 10f + 2f * (stats.level - 1);
         animator.SetFloat("MoveX", 0.5f);

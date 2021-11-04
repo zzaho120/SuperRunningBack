@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FixedEnemyController : MonoBehaviour
 {
+    public List<EnemyStats> statsLevels;
     public EnemyStats stats;
 
     private void Awake()

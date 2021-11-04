@@ -29,9 +29,18 @@ public enum GameState
 	Result,
 }
 
-public enum SceneName
+public enum PoolName
 {
-
+	Enemy,
+	FixedEnemy,
+	Item,
+	KickParticle,
+	KickSound,
+	HoldParticle,
+	HoldSound,
+	LevelUpParticle,
+	LevelUpSound,
+	PoolNameMax
 }
 
 public enum Touchdown

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class ResultUIController : UIController
 {
-    public List<ParticleSystem> particles;
     public List<AudioClip> resultSounds;
     public AudioClip scoreSound;
 
@@ -97,11 +96,6 @@ public class ResultUIController : UIController
             audio.Stop();
 
             startTotalScore = totalScore;
-        }
-
-        foreach(var elem in particles)
-        {
-            elem.Play();
         }
 
         foreach(var elem in resultSounds)

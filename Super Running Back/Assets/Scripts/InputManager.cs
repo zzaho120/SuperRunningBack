@@ -6,11 +6,9 @@ using UnityEngine.Events;
 public class InputManager : MonoBehaviour
 {
     public UnityEvent<Touch> onPressEvents;
-    public UnityEvent<float> onKeyboardEvents;
     private void Update()
     {
         horizontalMove();
-        KeyboardInput();
     }
 
     private void horizontalMove()
@@ -31,11 +29,5 @@ public class InputManager : MonoBehaviour
             }
         }
         return false;
-    }
-
-    private void KeyboardInput()
-    {
-        var h = Input.GetAxis("Horizontal");
-        onKeyboardEvents.Invoke(h);
     }
 }

@@ -13,13 +13,16 @@ public class GameManager : MonoBehaviour
     public CameraManager mainCamera;
     public PlayerController player;
     public UIManager UI;
-    public EnemyController[] enemys;
     public ScoreManager scoreManager;
     public PlayableDirector startGameTimeLine;
     public CinemachineBrain cinemachineBrain;
+    public ObjectPool objectPool;
+    
     public RandomGenerateStage randomGenerateStage;
     public StartSetting startSetting;
+
     public List<PlayableDirector> touchdowns;
+    public EnemyController[] enemys;
 
     public GameState state;
     public int playTime;
@@ -31,18 +34,9 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        inputManager = GameObject.FindWithTag("InputManager").GetComponent<InputManager>();
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<CameraManager>();
-        cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
-        UI = GameObject.FindWithTag("UI").GetComponent<UIManager>();
-        scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
-        startGameTimeLine = GameObject.FindWithTag("StartGameTimeLine").GetComponent<PlayableDirector>();
-        randomGenerateStage = GetComponent<RandomGenerateStage>();
         randomGenerateStage.Generate();
         
         enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
-        startSetting = GetComponent<StartSetting>();
         startSetting.GameStartInit(randomGenerateStage.stageInfo.yard);
 
         if (state != GameState.Game)

@@ -54,8 +54,12 @@ MonoBehaviour:
   scoreManager: {fileID: 0}
   startGameTimeLine: {fileID: 0}
   cinemachineBrain: {fileID: 0}
-  randomGenerateStage: {fileID: 0}
-  startSetting: {fileID: 0}
+  touchdowns:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  randomGenerateStage: {fileID: 1471523730}
+  startSetting: {fileID: 1736579285}
   state: 0
   playTime: 0
 --- !u!114 &1667864381
@@ -73,12 +77,27 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: 64d99f05c67f3564f92d7402fda73937, type: 2}
+    - {fileID: 11400000, guid: d04244cf8320bcd428154a40021c6aea, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2906617740488395890}
           m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
           m_MethodName: GameStart
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2906617740488395890}
+          m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+          m_MethodName: Finish
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -112,7 +131,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  stageInfo: {fileID: 11400000, guid: 2a62edd01b51d7646b581bdb31c5b239, type: 2}
+  stageInfo: {fileID: 11400000, guid: 41078a39978e17342b8efbfb8127b164, type: 2}
   difficulties:
   - {fileID: 11400000, guid: 5dbf73bc27024264688a57b50221f0ce, type: 2}
   - {fileID: 11400000, guid: 0d7b0afe4fc73094e9e6622d1d214ca8, type: 2}

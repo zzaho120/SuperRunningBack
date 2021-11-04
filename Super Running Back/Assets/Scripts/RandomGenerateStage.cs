@@ -79,8 +79,6 @@ public class RandomGenerateStage : MonoBehaviour
                 }
             }
 
-            Debug.Log($"idx : {idx}, difficulty : {areas[idx].difficulty}");
-
             areas[idx].Generate();
         }
     }

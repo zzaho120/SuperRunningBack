@@ -51,8 +51,6 @@ public class AreaManager : MonoBehaviour
                 GenerateFixedEnemy(parts[idx]);
                 isGenerateFixedEnemy = false;
             }
-
-            Debug.Log($"{gameObject.name} parts : {idx}, Generate Enemy : {generateCnt}, Generate Cost : {generateCost}");
         }
     }
 
