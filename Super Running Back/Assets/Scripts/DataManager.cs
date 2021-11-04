@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public static class DataManager
 {
+    private static int maxChaperIndex = 5;
+    private static int maxStageIndex = 6;
     private static int currentChapterIndex;
     public static int CurrentChapterIndex
     {
@@ -14,7 +16,7 @@ public static class DataManager
         }
         set
         {
-            if (SceneManager.sceneCount > value)
+            if (maxChaperIndex > value)
             {
                 currentStageIndex = value;
                 CurrentStageIndex = 0;
@@ -31,7 +33,7 @@ public static class DataManager
 
         set
         {
-            if(value < 5)
+            if(maxStageIndex > value)
             {
                 currentStageIndex = value;
             }
@@ -39,6 +41,14 @@ public static class DataManager
             {
                 CurrentChapterIndex++;
             }
+        }
+    }
+
+    public static bool IsMaxStage
+    {
+        get
+        {
+            return CurrentStageIndex == maxStageIndex - 1;
         }
     }
 

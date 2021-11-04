@@ -223,6 +223,16 @@ public class GameManager : MonoBehaviour
         Init();
     }
 
+    public void NextChapter()
+    {
+        DataManager.SaveCareer(scoreManager.finishTime, scoreManager.itemNumber,
+            scoreManager.holdEnemyNumber, scoreManager.kickEnemyNumber, scoreManager.totalScore);
+
+        DataManager.NextStage();
+        var scene = SceneManager.GetActiveScene().buildIndex;
+        Loader.Load(scene + 1);
+    }
+
     public void ReStart()
     {
         state = GameState.MainMenu;

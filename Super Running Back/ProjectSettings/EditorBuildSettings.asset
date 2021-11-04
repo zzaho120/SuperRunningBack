@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Sample Stage.unity
-    guid: aaa63cc2bbff0684986dc92b1519956f
+    path: Assets/Scenes/Elemantary League.unity
+    guid: aaab78907eb6c374f8a408dcfacf8875
   - enabled: 1
-    path: Assets/Scenes/Next Stage.unity
-    guid: ef56e6088589701458bb3d9192676f98
+    path: Assets/Scenes/Middle League.unity
+    guid: 11560259849c7c64ebb61608a6c80b6f
+  - enabled: 1
+    path: Assets/Scenes/High League.unity
+    guid: c2f3bfbc93f422a4bb304f1978292541
+  - enabled: 1
+    path: Assets/Scenes/College League.unity
+    guid: 8b59907849b1c5a48a2bf10710fb113d
+  - enabled: 1
+    path: Assets/Scenes/Pro League.unity
+    guid: d7f127b5e1239d242be0de22e322dda6
   m_configObjects: {}

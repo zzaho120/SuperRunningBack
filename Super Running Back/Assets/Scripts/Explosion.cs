@@ -25,9 +25,4 @@ public class Explosion : MonoBehaviour
             }
         }
     }
-
-    public void OnExplosionActiveOff()
-    {
-        gameObject.SetActive(false);
-    }
 }

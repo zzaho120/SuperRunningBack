@@ -48,3 +48,12 @@ public enum Touchdown
 	Middle,
 	Strong
 }
+
+public enum SceneName
+{
+	Elemantary,
+	Middle,
+	High,
+	Colleage,
+	Pro,
+}

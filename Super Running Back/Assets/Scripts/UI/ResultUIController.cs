@@ -9,6 +9,12 @@ public class ResultUIController : UIController
     public List<AudioClip> resultSounds;
     public AudioClip scoreSound;
 
+    public Image stageImage;
+    public Text stageText;
+
+    public Image chapterImage;
+    public Text chapterText;
+
     private Image[] images;
     private Text[] texts;
     private float showDelayTime = 0.5f;
@@ -103,7 +109,16 @@ public class ResultUIController : UIController
         }
 
         yield return new WaitForSeconds(showDelayTime);
-        texts[texts.Length - 1].color = new Color(texts[texts.Length - 1].color.r, texts[texts.Length - 1].color.g, texts[texts.Length - 1].color.b, 1f);
-        images[images.Length - 1].color = new Color(images[images.Length - 1].color.r, images[images.Length - 1].color.g, images[images.Length - 1].color.b, 1f);
+
+        if(DataManager.IsMaxStage)
+        {
+            chapterImage.gameObject.SetActive(true);
+            stageImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            stageText.color = new Color(stageText.color.r, stageText.color.g, stageText.color.b, 1f);
+            stageImage.color = new Color(stageImage.color.r, stageImage.color.g, stageImage.color.b, 1f);
+        }
     }
 }

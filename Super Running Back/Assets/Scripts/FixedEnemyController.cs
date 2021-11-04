@@ -9,7 +9,7 @@ public class FixedEnemyController : MonoBehaviour
     public void Init()
     {
         transform.rotation = Quaternion.Euler(0f, -180f, 0f);
-        transform.localScale *= stats.shapeSize;
+        transform.localScale = new Vector3(stats.shapeSize, stats.shapeSize, stats.shapeSize);
     }
 
     public void Init(int level)

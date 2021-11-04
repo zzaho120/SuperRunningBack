@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd63bdec6f061d74f8223c08edc6e911, type: 3}
-  m_Name: Elementry 60yd
+  m_Name: High League 80yd
   m_EditorClassIdentifier: 
-  yard: 60
-  fixedEnemyLevel: 2
+  yard: 80
+  fixedEnemyLevel: 4
   fixedEnemyNumCnt: 12
-  fixedEnemyAreaCnt: 2
-  itemAreaCnt: 4
-  stageLevelArray: 03000000010000000100000002000000010000000300000001000000
+  fixedEnemyAreaCnt: 5
+  itemAreaCnt: 7
+  stageLevelArray: 020000000100000001000000040000000500000002000000030000000100000005000000
