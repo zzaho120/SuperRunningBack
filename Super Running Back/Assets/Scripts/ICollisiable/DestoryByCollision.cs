@@ -5,8 +5,9 @@ using UnityEngine;
 public class DestoryByCollision : MonoBehaviour, ICollisable
 {
     public float destroyDelayTime;
+    public PoolName poolName;
     public void onActionByCollision(GameObject other)
     {
-        Destroy(gameObject, destroyDelayTime);
+        ObjectPool.ReturnObject(poolName, gameObject);
     }
 }

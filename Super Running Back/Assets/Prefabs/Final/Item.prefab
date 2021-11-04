@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyDelayTime: 0
+  poolName: 2
 --- !u!1001 &2983311330468151145
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1269,6 +1269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyDelayTime: 0
+  poolName: 1
 --- !u!114 &5444426262316122224
 MonoBehaviour:
   m_ObjectHideFlags: 0

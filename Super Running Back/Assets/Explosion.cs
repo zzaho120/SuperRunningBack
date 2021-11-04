@@ -7,7 +7,7 @@ public class Explosion : MonoBehaviour
     public Transform explosionTr;
     public float range;
     public float force;
-    public void OnFragEffect()
+    public void OnExplosionEffect()
     {
         var frags = Physics.OverlapSphere(explosionTr.position, range);
         foreach (var obj in frags)
@@ -26,7 +26,7 @@ public class Explosion : MonoBehaviour
         }
     }
 
-    public void OnFragActiveOff()
+    public void OnExplosionActiveOff()
     {
         gameObject.SetActive(false);
     }

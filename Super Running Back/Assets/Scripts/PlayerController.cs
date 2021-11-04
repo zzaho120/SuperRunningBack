@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     public GameObject levelUpEffect;
     public LevelUpText levelUptext;
 
-    public List<AudioClip> playerSound;
-
     private Rigidbody rigid;
     private Animator animator;
     private AudioSource audioSource;
@@ -35,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 touchPos;
     private Vector3 touchViewPos;
     private float aniValue;
+
+    public ParticleSystem levelUpParticle;
 
     private void Awake()
     {
@@ -227,21 +227,14 @@ public class PlayerController : MonoBehaviour
 
     public void SetLevelUpEffect()
     {
-        var particle = Instantiate(levelUpEffect, transform);
-        var scale = particle.transform.localScale;
+        var scale = levelUpParticle.transform.localScale;
         var level = stats.currentLevel.level - 2;
-        particle.transform.localScale = scale * 0.5f + new Vector3(0.1f, 0.1f, 0.1f) * level;
-        Destroy(particle, 2f);
+        levelUpParticle.transform.localScale = scale * 0.5f + new Vector3(0.1f, 0.1f, 0.1f) * level;
 
         levelUptext.ShowLevelUp();
-
-        SoundPlay(PlayerSound.LevelUp);
+        audioSource.Play();
     }
 
-    public void SoundPlay(PlayerSound sound)
-    {
-        audioSource.PlayOneShot(playerSound[(int)sound]);
-    }
     public void PlayerFinish()
     {
         isPlaying = false;

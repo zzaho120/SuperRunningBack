@@ -68,7 +68,6 @@ public class ResultUIController : UIController
 
         for (int idx = 2; idx < texts.Length - 1; idx++, scoreListIdx++)
         {
-
             audio.PlayOneShot(resultSounds[0]);
 
             var text = texts[idx];

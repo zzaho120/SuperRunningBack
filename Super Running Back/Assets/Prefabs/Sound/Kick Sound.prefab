@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2504379955738357858}
   - component: {fileID: 2504379955738357857}
+  - component: {fileID: 4599148259186721671}
   m_Layer: 0
   m_Name: Kick Sound
   m_TagString: Untagged
@@ -42,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bf7265a718338e14889e2967eca39581, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -127,3 +128,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4599148259186721671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2504379955738357856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75641a4b83c874d47adaf000a44d1695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolName: 5

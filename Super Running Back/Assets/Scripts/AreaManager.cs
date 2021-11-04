@@ -75,16 +75,16 @@ public class AreaManager : MonoBehaviour
             var randomPosition = new Vector3(rangeX, 0f, rangeZ);
             var respawnPosition = originPosition + randomPosition;
 
-            var randomEnemy = Random.Range(difficulty.minEnemyLevel - 1, difficulty.maxEnemyLevel);
+            var enemyLevel = Random.Range(difficulty.minEnemyLevel - 1, difficulty.maxEnemyLevel);
             var newGo = ObjectPool.GetObject(PoolName.Enemy);
 
             var enemy = newGo.GetComponent<EnemyController>();
-            enemy.Init(randomEnemy);
+            enemy.Init(enemyLevel);
 
             newGo.transform.SetParent(randomGenerateStage.enemys);
             newGo.transform.position = respawnPosition;
 
-            totalCost += (randomEnemy + 1) * 10;
+            totalCost += (enemyLevel + 1) * 10;
             enemyCount++;
 
             costCondition = totalCost < difficulty.maxCost - difficulty.minErrorRange;
@@ -97,9 +97,17 @@ public class AreaManager : MonoBehaviour
 
     private void GenerateItem(GameObject part)
     {
-        var newGo = Instantiate(randomGenerateStage.itemSet, part.transform.position, Quaternion.identity);
+        
 
-        newGo.transform.SetParent(randomGenerateStage.items);
+        for(int i = 0; i < 3; i++)
+        {
+            var newGo = ObjectPool.GetObject(PoolName.Item);
+
+            newGo.transform.SetParent(randomGenerateStage.items);
+
+            var pos = part.transform.position + new Vector3(0f, 1f, -5f);
+            newGo.transform.position = pos + new Vector3(0f, 0f, 5f * i);
+        }
     }
 
     private void GenerateFixedEnemy(GameObject part)
@@ -115,14 +123,15 @@ public class AreaManager : MonoBehaviour
         var maxEnemyCnt = stageInfo.fixedEnemyNumCnt;
         var distance = rangeX / maxEnemyCnt;
         var enemyLevel = stageInfo.fixedEnemyLevel - 1;
-        var enemy = randomGenerateStage.fixedEnemyByLevel[enemyLevel];
         for (int idx = 0; idx < maxEnemyCnt; idx++)
         {
             var position = new Vector3(-rangeX * 0.5f + distance * idx, 0f, -rangeZ * 0.5f);
             var respawnPosition = originPosition + position;
-            var newGo = Instantiate(enemy, respawnPosition, Quaternion.identity);
-
+            var newGo = ObjectPool.GetObject(PoolName.FixedEnemy);
+            var enemy = newGo.GetComponent<FixedEnemyController>();
+            enemy.Init(enemyLevel);
             newGo.transform.SetParent(randomGenerateStage.fixedEnemys);
+            newGo.transform.position = respawnPosition;
         }
     }
 

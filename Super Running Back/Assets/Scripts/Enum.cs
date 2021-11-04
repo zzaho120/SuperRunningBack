@@ -34,12 +34,11 @@ public enum PoolName
 	Enemy,
 	FixedEnemy,
 	Item,
+	ItemSound,
 	KickParticle,
 	KickSound,
 	HoldParticle,
 	HoldSound,
-	LevelUpParticle,
-	LevelUpSound,
 	PoolNameMax
 }
 
@@ -48,13 +47,4 @@ public enum Touchdown
 	Weak,
 	Middle,
 	Strong
-}
-
-public enum PlayerSound
-{
-	None = -1,
-	Kick,
-	Hold,
-	Item,
-	LevelUp
 }

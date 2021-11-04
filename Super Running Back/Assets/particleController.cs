@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class ParticleController : MonoBehaviour
 {
-    ParticleSystem particle;
+    private ParticleSystem particle;
+    public PoolName poolName;
     // Start is called before the first frame update
     void Start()
     {
         particle = GetComponent<ParticleSystem>();
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    if(!particle.isPlaying)
-    //        ObjectPool.ReturnObject(PoolName)
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+        if (!particle.isPlaying)
+        {
+            ObjectPool.ReturnObject(poolName, gameObject);
+        }
+    }
 }

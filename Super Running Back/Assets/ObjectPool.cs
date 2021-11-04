@@ -29,17 +29,16 @@ public class ObjectPool : MonoBehaviour
         }
 
         queueInit(maxEnemyCnt, prefabs[PoolName.Enemy], pool[PoolName.Enemy]);
-        queueInit(maxitemCnt, prefabs[PoolName.FixedEnemy], pool[PoolName.FixedEnemy]);
-        queueInit(maxfixedEnemyCnt, prefabs[PoolName.Item], pool[PoolName.Item]);
+        queueInit(maxfixedEnemyCnt, prefabs[PoolName.FixedEnemy], pool[PoolName.FixedEnemy]);
+
+        queueInit(maxitemCnt, prefabs[PoolName.Item], pool[PoolName.Item]);
+        queueInit(maxitemCnt, prefabs[PoolName.ItemSound], pool[PoolName.ItemSound]);
 
         queueInit(maxParticleCnt, prefabs[PoolName.KickParticle], pool[PoolName.KickParticle]);
-        queueInit(maxSoundCnt, prefabs[PoolName.KickSound], pool[PoolName.KickSound]);
+        queueInit(0, prefabs[PoolName.KickSound], pool[PoolName.KickSound]);
 
         queueInit(maxParticleCnt, prefabs[PoolName.HoldParticle], pool[PoolName.HoldParticle]);
-        queueInit(maxSoundCnt, prefabs[PoolName.HoldSound], pool[PoolName.HoldSound]);
-
-        queueInit(maxParticleCnt, prefabs[PoolName.LevelUpParticle], pool[PoolName.LevelUpParticle]);
-        queueInit(maxSoundCnt, prefabs[PoolName.LevelUpSound], pool[PoolName.LevelUpSound]);
+        queueInit(0, prefabs[PoolName.HoldSound], pool[PoolName.HoldSound]);
     }
 
     private void queueInit(int initCnt, GameObject obj, Queue<GameObject> queue)
@@ -61,11 +60,12 @@ public class ObjectPool : MonoBehaviour
     public static GameObject GetObject(PoolName poolName)
     {
         var queue = Instance.pool[poolName];
-        if(queue.Count > 0)
+        if (queue.Count > 0)
         {
             var obj = queue.Dequeue();
             obj.transform.SetParent(null);
             obj.SetActive(true);
+            Debug.Log($"{obj.name}, {queue.Count}");
             return obj;
         }
         else

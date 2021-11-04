@@ -8,15 +8,11 @@ public class RandomGenerateStage : MonoBehaviour
     public Stage stageInfo;
     public List<Difficulty> difficulties;
 
-    public List<GameObject> enemysByLevel;
-    public List<GameObject> fixedEnemyByLevel;
     public List<int> randomFixedEnemyIndex;
     public List<int> itemIndex;
     public Transform enemys;
     public Transform items;
     public Transform fixedEnemys;
-
-    public GameObject itemSet;
 
     private int generateFixedEnemyCnt;
 

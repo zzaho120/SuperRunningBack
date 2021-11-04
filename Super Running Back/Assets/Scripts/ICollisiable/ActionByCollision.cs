@@ -6,8 +6,6 @@ public class ActionByCollision : MonoBehaviour, ICollisable
 {
     public GameObject ragdollPrefab;
     public float forcePower;
-    public GameObject kickEffect;
-    public GameObject holdEffect;
 
     public void onActionByCollision(GameObject other)
     {
@@ -23,21 +21,17 @@ public class ActionByCollision : MonoBehaviour, ICollisable
         var isKick = player.stats.currentLevel.level >= enemyStats.level &&
             Random.Range(0, 100) < enemyStats.kickRate;
 
+        GameObject effectObj = null;
+        GameObject soundObj = null;
         if (isKick)
         {
             var effectPos = transform.position + new Vector3(0f, 5f, 2f);
-            var effectObj = ObjectPool.GetObject(PoolName.KickParticle);
+            effectObj = ObjectPool.GetObject(PoolName.KickParticle);
             effectObj.transform.position = effectPos;
-            effectObj.transform.localScale *= 0.2f;
-
-            var effect = effectObj.GetComponent<ParticleSystem>();
-            effect.Play();
-
-            var soundObj = ObjectPool.GetObject(PoolName.KickSound);
+            
+            soundObj = ObjectPool.GetObject(PoolName.KickSound);
             soundObj.transform.position = transform.position;
-            var sound = soundObj.GetComponent<AudioSource>();
-            sound.Play();
-
+            
             var ragdoll = Instantiate(ragdollPrefab, transform.position, transform.rotation);
             var ragdollMgr = ragdoll.GetComponent<RagdollManager>();
             
@@ -56,10 +50,11 @@ public class ActionByCollision : MonoBehaviour, ICollisable
         else
         {
             var effectPos = transform.position + new Vector3(0f, 3f, 0f);
-            var effect = Instantiate(holdEffect, effectPos, Quaternion.identity);
-            effect.transform.localScale *= 0.2f;
+            effectObj = ObjectPool.GetObject(PoolName.HoldParticle);
+            effectObj.transform.position = effectPos;
 
-            player.SoundPlay(PlayerSound.Hold);
+            soundObj = ObjectPool.GetObject(PoolName.HoldSound);
+            soundObj.transform.position = transform.position;
 
             var playerStat = player.stats; 
 
@@ -72,6 +67,11 @@ public class ActionByCollision : MonoBehaviour, ICollisable
             scoreManager.AddHoldEnemyNumber();
         }
 
+        var effect = effectObj.GetComponent<ParticleSystem>();
+        effect.Play();
+        var sound = soundObj.GetComponent<AudioSource>();
+        sound.Play();
         GameManager.Instance.InplayPrintScore();
     }
+   
 }

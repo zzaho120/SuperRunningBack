@@ -207,19 +207,22 @@ public class GameManager : MonoBehaviour
     {
         player.stats.currentItemCnt++;
         player.stats.CheckItem();
-        player.SoundPlay(PlayerSound.Item);
         scoreManager.AddItemNumber();
+
+        var soundObj = ObjectPool.GetObject(PoolName.ItemSound);
+        var sound = soundObj.GetComponent<AudioSource>();
+        sound.Play();
         InplayPrintScore();
     }
     
     private void PlayTouchdownByScore(int score)
     {
         PlayableDirector touchdown;
-        if(score < 20000)
+        if(score < 15000)
         {
             touchdown = touchdowns[(int)Touchdown.Weak];
         }
-        else if(score < 30000)
+        else if(score < 20000)
         {
             touchdown = touchdowns[(int)Touchdown.Middle];
         }
