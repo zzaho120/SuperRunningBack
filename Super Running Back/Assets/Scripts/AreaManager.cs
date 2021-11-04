@@ -119,7 +119,7 @@ public class AreaManager : MonoBehaviour
         var rangeZ = rangeCollider.bounds.size.z;
 
 
-        var stageInfo = randomGenerateStage.stageInfo;
+        var stageInfo = randomGenerateStage.currentStageInfo;
         var maxEnemyCnt = stageInfo.fixedEnemyNumCnt;
         var distance = rangeX / maxEnemyCnt;
         var enemyLevel = stageInfo.fixedEnemyLevel - 1;

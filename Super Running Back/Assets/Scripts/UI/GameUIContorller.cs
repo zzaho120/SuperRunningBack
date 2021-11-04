@@ -101,21 +101,16 @@ public class GameUIContorller : UIController
 
     private IEnumerator CoTutorialBarOff()
     {
-        if(sliders[3].gameObject.activeSelf)
+        var images = sliders[3].gameObject.GetComponentsInChildren<Image>();
+        var alpha = images[0].color.a;
+        while (alpha >= 0f)
         {
-            var images = sliders[3].gameObject.GetComponentsInChildren<Image>();
-            var alpha = images[0].color.a;
-            while (alpha >= 0f)
+            alpha -= Time.deltaTime;
+            foreach (var elem in images)
             {
-                alpha -= Time.deltaTime;
-                foreach (var elem in images)
-                {
-                    elem.color = new Color(elem.color.r, elem.color.g, elem.color.b, alpha);
-                }
-                yield return null;
+                elem.color = new Color(elem.color.r, elem.color.g, elem.color.b, alpha);
             }
-
-            sliders[3].gameObject.SetActive(false);
+            yield return null;
         }
     }
 

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PlayerLevel1
   m_EditorClassIdentifier: 
   level: 1
-  moveSpeed: 10
+  moveSpeed: 100
   shapeSize: 1.4
   armSize: 1
   ragdollCount: 2
   itemCount: 0
-  power: 1
+  power: 2000

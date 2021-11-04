@@ -31,7 +31,14 @@ public static class DataManager
 
         set
         {
-            currentStageIndex = value;
+            if(value < 5)
+            {
+                currentStageIndex = value;
+            }
+            else
+            {
+                CurrentChapterIndex++;
+            }
         }
     }
 
@@ -41,6 +48,17 @@ public static class DataManager
     public static int totalHoldEnemy;
     public static int totalKickEnemy;
     public static int totalScore;
+
+    public static void Init()
+    {
+        CurrentChapterIndex = 0;
+        CurrentStageIndex = 0;
+    }
+
+    public static void NextStage()
+    {
+        CurrentStageIndex++;
+    }
 
     public static void SaveCareer(int time, int item, int hold, int kick, int score)
     {

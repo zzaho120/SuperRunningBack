@@ -18,11 +18,19 @@ public class ScoreManager : MonoBehaviour
     private int itemScore = 100;
     private int levelScore = 1000;
 
-
+    public void Init()
+    {
+        finishTime = 0;
+        itemNumber = 0;
+        holdEnemyNumber = 0;
+        kickEnemyNumber = 0;
+        playerLevel = 0;
+        totalScore = 0;
+    }
     public void SetFinishTime(int time)
     {
         finishTime = time;
-        var yardInGround = GameManager.Instance.randomGenerateStage.stageInfo.yard;
+        var yardInGround = GameManager.Instance.randomGenerateStage.currentStageInfo.yard;
         switch (yardInGround)
         {
             case 50:

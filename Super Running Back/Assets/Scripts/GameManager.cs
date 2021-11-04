@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public EnemyController[] enemys;
     public FixedEnemyController[] fixedEnemys;
     public IncreaseStatsByCollision[] items;
+    public YardText yardText;
 
     public GameState state;
     public int playTime;
@@ -32,8 +33,8 @@ public class GameManager : MonoBehaviour
     private bool isTutorial = true;
     private bool isTouchdown;
 
-    public GameObject cityPrefab;
-    public Transform cityPosition;
+    public GameObject[] touchdownPrefab;
+    public GameObject[] touchdownPosition;
 
     private void Awake()
     {
@@ -45,15 +46,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        startSetting.GameStartInit(randomGenerateStage.stageInfo.yard);
         Init();
     }
 
     private void Init()
     {
-        player.Init();
-        startSetting.Init();
         randomGenerateStage.Generate();
+        player.Init();
+        startSetting.GameStartInit(randomGenerateStage.currentStageInfo.yard);
+        startSetting.Init();
+        scoreManager.Init();
+        yardText.Init();
 
         enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
         fixedEnemys = GameObject.FindWithTag("FixedEnemys").GetComponentsInChildren<FixedEnemyController>();
@@ -85,6 +88,23 @@ public class GameManager : MonoBehaviour
         var ui = UI.GetUI(UIs.Game) as GameUIContorller;
         ui.StopIncreasceScore();
         UI.Open(UIs.Result);
+
+        for(int idx = 0; idx < touchdownPosition.Length; idx++)
+        {
+            Destroy(touchdownPosition[idx].transform.GetChild(0).gameObject);
+        }
+        foreach (var enemy in enemys)
+        {
+            ObjectPool.ReturnObject(PoolName.Enemy, enemy.gameObject);
+        }
+        foreach (var fixedEnemy in fixedEnemys)
+        {
+            ObjectPool.ReturnObject(PoolName.FixedEnemy, fixedEnemy.gameObject);
+        }
+        foreach (var item in items)
+        {
+            ObjectPool.ReturnObject(PoolName.Item, item.gameObject);
+        }
     }
 
     public void PlayerDieMsg()
@@ -142,7 +162,8 @@ public class GameManager : MonoBehaviour
         {
             isTutorial = false;
             var gameUI = UI.GetComponentInChildren<GameUIContorller>();
-            gameUI.TutorialBarOff();
+            if(gameUI != null)
+                gameUI.TutorialBarOff();
         }
     }
 
@@ -170,12 +191,36 @@ public class GameManager : MonoBehaviour
         DataManager.SaveCareer(scoreManager.finishTime, scoreManager.itemNumber,
             scoreManager.holdEnemyNumber, scoreManager.kickEnemyNumber, scoreManager.totalScore);
 
-        var sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if (SceneManager.sceneCount > sceneIndex)
+        DataManager.NextStage();
+        for (int idx = 0; idx < touchdownPosition.Length; idx++)
         {
-            DataManager.CurrentStageIndex = sceneIndex;
-            Loader.Load(sceneIndex + 1);
+            Instantiate(touchdownPrefab[idx], touchdownPosition[idx].transform);
         }
+
+        state = GameState.MainMenu;
+        UI.Open(UIs.MainMenu);
+        isTouchdown = false;
+
+        startGameTimeLine.gameObject.SetActive(true);
+        foreach (var touchdown in touchdowns)
+        {
+            touchdown.gameObject.SetActive(false);
+        }
+
+        foreach (var enemy in enemys)
+        {
+            ObjectPool.ReturnObject(PoolName.Enemy, enemy.gameObject);
+        }
+        foreach (var fixedEnemy in fixedEnemys)
+        {
+            ObjectPool.ReturnObject(PoolName.FixedEnemy, fixedEnemy.gameObject);
+        }
+        foreach (var item in items)
+        {
+            ObjectPool.ReturnObject(PoolName.Item, item.gameObject);
+        }
+
+        Init();
     }
 
     public void ReStart()
@@ -188,18 +233,7 @@ public class GameManager : MonoBehaviour
 
         player.enabled = true;
 
-        foreach (var enemy in enemys)
-        {
-            ObjectPool.ReturnObject(PoolName.Enemy, enemy.gameObject);
-        }
-        foreach(var fixedEnemy in fixedEnemys)
-        {
-            ObjectPool.ReturnObject(PoolName.FixedEnemy, fixedEnemy.gameObject);
-        }
-        foreach(var item in items)
-        {
-            ObjectPool.ReturnObject(PoolName.Item, item.gameObject);
-        }
+        
         Init();
     }
 
@@ -222,7 +256,7 @@ public class GameManager : MonoBehaviour
             scoreManager.SetTotalScore();
 
             var totalScore = scoreManager.GetTotalScore();
-            var yard = randomGenerateStage.stageInfo.yard;
+            var yard = randomGenerateStage.currentStageInfo.yard;
             PlayTouchdownByScore(totalScore);
         }
     }

@@ -26,7 +26,6 @@ public class StartSetting : MonoBehaviour
 
         foreach (var transform in transforms)
         {
-            Debug.Log(transform.gameObject);
             transform.transform.position -= correctionPos;
         }
     }

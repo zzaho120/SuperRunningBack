@@ -5,7 +5,8 @@ using UnityEngine;
 public class RandomGenerateStage : MonoBehaviour
 {
     public AreaManager[] areas;
-    public Stage stageInfo;
+    public Stage currentStageInfo;
+    public List<Stage> stageInfos;
     public List<Difficulty> difficulties;
 
     public List<int> randomFixedEnemyIndex;
@@ -18,12 +19,13 @@ public class RandomGenerateStage : MonoBehaviour
 
     public void Generate() 
     {
-        stageInfo.Init();
+        currentStageInfo = stageInfos[DataManager.CurrentStageIndex];
+        currentStageInfo.Init();
         // 해당 스테이지의 칸 레벨을 섞는다.
-        stageInfo.RandomSortLevelArray();
-        var maxAreaCnt = (int)(stageInfo.yard * 0.1f) + 1;
+        currentStageInfo.RandomSortLevelArray();
+        var maxAreaCnt = (int)(currentStageInfo.yard * 0.1f) + 1;
         // 고정 수비수 칸을 정한다.
-        while (randomFixedEnemyIndex.Count < stageInfo.fixedEnemyAreaCnt)
+        while (randomFixedEnemyIndex.Count < currentStageInfo.fixedEnemyAreaCnt)
         {
             var isOverlapValue = false;
             var randomValue = Random.Range(0, maxAreaCnt);
@@ -38,7 +40,7 @@ public class RandomGenerateStage : MonoBehaviour
                 randomFixedEnemyIndex.Add(randomValue);
         }
 
-        while(itemIndex.Count < stageInfo.itemAreaCnt)
+        while(itemIndex.Count < currentStageInfo.itemAreaCnt)
         {
             var isOverlapValue = false;
             var randomValue = Random.Range(1, maxAreaCnt);
@@ -56,7 +58,7 @@ public class RandomGenerateStage : MonoBehaviour
         // 각 야드 영역마다 난이도 설정을 하고 랜덤 생성을 수행한다.
         for(int idx = 0; idx < maxAreaCnt; idx++)
         {
-            var difficultyIndex = stageInfo.stageLevelArray[idx] - 1;
+            var difficultyIndex = currentStageInfo.stageLevelArray[idx] - 1;
             areas[idx].difficulty = difficulties[difficultyIndex];
 
             foreach(var elem in randomFixedEnemyIndex)

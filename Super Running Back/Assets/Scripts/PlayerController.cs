@@ -50,8 +50,8 @@ public class PlayerController : MonoBehaviour
     {
         isDead = false;
         isPlaying = false;
+        rigid.velocity = Vector3.zero;
         animator.SetBool("Restart", true);
-
         animator.SetBool("StartGame", false);
         animator.SetBool("Dead", false);
 

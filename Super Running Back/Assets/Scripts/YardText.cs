@@ -7,9 +7,9 @@ public class YardText : MonoBehaviour
 {
     public TextMesh yardText;
 
-    private void Start()
+    public void Init()
     {
-        var yard = GameManager.Instance.randomGenerateStage.stageInfo.yard;
+        var yard = GameManager.Instance.randomGenerateStage.currentStageInfo.yard;
         yardText.text = $"{yard} yd";
     }
 }
