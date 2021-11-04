@@ -76,6 +76,18 @@ public class PlayerController : MonoBehaviour
         rigid.velocity = new Vector3(slideSpeed, rigid.velocity.y, stats.currentLevel.moveSpeed * decreaseSpeed);
     }
 
+    public void horizontalMove(float h)
+    {
+        slideSpeed = speed * h;
+
+        if (slideSpeed != 0)
+            decreaseSpeed = minDecreaseSpeed;
+        else
+            decreaseSpeed = 1f;
+        aniValue = h + 1.0f;
+        aniValue *= 0.5f;
+        animator.SetFloat("MoveX", (float)Math.Round((double)aniValue, 1));
+    }
     public void horizontalMove(Touch touch)
     {
         switch (touch.phase)

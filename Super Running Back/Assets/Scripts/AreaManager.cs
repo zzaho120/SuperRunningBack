@@ -79,8 +79,7 @@ public class AreaManager : MonoBehaviour
 
             var enemy = randomGenerateStage.enemysByLevel[randomEnemy];
 
-            var newGo = //ObjectPool.GetObject(PoolName.Enemy);
-                Instantiate(enemy, respawnPosition, Quaternion.identity);
+            var newGo = ObjectPool.GetObject(PoolName.Enemy);
 
             newGo.transform.SetParent(randomGenerateStage.enemys);
             newGo.transform.position = respawnPosition;

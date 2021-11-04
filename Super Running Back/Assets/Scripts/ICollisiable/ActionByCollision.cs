@@ -26,9 +26,11 @@ public class ActionByCollision : MonoBehaviour, ICollisable
         if (isKick)
         {
             var effectPos = transform.position + new Vector3(0f, 5f, 2f);
-            var effect = Instantiate(kickEffect, effectPos, Quaternion.identity);
+            var effect = ObjectPool.GetObject(PoolName.KickParticle);
+            effect.transform.position = effectPos;
             effect.transform.localScale *= 0.2f;
-            Destroy(effect, 1f);
+            
+
 
             player.SoundPlay(PlayerSound.Kick);
 

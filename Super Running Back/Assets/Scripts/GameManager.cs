@@ -79,7 +79,6 @@ public class GameManager : MonoBehaviour
         var ui = UI.GetUI(UIs.Game) as GameUIContorller;
         ui.StopIncreasceScore();
 
-
         UI.Open(UIs.Gameover);
         player.PlayerDead();
         player.enabled = false;
@@ -215,7 +214,6 @@ public class GameManager : MonoBehaviour
     
     private void PlayTouchdownByScore(int score)
     {
-        Debug.Log(score);
         PlayableDirector touchdown;
         if(score < 20000)
         {
