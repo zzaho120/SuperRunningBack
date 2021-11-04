@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;
     public PlayableDirector startGameTimeLine;
     public CinemachineBrain cinemachineBrain;
-    public ObjectPool objectPool;
     
     public RandomGenerateStage randomGenerateStage;
     public StartSetting startSetting;
@@ -34,9 +33,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        randomGenerateStage.Generate();
         
-        enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
         startSetting.GameStartInit(randomGenerateStage.stageInfo.yard);
 
         if (state != GameState.Game)
@@ -45,6 +42,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        randomGenerateStage.Generate();
+        enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
+
         player.Init();
         var level = player.stats.currentLevel.level;
         mainCamera.SetPlayerLevel(level);
@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour
         {
             case GameState.None:
             case GameState.MainMenu:
-                advertise();
                 break;
             case GameState.Gameover:
             case GameState.Result:
@@ -212,14 +211,6 @@ public class GameManager : MonoBehaviour
         player.SoundPlay(PlayerSound.Item);
         scoreManager.AddItemNumber();
         InplayPrintScore();
-    }
-
-    private void advertise()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            PlayStartGameTimeLine();
-        }
     }
     
     private void PlayTouchdownByScore(int score)
