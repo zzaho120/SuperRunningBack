@@ -26,13 +26,17 @@ public class ActionByCollision : MonoBehaviour, ICollisable
         if (isKick)
         {
             var effectPos = transform.position + new Vector3(0f, 5f, 2f);
-            var effect = ObjectPool.GetObject(PoolName.KickParticle);
-            effect.transform.position = effectPos;
-            effect.transform.localScale *= 0.2f;
-            
+            var effectObj = ObjectPool.GetObject(PoolName.KickParticle);
+            effectObj.transform.position = effectPos;
+            effectObj.transform.localScale *= 0.2f;
 
+            var effect = effectObj.GetComponent<ParticleSystem>();
+            effect.Play();
 
-            player.SoundPlay(PlayerSound.Kick);
+            var soundObj = ObjectPool.GetObject(PoolName.KickSound);
+            soundObj.transform.position = transform.position;
+            var sound = soundObj.GetComponent<AudioSource>();
+            sound.Play();
 
             var ragdoll = Instantiate(ragdollPrefab, transform.position, transform.rotation);
             var ragdollMgr = ragdoll.GetComponent<RagdollManager>();

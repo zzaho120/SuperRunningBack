@@ -76,10 +76,10 @@ public class AreaManager : MonoBehaviour
             var respawnPosition = originPosition + randomPosition;
 
             var randomEnemy = Random.Range(difficulty.minEnemyLevel - 1, difficulty.maxEnemyLevel);
-
-            var enemy = randomGenerateStage.enemysByLevel[randomEnemy];
-
             var newGo = ObjectPool.GetObject(PoolName.Enemy);
+
+            var enemy = newGo.GetComponent<EnemyController>();
+            enemy.Init(randomEnemy);
 
             newGo.transform.SetParent(randomGenerateStage.enemys);
             newGo.transform.position = respawnPosition;

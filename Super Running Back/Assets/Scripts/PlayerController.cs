@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
             decreaseSpeed = minDecreaseSpeed;
         else
             decreaseSpeed = 1f;
+
         aniValue = h + 1.0f;
         aniValue *= 0.5f;
         animator.SetFloat("MoveX", (float)Math.Round((double)aniValue, 1));

@@ -87,6 +87,12 @@ public class EnemyController : MonoBehaviour
         animator.SetFloat("MoveX", 0.5f);
     }
 
+    public void Init(int level)
+    {
+        stats = statsLevels[level];
+        Init();
+    }
+
     private void FixedUpdate()
     {
         if(isPlaying)
