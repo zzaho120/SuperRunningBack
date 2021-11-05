@@ -92,9 +92,10 @@ public class GameManager : MonoBehaviour
         {
             fixedEnemys.AddLast(fixedEnemy.gameObject);
         }
-        var tempItems = GameObject.FindWithTag("Items").GetComponentsInChildren<IncreaseStatsByCollision>();
+        var tempItems = GameObject.FindWithTag("Items").GetComponentsInChildren<ItemController>();
         foreach (var item in tempItems)
         {
+            item.Init();
             items.AddLast(item.gameObject);
         }
     }

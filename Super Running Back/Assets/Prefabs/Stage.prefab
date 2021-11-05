@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1364684704028933240}
   m_Layer: 0
   m_Name: FixedEnemys
-  m_TagString: Untagged
+  m_TagString: FixedEnemys
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 2788141668805501853}
   m_Layer: 0
   m_Name: Items
-  m_TagString: Untagged
+  m_TagString: Items
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

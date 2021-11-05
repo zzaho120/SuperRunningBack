@@ -16,7 +16,7 @@ public class ActionByCollision : MonoBehaviour, ICollisable
         if(!isAction)
         {
             isAction = true;
-
+            
             EnemyStats enemyStats = null;
             if (gameObject.CompareTag("Enemy"))
                 enemyStats = GetComponent<EnemyController>().stats;

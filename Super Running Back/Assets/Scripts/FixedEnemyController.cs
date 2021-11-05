@@ -10,6 +10,11 @@ public class FixedEnemyController : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0f, -180f, 0f);
         transform.localScale = new Vector3(stats.shapeSize, stats.shapeSize, stats.shapeSize);
+
+        var destroy = GetComponent<DestoryByCollision>();
+        var action = GetComponent<ActionByCollision>();
+        destroy.Init();
+        action.Init();
     }
 
     public void Init(int level)

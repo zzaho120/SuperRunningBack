@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
         transform.rotation = originTr.rotation;
         animator.applyRootMotion = false;
         animator.SetFloat("MoveX", 0.5f);
+        ragdollIndex = 0;
         foreach (var elem in ragdolls)
         {
             elem.SetActive(false);
@@ -206,6 +207,7 @@ public class PlayerController : MonoBehaviour
     public void SetActiveRagdoll(EnemyStats stats)
     {
         var maxCnt = this.stats.currentRagdollCnt;
+        Debug.Log($"{ragdollIndex}, {maxCnt}");
         for (; ragdollIndex < maxCnt; ragdollIndex++)
         {
             ragdolls[ragdollIndex].SetActive(true);

@@ -9,6 +9,7 @@ public class Explosion : MonoBehaviour
     public float force;
     public GameObject ragdoll;
     public GameObject player;
+    public int ragdollCountTime = 1;
     public void OnExplosionEffect()
     {
         var colliders = Physics.OverlapSphere(explosionTr.position, range);
@@ -26,25 +27,24 @@ public class Explosion : MonoBehaviour
                 rigid.AddForce(dir.normalized * force, ForceMode.Impulse);
             }
         }
-        var ragdollCnt = GameManager.Instance.player.stats.currentRagdollCnt;
+        var ragdollCnt = GameManager.Instance.player.stats.currentWeight;
 
         for (int idx = 0; idx < ragdollCnt; idx++)
         {
-            var randomValue = Random.Range(-3f, 3f);
-            var position = transform.position + new Vector3(randomValue, 3f, randomValue);
+            var randomValueX = Random.Range(-5f, 5f);
+            var randomValueZ = Random.Range(-5f, 5f);
+            var position = transform.position + new Vector3(randomValueX, 3f, randomValueZ);
             var obj = Instantiate(ragdoll, position, Quaternion.identity);
-            Destroy(obj, 3f);
-            var rigid = obj.GetComponent<RagdollManager>().rigid;
+            
+            Destroy(obj, 5f);
+            var ragdollMgr = obj.GetComponent<RagdollManager>();
+            ragdollMgr.touchDownStats();
 
+            var rigid = ragdollMgr.rigid;
             Debug.Log(rigid.gameObject.name);
             var dir = obj.transform.position - player.transform.position;
 
             rigid.AddForce(dir.normalized * force * 6, ForceMode.Impulse);
-
         }
-    }
-    public void OnGenerateRagdoll()
-    {
-        
     }
 }

@@ -10,7 +10,12 @@ public class RagdollManager : MonoBehaviour
     public void SetStats(EnemyStats stats)
     {
         this.stats = stats;
-        transform.localScale *= stats.shapeSize;
+        transform.localScale = new Vector3(stats.shapeSize, stats.shapeSize, stats.shapeSize);
+    }
+
+    public void touchDownStats()
+    {
+        transform.localScale = new Vector3(stats.shapeSize, stats.shapeSize, stats.shapeSize);
     }
 
     public void ApplyForce(Vector3 vector)
