@@ -16,11 +16,13 @@ public class PlayerController : MonoBehaviour
     public GameObject levelUpEffect;
     public LevelUpText levelUptext;
     public Transform originTr;
+    public AudioClip GoVoice;
 
     private Rigidbody rigid;
     private Animator animator;
     private AudioSource audioSource;
     private GameObject[] ragdolls;
+    private SphereCollider sphereCol;
     private float slideSpeed;
     private float runAniSpeed = 0.25f;
     private float animaitorNomalize = 10f;
@@ -148,11 +150,26 @@ public class PlayerController : MonoBehaviour
     {
         if(!isDead)
         {
-            var collisable = other.GetComponents<ICollisable>();
-            var colliEnemy = other.GetComponent<EnemyController>();
-            foreach (var elem in collisable)
+            if(other.tag == "FixedEnemy")
             {
-                elem.onActionByCollision(gameObject);
+                var colliders = Physics.OverlapSphere(transform.position, 1.5f);
+                foreach(var collider in colliders)
+                {
+                    var collisable = collider.GetComponents<ICollisable>();
+                    
+                    foreach(var elem in collisable)
+                    {
+                        elem.onActionByCollision(gameObject);
+                    }
+                }
+            }
+            else
+            {
+                var collisable = other.GetComponents<ICollisable>();
+                foreach (var elem in collisable)
+                {
+                    elem.onActionByCollision(gameObject);
+                }
             }
         }
     }
@@ -233,6 +250,8 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("StartGame", true);
         animator.SetBool("Restart", false);
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
+        audioSource.PlayOneShot(GoVoice);
     }
 
     public void SetLevelUpEffect()

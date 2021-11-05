@@ -87,6 +87,10 @@ public class EnemyController : MonoBehaviour
         transform.localScale = new Vector3(stats.shapeSize, stats.shapeSize, stats.shapeSize);
         divingDistance = 10f + 2f * (stats.level - 1);
         animator.SetFloat("MoveX", 0.5f);
+        var action = GetComponent<ActionByCollision>();
+        var destroy = GetComponent<DestoryByCollision>();
+        action.Init();
+        destroy.Init();
     }
 
     public void Init(int level)
@@ -180,6 +184,7 @@ public class EnemyController : MonoBehaviour
     private IEnumerator CoReturnObj(float time)
     {
         yield return new WaitForSeconds(time);
+        GameManager.Instance.ReturnListObject(gameObject);
         ObjectPool.ReturnObject(PoolName.Enemy, gameObject);
     }
 }

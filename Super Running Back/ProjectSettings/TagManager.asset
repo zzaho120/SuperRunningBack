@@ -17,6 +17,7 @@ TagManager:
   - Fragment
   - FixedEnemys
   - Items
+  - Item
   layers:
   - Default
   - TransparentFX

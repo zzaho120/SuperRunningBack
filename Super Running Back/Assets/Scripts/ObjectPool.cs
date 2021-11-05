@@ -64,16 +64,19 @@ public class ObjectPool : MonoBehaviour
         {
             var obj = queue.Dequeue();
             obj.transform.SetParent(null);
-            obj.SetActive(true);
+            obj.SetActive(true); 
             return obj;
         }
         else
         {
+            if (poolName == PoolName.Enemy)
+                Debug.Log($"{poolName} {Instance.pool[poolName].Count}");
             var newGo = Instance.Create(Instance.prefabs[poolName]);
             newGo.gameObject.SetActive(true);
             newGo.transform.SetParent(null);
             return newGo;
         }
+          
     }
     
     public static void ReturnObject(PoolName poolName, GameObject obj)
@@ -81,5 +84,7 @@ public class ObjectPool : MonoBehaviour
         obj.SetActive(false);
         obj.transform.SetParent(Instance.transform);
         Instance.pool[poolName].Enqueue(obj);
+        if (poolName == PoolName.Item)
+            Debug.Log($"{poolName} {Instance.pool[poolName].Count}");
     }
 }

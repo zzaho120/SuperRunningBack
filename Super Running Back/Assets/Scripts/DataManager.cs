@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public static class DataManager
 {
     private static int maxChaperIndex = 5;
-    private static int maxStageIndex = 6;
+    public static int maxStageIndex = 6;
     private static int currentChapterIndex;
     public static int CurrentChapterIndex
     {

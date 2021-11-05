@@ -21,9 +21,9 @@ public class GameManager : MonoBehaviour
     public StartSetting startSetting;
 
     public List<PlayableDirector> touchdowns;
-    public EnemyController[] enemys;
-    public FixedEnemyController[] fixedEnemys;
-    public IncreaseStatsByCollision[] items;
+    public LinkedList<GameObject> enemys = new LinkedList<GameObject>();
+    public LinkedList<GameObject> fixedEnemys = new LinkedList<GameObject>();
+    public LinkedList<GameObject> items = new LinkedList<GameObject>();
     public YardText yardText;
 
     public GameState state;
@@ -57,10 +57,7 @@ public class GameManager : MonoBehaviour
         startSetting.Init();
         scoreManager.Init();
         yardText.Init();
-
-        enemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
-        fixedEnemys = GameObject.FindWithTag("FixedEnemys").GetComponentsInChildren<FixedEnemyController>();
-        items = GameObject.FindWithTag("Items").GetComponentsInChildren<IncreaseStatsByCollision>();
+        ListInit();
 
         var level = player.stats.currentLevel.level;
         mainCamera.SetPlayerLevel(level);
@@ -83,6 +80,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ListInit()
+    {
+        var tempEnemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
+        foreach (var enemy in tempEnemys)
+        {
+            enemys.AddLast(enemy.gameObject);
+        }
+        var tempFixedEnemys = GameObject.FindWithTag("FixedEnemys").GetComponentsInChildren<FixedEnemyController>();
+        foreach (var fixedEnemy in tempFixedEnemys)
+        {
+            fixedEnemys.AddLast(fixedEnemy.gameObject);
+        }
+        var tempItems = GameObject.FindWithTag("Items").GetComponentsInChildren<IncreaseStatsByCollision>();
+        foreach (var item in tempItems)
+        {
+            items.AddLast(item.gameObject);
+        }
+    }
+
     public void Finish()
     {
         var ui = UI.GetUI(UIs.Game) as GameUIContorller;
@@ -93,18 +109,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(touchdownPosition[idx].transform.GetChild(0).gameObject);
         }
-        foreach (var enemy in enemys)
-        {
-            ObjectPool.ReturnObject(PoolName.Enemy, enemy.gameObject);
-        }
-        foreach (var fixedEnemy in fixedEnemys)
-        {
-            ObjectPool.ReturnObject(PoolName.FixedEnemy, fixedEnemy.gameObject);
-        }
-        foreach (var item in items)
-        {
-            ObjectPool.ReturnObject(PoolName.Item, item.gameObject);
-        }
+        ReturnListAllObject();
     }
 
     public void PlayerDieMsg()
@@ -146,11 +151,10 @@ public class GameManager : MonoBehaviour
         player.GameStart();
         
         gameStartTime = Time.time;
-
-        Debug.Log(enemys.Length);
         foreach (var elem in enemys)
         {
-            elem.GameStart();
+            var enemy = elem.GetComponent<EnemyController>();
+            enemy.GameStart();
         }
     }
 
@@ -207,18 +211,6 @@ public class GameManager : MonoBehaviour
             touchdown.gameObject.SetActive(false);
         }
 
-        foreach (var enemy in enemys)
-        {
-            ObjectPool.ReturnObject(PoolName.Enemy, enemy.gameObject);
-        }
-        foreach (var fixedEnemy in fixedEnemys)
-        {
-            ObjectPool.ReturnObject(PoolName.FixedEnemy, fixedEnemy.gameObject);
-        }
-        foreach (var item in items)
-        {
-            ObjectPool.ReturnObject(PoolName.Item, item.gameObject);
-        }
 
         Init();
     }
@@ -243,7 +235,8 @@ public class GameManager : MonoBehaviour
 
         player.enabled = true;
 
-        
+        ReturnListAllObject();
+
         Init();
     }
 
@@ -258,6 +251,7 @@ public class GameManager : MonoBehaviour
         if(!isTouchdown)
         {
             isTouchdown = true;
+            ReturnListAllObject();
 
             UI.Close();
             cinemachineBrain.enabled = true;
@@ -291,7 +285,7 @@ public class GameManager : MonoBehaviour
         sound.Play();
         InplayPrintScore();
     }
-    
+  
     private void PlayTouchdownByScore(int score)
     {
         PlayableDirector touchdown;
@@ -309,5 +303,40 @@ public class GameManager : MonoBehaviour
         }
         touchdown.gameObject.SetActive(true);
         touchdown.Play();
+    }
+
+    private void ReturnListAllObject()
+    {
+        foreach (var enemy in enemys)
+        {
+            ObjectPool.ReturnObject(PoolName.Enemy, enemy.gameObject);
+        }
+        foreach (var fixedEnemy in fixedEnemys)
+        {
+            ObjectPool.ReturnObject(PoolName.FixedEnemy, fixedEnemy.gameObject);
+        }
+        foreach (var item in items)
+        {
+            ObjectPool.ReturnObject(PoolName.Item, item.gameObject);
+        }
+        enemys.Clear();
+        fixedEnemys.Clear();
+        items.Clear();
+    }
+
+    public void ReturnListObject(GameObject obj)
+    {
+        switch (obj.tag)
+        {
+            case "Enemy":
+                enemys.Remove(enemys.Find(obj));
+                break;
+            case "FixedEnemy":
+                fixedEnemys.Remove(fixedEnemys.Find(obj));
+                break;
+            case "Item":
+                items.Remove(items.Find(obj));
+                break;
+        }
     }
 }

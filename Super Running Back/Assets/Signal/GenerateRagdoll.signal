@@ -9,13 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5483dea973beab4c90bfd85bb24cc8b, type: 3}
-  m_Name: PlayerLevel1
+  m_Script: {fileID: 11500000, guid: d6fa2d92fc1b3f34da284357edf89c3b, type: 3}
+  m_Name: GenerateRagdoll
   m_EditorClassIdentifier: 
-  level: 1
-  moveSpeed: 10
-  shapeSize: 1.4
-  armSize: 1
-  ragdollCount: 2
-  itemCount: 0
-  power: 20

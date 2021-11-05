@@ -52,7 +52,7 @@ public class AreaManager : MonoBehaviour
                 isGenerateFixedEnemy = false;
             }
 
-            Debug.Log($"name : {gameObject.name}, part : {idx}, totalCost : {generateCost}, difficulty : {difficulty}");
+            //Debug.Log($"name : {gameObject.name}, part : {idx}, totalCost : {generateCost}, difficulty : {difficulty}");
         }
     }
 
@@ -99,8 +99,6 @@ public class AreaManager : MonoBehaviour
 
     private void GenerateItem(GameObject part)
     {
-        
-
         for(int i = 0; i < 3; i++)
         {
             var newGo = ObjectPool.GetObject(PoolName.Item);
@@ -119,7 +117,6 @@ public class AreaManager : MonoBehaviour
 
         var rangeX = rangeCollider.bounds.size.x;
         var rangeZ = rangeCollider.bounds.size.z;
-
 
         var stageInfo = randomGenerateStage.currentStageInfo;
         var maxEnemyCnt = stageInfo.fixedEnemyNumCnt;
