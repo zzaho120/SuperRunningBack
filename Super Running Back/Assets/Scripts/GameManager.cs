@@ -293,11 +293,11 @@ public class GameManager : MonoBehaviour
         PlayableDirector touchdown;
         if(score < 20000)
         {
-            touchdown = touchdowns[(int)Touchdown.Strong];
+            touchdown = touchdowns[(int)Touchdown.Weak];
         }
         else if(score < 25000)
         {
-            touchdown = touchdowns[(int)Touchdown.Strong];
+            touchdown = touchdowns[(int)Touchdown.Middle];
         }
         else
         {

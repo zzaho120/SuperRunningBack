@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 originTouchPos;
     private Vector2 touchPos;
     private float aniValue;
-    private float maxMoveDistance = 30f;
 
     public ParticleSystem levelUpParticle;
 
@@ -84,16 +83,6 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if(transform.localPosition.x < -maxMoveDistance)
-        {
-            transform.localPosition = new Vector3(-maxMoveDistance + 0.00001f, transform.localPosition.y, transform.localPosition.z);
-            slideSpeed = 0;
-        }
-        else if (transform.localPosition.x > maxMoveDistance)
-        {
-            transform.localPosition = new Vector3(maxMoveDistance - 0.00001f, transform.localPosition.y, transform.localPosition.z);
-            slideSpeed = 0;
-        }
 
         rigid.velocity = new Vector3(slideSpeed * speed, rigid.velocity.y, stats.currentLevel.moveSpeed * decreaseSpeed);
     }
@@ -160,11 +149,6 @@ public class PlayerController : MonoBehaviour
                 onDieEvent.Invoke();
             }
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        slideSpeed = 0;
     }
 
     public void AnimationSpeedUp()

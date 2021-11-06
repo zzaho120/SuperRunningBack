@@ -126,7 +126,7 @@ public class EnemyController : MonoBehaviour
 
     private void IdleUpdate()
     {
-        if (Camera.main.WorldToViewportPoint(transform.position).y < 1.0f)
+        if (Camera.main.WorldToViewportPoint(transform.position).y < 0.95f)
             State = STATE.MOVE;
     }
     private void MoveUpdate()

@@ -1001,6 +1001,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.952671, y: 6.1181154, z: 5.1493344}
   m_Center: {x: -0.13094223, y: 3.0589333, z: -0.028357744}
+--- !u!1 &337764988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3408968986776365041, guid: 2db883c091fbceb4abab15a013807a5a, type: 3}
+  m_PrefabInstance: {fileID: 1597660959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &337764991
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337764988}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.95, y: 2.9, z: 0.9603871}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &339535027 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 339535027, guid: 2db883c091fbceb4abab15a013807a5a, type: 3}
@@ -8589,7 +8607,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Background
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6634738182436331421, guid: 2db883c091fbceb4abab15a013807a5a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2db883c091fbceb4abab15a013807a5a, type: 3}
 --- !u!114 &1597660960 stripped
 MonoBehaviour:
@@ -8852,7 +8871,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1623173746}
-  m_LocalRotation: {x: -0.000023169516, y: 0.9999768, z: -0.0049624187, w: -0.0046688886}
+  m_LocalRotation: {x: -0.000023169778, y: 0.9999768, z: -0.0049624387, w: -0.004668923}
   m_LocalPosition: {x: 1.8276393, y: 1.9426286, z: 175.71579}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
