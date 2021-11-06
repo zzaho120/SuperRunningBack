@@ -56,27 +56,5 @@ public class GameoverUIController : UIController
 
             yield return null;
         }
-
-        StartCoroutine(CoAlphaHand());
-    }
-
-    private IEnumerator CoAlphaHand()
-    {
-        var alpha = 1f;
-        var time = Time.time * 2f;
-        while(time + 3f > Time.time)
-        {
-            if (!isAlphaValue)
-                alpha -= Time.deltaTime;
-            else
-                alpha += Time.deltaTime;
-
-            if (alpha >= 1.0f || alpha <= 0f)
-                isAlphaValue = !isAlphaValue;
-
-            images[4].color = new Color(images[4].color.r, images[4].color.g, images[4].color.b, alpha);
-
-            yield return null;
-       }
     }
 }

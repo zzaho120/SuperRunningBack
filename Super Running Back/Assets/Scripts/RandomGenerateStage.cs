@@ -19,7 +19,7 @@ public class RandomGenerateStage : MonoBehaviour
 
     public void Generate() 
     {
-        currentStageInfo = stageInfos[DataManager.CurrentStageIndex];
+        currentStageInfo = stageInfos[DataManager.CurrentStageIdx];
         currentStageInfo.Init();
         // 해당 스테이지의 칸 레벨을 섞는다.
         currentStageInfo.RandomSortLevelArray();

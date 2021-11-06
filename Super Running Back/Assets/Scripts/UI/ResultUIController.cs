@@ -49,7 +49,7 @@ public class ResultUIController : UIController
 
         texts[4].text = $"Item : {scoreManager.itemNumber}";
 
-        texts[5].text = $"Hold Enemy : {scoreManager.holdEnemyNumber}";
+        texts[5].text = $"Hold Enemy : {scoreManager.holdEnemyWeight}";
 
         texts[6].text = $"Kick Enemy : {scoreManager.kickEnemyNumber}";
         

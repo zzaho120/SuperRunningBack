@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Elemantary League 100yd
   m_EditorClassIdentifier: 
   yard: 100
-  fixedEnemyLevel: 2
+  fixedEnemyLevel: 3
   fixedEnemyNumCnt: 12
-  fixedEnemyAreaCnt: 7
+  fixedEnemyAreaCnt: 2
   itemAreaCnt: 6
-  stageLevelArray: 0200000002000000020000000300000002000000010000000300000002000000020000000100000001000000
+  stageLevelArray: 0100000001000000010000000200000001000000010000000100000001000000010000000200000001000000

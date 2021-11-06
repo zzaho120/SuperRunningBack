@@ -10,7 +10,7 @@ public class StageUIController : UIController
     public override void Open()
     {
         base.Open();
-        currentStageBar.value = DataManager.CurrentStageIndex / (float)(DataManager.maxStageIndex - 1);
-        currentStageText.text = ((SceneName)DataManager.CurrentChapterIndex).ToString() + " Leauge";
+        currentStageBar.value = DataManager.CurrentStageIdx / (float)(DataManager.maxStageIdx - 1);
+        currentStageText.text = ((SceneName)DataManager.CurrentChapterIdx).ToString() + " Leauge";
     }
 }

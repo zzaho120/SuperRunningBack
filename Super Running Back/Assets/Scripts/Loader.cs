@@ -7,6 +7,11 @@ public static class Loader
 {
     public static void Load(int scene)
     {
-        SceneManager.LoadScene(scene);
+        if(DataManager.maxChaperIdx > scene)
+            SceneManager.LoadScene(scene);
+        else
+        {
+            SceneManager.LoadScene(DataManager.CurrentChapterIdx);
+        }
     }
 }

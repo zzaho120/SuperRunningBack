@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: High League 90yd
   m_EditorClassIdentifier: 
   yard: 90
-  fixedEnemyLevel: 4
+  fixedEnemyLevel: 5
   fixedEnemyNumCnt: 12
-  fixedEnemyAreaCnt: 6
+  fixedEnemyAreaCnt: 1
   itemAreaCnt: 8
-  stageLevelArray: 02000000020000000500000001000000050000000300000002000000010000000300000002000000
+  stageLevelArray: 01000000010000000400000001000000040000000200000001000000010000000200000001000000

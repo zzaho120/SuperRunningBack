@@ -72,7 +72,7 @@ public class ActionByCollision : MonoBehaviour, ICollisable
                 playerStat.currentWeight += enemyStats.weight;
 
                 player.SetActiveRagdoll(enemyStats);
-                scoreManager.AddHoldEnemyNumber();
+                scoreManager.AddHoldEnemyWeight(enemyStats.weight);
             }
 
             var effect = effectObj.GetComponent<ParticleSystem>();

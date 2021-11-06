@@ -6,7 +6,7 @@ public class ScoreManager : MonoBehaviour
 {
     public int finishTime;
     public int itemNumber;
-    public int holdEnemyNumber;
+    public int holdEnemyWeight;
     public int kickEnemyNumber;
     public int playerLevel;
     public int totalScore;
@@ -22,7 +22,7 @@ public class ScoreManager : MonoBehaviour
     {
         finishTime = 0;
         itemNumber = 0;
-        holdEnemyNumber = 0;
+        holdEnemyWeight = 0;
         kickEnemyNumber = 0;
         playerLevel = 0;
         totalScore = 0;
@@ -84,10 +84,10 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public void AddHoldEnemyNumber()
+    public void AddHoldEnemyWeight(int weight)
     {
-        holdEnemyNumber++;
-        totalScore += holdScore;
+        holdEnemyWeight += weight;
+        totalScore += (holdScore * weight);
     }
 
     public void AddKickEnemyNumber()
@@ -134,7 +134,7 @@ public class ScoreManager : MonoBehaviour
 
     private int GetHoldEnemyScore()
     {
-        return holdEnemyNumber * holdScore;
+        return holdEnemyWeight * holdScore;
     }
 
     private int GetKickEnemyScore()

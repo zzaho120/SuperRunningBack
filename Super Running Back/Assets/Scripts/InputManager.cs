@@ -10,7 +10,6 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         horizontalMove();
-        keyboardMove();
     }
 
     private void horizontalMove()

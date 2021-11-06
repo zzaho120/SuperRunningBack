@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: High League 100yd
   m_EditorClassIdentifier: 
   yard: 100
-  fixedEnemyLevel: 4
+  fixedEnemyLevel: 5
   fixedEnemyNumCnt: 12
-  fixedEnemyAreaCnt: 7
+  fixedEnemyAreaCnt: 2
   itemAreaCnt: 9
-  stageLevelArray: 0300000004000000030000000300000002000000040000000100000003000000050000000500000002000000
+  stageLevelArray: 0200000003000000020000000200000002000000030000000100000002000000040000000400000001000000

@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        DataManager.LoadData();
+        DataManager.LoadScene();
         Init();
     }
 
@@ -146,7 +148,7 @@ public class GameManager : MonoBehaviour
 
         startGameTimeLine.gameObject.SetActive(false);
         cinemachineBrain.enabled = false;
-        
+
         inputManager.enabled = true;
         
         player.GameStart();
@@ -194,9 +196,9 @@ public class GameManager : MonoBehaviour
     public void NextStage()
     {
         DataManager.SaveCareer(scoreManager.finishTime, scoreManager.itemNumber,
-            scoreManager.holdEnemyNumber, scoreManager.kickEnemyNumber, scoreManager.totalScore);
-
+            scoreManager.holdEnemyWeight, scoreManager.kickEnemyNumber, scoreManager.totalScore);
         DataManager.NextStage();
+
         for (int idx = 0; idx < touchdownPosition.Length; idx++)
         {
             Instantiate(touchdownPrefab[idx], touchdownPosition[idx].transform);
@@ -212,14 +214,13 @@ public class GameManager : MonoBehaviour
             touchdown.gameObject.SetActive(false);
         }
 
-
         Init();
     }
 
     public void NextChapter()
     {
         DataManager.SaveCareer(scoreManager.finishTime, scoreManager.itemNumber,
-            scoreManager.holdEnemyNumber, scoreManager.kickEnemyNumber, scoreManager.totalScore);
+            scoreManager.holdEnemyWeight, scoreManager.kickEnemyNumber, scoreManager.totalScore);
 
         DataManager.NextStage();
         var scene = SceneManager.GetActiveScene().buildIndex;
@@ -290,13 +291,13 @@ public class GameManager : MonoBehaviour
     private void PlayTouchdownByScore(int score)
     {
         PlayableDirector touchdown;
-        if(score < 15000)
+        if(score < 20000)
         {
-            touchdown = touchdowns[(int)Touchdown.Weak];
+            touchdown = touchdowns[(int)Touchdown.Strong];
         }
-        else if(score < 20000)
+        else if(score < 25000)
         {
-            touchdown = touchdowns[(int)Touchdown.Middle];
+            touchdown = touchdowns[(int)Touchdown.Strong];
         }
         else
         {

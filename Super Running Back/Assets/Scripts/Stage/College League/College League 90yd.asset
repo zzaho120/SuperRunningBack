@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: College League 90yd
   m_EditorClassIdentifier: 
   yard: 90
-  fixedEnemyLevel: 5
+  fixedEnemyLevel: 6
   fixedEnemyNumCnt: 12
-  fixedEnemyAreaCnt: 6
+  fixedEnemyAreaCnt: 1
   itemAreaCnt: 9
-  stageLevelArray: 03000000050000000200000003000000040000000200000002000000050000000200000002000000
+  stageLevelArray: 02000000040000000100000002000000030000000100000001000000040000000100000001000000

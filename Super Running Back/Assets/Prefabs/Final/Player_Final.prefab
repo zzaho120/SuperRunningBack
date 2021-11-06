@@ -1151,11 +1151,10 @@ MonoBehaviour:
   armsShape:
   - {fileID: 5595521848454478750}
   - {fileID: 3793806725629798037}
-  dumbbellUI: {fileID: 0}
-  levelUpEffect: {fileID: 7823327091382468809, guid: 4db5232588c647f44aa9d7862a0c47d3, type: 3}
   levelUptext: {fileID: 1303337820}
   originTr: {fileID: 1962657236}
   GoVoice: {fileID: 8300000, guid: 11c45ef6a5f74d74784c732d07266af9, type: 3}
+  ragdolls: {fileID: 7878176833529512273}
   minDecreaseSpeed: 0.75
   levelUpParticle: {fileID: 832935080117750494}
 --- !u!82 &708669914

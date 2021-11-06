@@ -15,6 +15,6 @@ MonoBehaviour:
   yard: 60
   fixedEnemyLevel: 3
   fixedEnemyNumCnt: 12
-  fixedEnemyAreaCnt: 3
+  fixedEnemyAreaCnt: 4
   itemAreaCnt: 5
-  stageLevelArray: 01000000020000000300000004000000010000000300000002000000
+  stageLevelArray: 01000000010000000200000003000000010000000200000001000000

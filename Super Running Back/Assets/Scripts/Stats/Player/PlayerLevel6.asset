@@ -18,4 +18,4 @@ MonoBehaviour:
   armSize: 0.5
   ragdollCount: 11
   itemCount: 21
-  power: 100
+  power: 120

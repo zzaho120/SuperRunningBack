@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Middle League 100yd
   m_EditorClassIdentifier: 
   yard: 100
-  fixedEnemyLevel: 3
+  fixedEnemyLevel: 4
   fixedEnemyNumCnt: 12
-  fixedEnemyAreaCnt: 7
+  fixedEnemyAreaCnt: 2
   itemAreaCnt: 7
-  stageLevelArray: 0100000003000000040000000400000001000000020000000100000003000000010000000400000002000000
+  stageLevelArray: 0100000002000000030000000300000001000000010000000100000002000000010000000300000002000000

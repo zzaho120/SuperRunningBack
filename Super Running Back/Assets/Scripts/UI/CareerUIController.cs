@@ -35,9 +35,6 @@ public class CareerUIController : UIController
         texts[3].text = $"Hold Enemy : {totalHoldEnemy}";
         texts[4].text = $"Kick Enemy : {totalKickEnemy}";
         texts[5].text = $"Total Score : {totalScore}";
-
-        currentStageBar.value = DataManager.CurrentStageIndex / (float)(DataManager.maxStageIndex - 1);
-        currentStageText.text = ((SceneName)DataManager.CurrentChapterIndex).ToString() + " Leauge";
     }
 
     public override void Close()

@@ -12,30 +12,30 @@ public class PlayerController : MonoBehaviour
     public List<Transform> variableTwoShape;
     public List<Transform> variableThreeShape;
     public List<Transform> armsShape;
-    public Transform dumbbellUI;
-    public GameObject levelUpEffect;
     public LevelUpText levelUptext;
     public Transform originTr;
     public AudioClip GoVoice;
+    public GameObject ragdolls;
+    public float minDecreaseSpeed;
 
     private Rigidbody rigid;
     private Animator animator;
     private AudioSource audioSource;
-    private GameObject[] ragdolls;
-    private SphereCollider sphereCol;
+    private GameObject[] ragdollObjs;
     private float slideSpeed;
-    private float runAniSpeed = 0.25f;
+    private float runAniSpeed = 0.17f;
     private float animaitorNomalize = 10f;
 
     private int ragdollIndex;
     private float decreaseSpeed = 1f;
-    public float minDecreaseSpeed;
     private bool isPlaying;
     private bool isDead;
 
-    private Vector3 touchPos;
-    private Vector3 touchViewPos;
+    private bool isFirstTouch;
+    private Vector2 originTouchPos;
+    private Vector2 touchPos;
     private float aniValue;
+    private float maxMoveDistance = 30f;
 
     public ParticleSystem levelUpParticle;
 
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        ragdolls = GameObject.FindGameObjectsWithTag("EnemyRagdoll");
+        ragdollObjs = GameObject.FindGameObjectsWithTag("EnemyRagdoll");
     }
 
 
@@ -52,7 +52,11 @@ public class PlayerController : MonoBehaviour
     {
         isDead = false;
         isPlaying = false;
-        rigid.velocity = Vector3.zero;
+        isFirstTouch = false;
+        slideSpeed = 0;
+        rigid.velocity = Vector3.zero; 
+        originTouchPos = Vector2.zero;
+        touchPos = Vector2.zero;
         animator.SetBool("Restart", true);
         animator.SetBool("StartGame", false);
         animator.SetBool("Dead", false);
@@ -60,9 +64,9 @@ public class PlayerController : MonoBehaviour
         transform.localPosition = originTr.localPosition;
         transform.rotation = originTr.rotation;
         animator.applyRootMotion = false;
-        animator.SetFloat("MoveX", 0.5f);
         ragdollIndex = 0;
-        foreach (var elem in ragdolls)
+        ragdolls.SetActive(true);
+        foreach (var elem in ragdollObjs)
         {
             elem.SetActive(false);
         }
@@ -78,73 +82,50 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        CheckPlayerDie();
-    }
-
     private void Move()
     {
-        rigid.velocity = new Vector3(slideSpeed, rigid.velocity.y, stats.currentLevel.moveSpeed * decreaseSpeed);
+        if(transform.localPosition.x < -maxMoveDistance)
+        {
+            transform.localPosition = new Vector3(-maxMoveDistance + 0.00001f, transform.localPosition.y, transform.localPosition.z);
+            slideSpeed = 0;
+        }
+        else if (transform.localPosition.x > maxMoveDistance)
+        {
+            transform.localPosition = new Vector3(maxMoveDistance - 0.00001f, transform.localPosition.y, transform.localPosition.z);
+            slideSpeed = 0;
+        }
+
+        rigid.velocity = new Vector3(slideSpeed * speed, rigid.velocity.y, stats.currentLevel.moveSpeed * decreaseSpeed);
     }
 
-    public void horizontalMove(float h)
-    {
-        slideSpeed = speed * h;
-
-        if (slideSpeed != 0)
-            decreaseSpeed = minDecreaseSpeed;
-        else
-            decreaseSpeed = 1f;
-
-        aniValue = h + 1.0f;
-        aniValue *= 0.5f;
-        animator.SetFloat("MoveX", (float)Math.Round((double)aniValue, 1));
-    }
     public void horizontalMove(Touch touch)
     {
         switch (touch.phase)
         {
             case TouchPhase.Began:
+                isFirstTouch = true;
+                originTouchPos = Camera.main.ScreenToViewportPoint(touch.position);
+                break;
             case TouchPhase.Moved:
             case TouchPhase.Stationary:
-                touchPos = touch.position;
-                touchViewPos = Camera.main.ScreenToViewportPoint(touchPos);
-
-                if (touchViewPos.x < 0.3f)
+                if(!isFirstTouch)
                 {
-                    SetMoveValue(-speed, -Time.deltaTime, minDecreaseSpeed);
+                    isFirstTouch = true;
+                    originTouchPos = Camera.main.ScreenToViewportPoint(touch.position);
                 }
-                else if(touchViewPos.x > 0.7f)
-                {
-                    SetMoveValue(speed, Time.deltaTime, minDecreaseSpeed);
-                }
-                else
-                {
-                    SetMoveValue(0, 0.5f, 1f, true);
-                }
+                touchPos = Camera.main.ScreenToViewportPoint(touch.position);
+                var dir = touchPos - originTouchPos;
+                slideSpeed = dir.x / 0.3f;
                 break;
             case TouchPhase.Ended:
             case TouchPhase.Canceled:
-                SetMoveValue(0, 0.5f, 1f, true);
+                isFirstTouch = false;
+                originTouchPos = Vector2.zero;
+                touchPos = Vector2.zero;
+                slideSpeed = 0;
                 break;
         }
-        animator.SetFloat("MoveX", (float)Math.Round((double)aniValue, 1));
-    }
-
-    private void SetMoveValue(float slide, float ani, float decrease, bool isCenter = false)
-    {
-        if (isCenter)
-        {
-            aniValue = ani;
-        }
-        else 
-        {
-            aniValue += ani;
-            aniValue = Mathf.Clamp(aniValue, -1f, 1f);
-        }
-        slideSpeed = slide;
-        decreaseSpeed = decrease;
+        AnimationSpeedUp();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -172,36 +153,24 @@ public class PlayerController : MonoBehaviour
                     elem.onActionByCollision(gameObject);
                 }
             }
+
+            if (stats.currentWeight >= stats.currentLevel.power)
+            {
+                isDead = true;
+                onDieEvent.Invoke();
+            }
         }
     }
 
-    private void CheckPlayerDie()
+    private void OnCollisionEnter(Collision collision)
     {
-        // 충돌 시에 해볼 것 나중에 수정
-        if (stats.currentWeight >= stats.currentLevel.power)
-        {
-            isDead = true;
-            onDieEvent.Invoke();
-        }
+        slideSpeed = 0;
     }
 
     public void AnimationSpeedUp()
     {
+        animator.SetFloat("MoveX", (float)Math.Round((double)slideSpeed, 1));
         animator.SetFloat("Speed", runAniSpeed * (stats.currentLevel.level - 1));
-    }
-
-    private float SetAnimationValue(float value)
-    {
-        float result = 0f;
-
-        value += animaitorNomalize;
-        value = Mathf.Clamp(value, 0f, animaitorNomalize * 2);
-        if (value != 0f)
-            result = value / (animaitorNomalize * 2f);
-        else
-            result = 0f;
-
-        return result;
     }
 
     public void SetActiveRagdoll(EnemyStats stats)
@@ -210,8 +179,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"{ragdollIndex}, {maxCnt}");
         for (; ragdollIndex < maxCnt; ragdollIndex++)
         {
-            ragdolls[ragdollIndex].SetActive(true);
-            ragdolls[ragdollIndex].GetComponent<RagdollManager>().SetStats(stats);
+            ragdollObjs[ragdollIndex].SetActive(true);
+            ragdollObjs[ragdollIndex].GetComponent<RagdollManager>().SetStats(stats);
         }
     }
 
@@ -232,11 +201,6 @@ public class PlayerController : MonoBehaviour
         {
             armShape.localScale = new Vector3(armShape.localScale.x, stats.currentLevel.armSize, armShape.localScale.z);
         }
-    }
-
-    private void DumbbellUIPosSetting()
-    {
-        dumbbellUI.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0f, -1f - 0.4f * stats.currentLevel.level, 0f));
     }
 
     public void PlayerDead()
@@ -262,6 +226,7 @@ public class PlayerController : MonoBehaviour
         var level = stats.currentLevel.level - 2;
         levelUpParticle.transform.localScale = scale * 0.5f + new Vector3(0.1f, 0.1f, 0.1f) * level;
 
+        levelUpParticle.Play();
         levelUptext.ShowLevelUp();
         audioSource.Play();
     }

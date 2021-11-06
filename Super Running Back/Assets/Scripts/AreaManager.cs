@@ -23,7 +23,7 @@ public class AreaManager : MonoBehaviour
     public void Generate()
     {
         var emptyOrItemPart = Random.Range(0, parts.Count);
-        var fixedEnemyIdx = Random.Range(0, parts.Count);
+        var fixedEnemyIdx = Random.Range(1, parts.Count);
         randomGenerateStage = GameObject.FindWithTag("GameManager").GetComponent<RandomGenerateStage>();
 
         for (int idx = 0; idx < parts.Count; idx++)
