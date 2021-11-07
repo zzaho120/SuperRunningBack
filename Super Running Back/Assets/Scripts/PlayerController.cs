@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private bool isFirstTouch;
     private Vector2 originTouchPos;
     private Vector2 touchPos;
+    private float maxMoveDistance = 31f;
     private float aniValue;
 
     public ParticleSystem levelUpParticle;
@@ -83,12 +84,12 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-
         rigid.velocity = new Vector3(slideSpeed * speed, rigid.velocity.y, stats.currentLevel.moveSpeed * decreaseSpeed);
     }
 
     public void horizontalMove(Touch touch)
     {
+        Vector2 dir = Vector2.zero;
         switch (touch.phase)
         {
             case TouchPhase.Began:
@@ -103,7 +104,7 @@ public class PlayerController : MonoBehaviour
                     originTouchPos = Camera.main.ScreenToViewportPoint(touch.position);
                 }
                 touchPos = Camera.main.ScreenToViewportPoint(touch.position);
-                var dir = touchPos - originTouchPos;
+                dir = touchPos - originTouchPos;
                 slideSpeed = dir.x / 0.3f;
                 break;
             case TouchPhase.Ended:
@@ -115,6 +116,11 @@ public class PlayerController : MonoBehaviour
                 break;
         }
         AnimationSpeedUp();
+
+        var leftMoveLimit = dir.x < 0f && transform.position.x < -maxMoveDistance;
+        var rightMoveLimit = dir.x > 0f && transform.position.x > maxMoveDistance;
+        if (leftMoveLimit || rightMoveLimit)
+            slideSpeed = 0;
     }
 
     private void OnTriggerEnter(Collider other)

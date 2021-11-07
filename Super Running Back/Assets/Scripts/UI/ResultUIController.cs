@@ -9,9 +9,11 @@ public class ResultUIController : UIController
     public List<AudioClip> resultSounds;
     public AudioClip scoreSound;
 
+    public GameObject stageButton;
     public Image stageImage;
     public Text stageText;
 
+    public GameObject chapterButton;
     public Image chapterImage;
     public Text chapterText;
 
@@ -72,7 +74,7 @@ public class ResultUIController : UIController
         var audio = GetComponent<AudioSource>();
         audio.clip = scoreSound;
 
-        for (int idx = 2; idx < texts.Length - 1; idx++, scoreListIdx++)
+        for (int idx = 2; idx < texts.Length; idx++, scoreListIdx++)
         {
             audio.PlayOneShot(resultSounds[0]);
 
@@ -112,13 +114,13 @@ public class ResultUIController : UIController
 
         if(DataManager.IsMaxStage)
         {
-            chapterImage.gameObject.SetActive(true);
-            stageImage.gameObject.SetActive(false);
+            stageButton.SetActive(false);
+            chapterButton.SetActive(true);
         }
         else
         {
-            stageText.color = new Color(stageText.color.r, stageText.color.g, stageText.color.b, 1f);
-            stageImage.color = new Color(stageImage.color.r, stageImage.color.g, stageImage.color.b, 1f);
+            stageButton.SetActive(true);
+            chapterButton.SetActive(false);
         }
     }
 }

@@ -10,14 +10,14 @@ EditorBuildSettings:
     guid: aaab78907eb6c374f8a408dcfacf8875
   - enabled: 1
     path: Assets/Scenes/Middle League.unity
-    guid: 3486c1dc9b39e7645a629a8333aeb370
+    guid: 0e5dba8df24250c4bbfda65bfb098e52
   - enabled: 1
     path: Assets/Scenes/High League.unity
-    guid: 65c5b586f79d087438921e484235f765
+    guid: 8ea3860c63dfb664185bf679e37f5114
   - enabled: 1
     path: Assets/Scenes/College League.unity
-    guid: dd75afc0e39ecaa4983e23f6f7c7399d
+    guid: 726056511edaa9940859494a4f5af300
   - enabled: 1
     path: Assets/Scenes/Pro League.unity
-    guid: 2e983a3b297387541a2f0e6462ee1e97
+    guid: 7ff9cffe35eac1c4398c73b1d30bbb0f
   m_configObjects: {}
