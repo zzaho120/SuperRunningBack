@@ -23,8 +23,6 @@ public class GameoverUIController : UIController
         {
             elem.color = new Color(elem.color.r, elem.color.g, elem.color.b, 0f);
         }
-        
-
         StartCoroutine(CoAlphaUI());
     }
 

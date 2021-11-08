@@ -15,16 +15,11 @@ public class AreaManager : MonoBehaviour
     private int generateCnt;
     private int generateCost;
 
-    private void Start()
-    {
-        randomGenerateStage = GameManager.Instance.randomGenerateStage;
-    }
-
     public void Generate()
     {
         var emptyOrItemPart = Random.Range(0, parts.Count);
         var fixedEnemyIdx = Random.Range(1, parts.Count);
-        randomGenerateStage = GameObject.FindWithTag("GameManager").GetComponent<RandomGenerateStage>();
+        randomGenerateStage = GameManager.Instance.randomGenerateStage;
 
         for (int idx = 0; idx < parts.Count; idx++)
         {

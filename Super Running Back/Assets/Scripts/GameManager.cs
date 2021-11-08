@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     public GameState state;
     public int playTime;
+    public bool isAdEnd;
 
     private float gameStartTime;
     private bool isTutorial = true;
@@ -48,18 +49,27 @@ public class GameManager : MonoBehaviour
     {
         DataManager.LoadData();
         DataManager.LoadScene();
+        AdManager.AdInit();
         Init();
     }
 
     private void Init()
     {
+        state = GameState.MainMenu;
+        UI.Open(UIs.MainMenu);
+
+        ReturnListAllObject();
         randomGenerateStage.Generate();
         player.Init();
-        startSetting.GameStartInit(randomGenerateStage.currentStageInfo.yard);
+        startSetting.GameStartInit();
         startSetting.Init();
         scoreManager.Init();
         yardText.Init();
         ListInit();
+
+        player.enabled = true;
+        startGameTimeLine.gameObject.SetActive(true);
+        cinemachineBrain.enabled = true;
 
         var level = player.stats.currentLevel.level;
         mainCamera.SetPlayerLevel(level);
@@ -75,6 +85,14 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Gameover:
             case GameState.Result:
+                if (isAdEnd)
+                {
+                    isAdEnd = false;
+                    if (DataManager.IsMaxStage)
+                        GameManager.Instance.NextChapter();
+                    else
+                        GameManager.Instance.NextStage();
+                }
                 break;
             case GameState.Game:
                 GameUpdate();
@@ -108,10 +126,6 @@ public class GameManager : MonoBehaviour
         ui.StopIncreasceScore();
         UI.Open(UIs.Result);
 
-        for(int idx = 0; idx < touchdownPosition.Length; idx++)
-        {
-            Destroy(touchdownPosition[idx].transform.GetChild(0).gameObject);
-        }
         ReturnListAllObject();
     }
 
@@ -121,6 +135,7 @@ public class GameManager : MonoBehaviour
         ui.StopIncreasceScore();
 
         UI.Open(UIs.Gameover);
+        state = GameState.Gameover;
         player.PlayerDead();
         player.enabled = false;
         inputManager.enabled = false;
@@ -174,25 +189,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void BackToMainMenu()
-    {
-        UI.Open(UIs.MainMenu);
-    }
-
-    public void OpenStageUI()
-    {
-        UI.Open(UIs.Stage);
-    }
-
-    public void OpenOptionUI()
-    {
-        UI.Open(UIs.Option);
-    }
-    public void OpenCareerUI()
-    {
-        UI.Open(UIs.Career);
-    }
-
     public void NextStage()
     {
         DataManager.SaveCareer(scoreManager.finishTime, scoreManager.itemNumber,
@@ -201,14 +197,14 @@ public class GameManager : MonoBehaviour
 
         for (int idx = 0; idx < touchdownPosition.Length; idx++)
         {
+            Destroy(touchdownPosition[idx].transform.GetChild(0).gameObject);
+        }
+        for (int idx = 0; idx < touchdownPosition.Length; idx++)
+        {
             Instantiate(touchdownPrefab[idx], touchdownPosition[idx].transform);
         }
 
-        state = GameState.MainMenu;
-        UI.Open(UIs.MainMenu);
         isTouchdown = false;
-
-        startGameTimeLine.gameObject.SetActive(true);
         foreach (var touchdown in touchdowns)
         {
             touchdown.gameObject.SetActive(false);
@@ -229,16 +225,6 @@ public class GameManager : MonoBehaviour
 
     public void ReStart()
     {
-        state = GameState.MainMenu;
-        UI.Open(UIs.MainMenu);
-
-        startGameTimeLine.gameObject.SetActive(true);
-        cinemachineBrain.enabled = true;
-
-        player.enabled = true;
-
-        ReturnListAllObject();
-
         Init();
     }
 
@@ -253,6 +239,7 @@ public class GameManager : MonoBehaviour
         if(!isTouchdown)
         {
             isTouchdown = true;
+            state = GameState.Result;
             ReturnListAllObject();
 
             UI.Close();
@@ -262,7 +249,6 @@ public class GameManager : MonoBehaviour
             scoreManager.SetTotalScore();
 
             var totalScore = scoreManager.GetTotalScore();
-            var yard = randomGenerateStage.currentStageInfo.yard;
             PlayTouchdownByScore(totalScore);
         }
     }
@@ -291,11 +277,11 @@ public class GameManager : MonoBehaviour
     private void PlayTouchdownByScore(int score)
     {
         PlayableDirector touchdown;
-        if(score < 20000)
+        if(score < 25000)
         {
             touchdown = touchdowns[(int)Touchdown.Weak];
         }
-        else if(score < 25000)
+        else if(score < 30000)
         {
             touchdown = touchdowns[(int)Touchdown.Middle];
         }
@@ -340,5 +326,15 @@ public class GameManager : MonoBehaviour
                 items.Remove(items.Find(obj));
                 break;
         }
+    }
+
+    public void PlayAd()
+    {
+        AdManager.OnClickInterstitial();
+    }
+
+    public void PlayRewardAd()
+    {
+        AdManager.OnClickReward();
     }
 }

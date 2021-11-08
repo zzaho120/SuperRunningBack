@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerLevel3
   m_EditorClassIdentifier: 
   level: 3
-  moveSpeed: 14
+  moveSpeed: 16
   shapeSize: 2
   armSize: 0.8
   ragdollCount: 5

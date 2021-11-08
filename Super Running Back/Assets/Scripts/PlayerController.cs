@@ -34,8 +34,9 @@ public class PlayerController : MonoBehaviour
     private bool isFirstTouch;
     private Vector2 originTouchPos;
     private Vector2 touchPos;
-    private float maxMoveDistance = 31f;
+    private float maxMoveDistance = 24.5f;
     private float aniValue;
+    private int fingerId;
 
     public ParticleSystem levelUpParticle;
 
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         isPlaying = false;
         isFirstTouch = false;
         slideSpeed = 0;
+        fingerId = int.MinValue;
         rigid.velocity = Vector3.zero; 
         originTouchPos = Vector2.zero;
         touchPos = Vector2.zero;
@@ -76,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!isDead && isPlaying)
+        if (!isDead && isPlaying)
         {
             Move();
         }
@@ -95,20 +97,30 @@ public class PlayerController : MonoBehaviour
             case TouchPhase.Began:
                 isFirstTouch = true;
                 originTouchPos = Camera.main.ScreenToViewportPoint(touch.position);
+                if (fingerId == int.MinValue)
+                {
+                    fingerId = touch.fingerId;
+                }
                 break;
             case TouchPhase.Moved:
             case TouchPhase.Stationary:
-                if(!isFirstTouch)
+                if (fingerId == touch.fingerId)
                 {
-                    isFirstTouch = true;
-                    originTouchPos = Camera.main.ScreenToViewportPoint(touch.position);
+                    if (!isFirstTouch)
+                    {
+                        isFirstTouch = true;
+                        originTouchPos = Camera.main.ScreenToViewportPoint(touch.position);
+                    }
+                    touchPos = Camera.main.ScreenToViewportPoint(touch.position);
+                    dir = touchPos - originTouchPos;
+                    slideSpeed = dir.x / 0.3f;
+                    Debug.Log(dir.x);
+                    decreaseSpeed = Mathf.Lerp(1f, minDecreaseSpeed, Mathf.Abs(slideSpeed));
                 }
-                touchPos = Camera.main.ScreenToViewportPoint(touch.position);
-                dir = touchPos - originTouchPos;
-                slideSpeed = dir.x / 0.3f;
                 break;
             case TouchPhase.Ended:
             case TouchPhase.Canceled:
+                fingerId = int.MinValue;
                 isFirstTouch = false;
                 originTouchPos = Vector2.zero;
                 touchPos = Vector2.zero;
@@ -166,7 +178,6 @@ public class PlayerController : MonoBehaviour
     public void SetActiveRagdoll(EnemyStats stats)
     {
         var maxCnt = this.stats.currentRagdollCnt;
-        Debug.Log($"{ragdollIndex}, {maxCnt}");
         for (; ragdollIndex < maxCnt; ragdollIndex++)
         {
             ragdollObjs[ragdollIndex].SetActive(true);
@@ -212,9 +223,10 @@ public class PlayerController : MonoBehaviour
 
     public void SetLevelUpEffect()
     {
-        var scale = levelUpParticle.transform.localScale;
+        var originScale = 0.5f;
+        var scale = levelUpParticle.gameObject.transform.localScale;
         var level = stats.currentLevel.level - 2;
-        levelUpParticle.transform.localScale = scale * 0.5f + new Vector3(0.1f, 0.1f, 0.1f) * level;
+        levelUpParticle.gameObject.transform.localScale = new Vector3 (originScale, originScale, originScale) + new Vector3(0.075f, 0.075f, 0.075f) * level;
 
         levelUpParticle.Play();
         levelUptext.ShowLevelUp();

@@ -8,9 +8,9 @@ public class StartSetting : MonoBehaviour
     public Transform[] originTr;
     private Vector3 correctionPos;
     private float stageYard;
-    public void GameStartInit(float yard)
+    public void GameStartInit()
     {
-        stageYard = yard;
+        stageYard = GameManager.Instance.randomGenerateStage.currentStageInfo.yard;
         stageYard = (stageYard * 0.1f) - 5f;
     }
 

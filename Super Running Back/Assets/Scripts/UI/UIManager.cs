@@ -43,13 +43,20 @@ public class UIManager : MonoBehaviour
         }
         return null;
     }
-    
+
     public UIController Open(UIs id)
     {
         Close();
         currentUIId = id;
         userInterfaces[(int)currentUIId].Open();
         return userInterfaces[(int)currentUIId];
+    }
+
+    public void Open(int id)
+    {
+        Close();
+        currentUIId = (UIs)id;
+        userInterfaces[(int)currentUIId].Open();
     }
 
     public void Close()

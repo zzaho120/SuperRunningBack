@@ -11,7 +11,7 @@ public class MainMenuUIController : UIController
     {
         base.Open();
         currentStageBar.value = DataManager.CurrentStageIdx / (float)(DataManager.maxStageIdx - 1);
-        currentStageText.text = ((SceneName)DataManager.CurrentChapterIdx).ToString() + " Leauge";
+        currentStageText.text = ((SceneName)DataManager.CurrentChapterIdx).ToString() + " League";
     }
 
     public override void Close()

@@ -24,7 +24,7 @@ public class RandomGenerateStage : MonoBehaviour
         // 해당 스테이지의 칸 레벨을 섞는다.
         currentStageInfo.RandomSortLevelArray();
         var maxAreaCnt = (int)(currentStageInfo.yard * 0.1f) + 1;
-        // 고정 수비수 칸을 정한다.
+        //고정 수비수 칸을 정한다.
         while (randomFixedEnemyIndex.Count < currentStageInfo.fixedEnemyAreaCnt)
         {
             var isOverlapValue = false;
@@ -40,38 +40,38 @@ public class RandomGenerateStage : MonoBehaviour
                 randomFixedEnemyIndex.Add(randomValue);
         }
 
-        while(itemIndex.Count < currentStageInfo.itemAreaCnt)
+        while (itemIndex.Count < currentStageInfo.itemAreaCnt)
         {
             var isOverlapValue = false;
             var randomValue = Random.Range(1, maxAreaCnt);
 
-            foreach(var elem in itemIndex)
+            foreach (var elem in itemIndex)
             {
                 if (elem == randomValue)
                     isOverlapValue = true;
             }
 
-            if(!isOverlapValue)
+            if (!isOverlapValue)
                 itemIndex.Add(randomValue);
         }
 
-        // 각 야드 영역마다 난이도 설정을 하고 랜덤 생성을 수행한다.
-        for(int idx = 0; idx < maxAreaCnt; idx++)
+        //// 각 야드 영역마다 난이도 설정을 하고 랜덤 생성을 수행한다.
+        for (int idx = 0; idx < maxAreaCnt; idx++)
         {
             var difficultyIndex = currentStageInfo.stageLevelArray[idx] - 1;
             areas[idx].difficulty = difficulties[difficultyIndex];
 
-            foreach(var elem in randomFixedEnemyIndex)
+            foreach (var elem in randomFixedEnemyIndex)
             {
                 if (idx == elem)
                 {
                     areas[idx].SetGenerateFixedEnemy();
                 }
             }
-            
-            foreach(var elem in itemIndex)
+
+            foreach (var elem in itemIndex)
             {
-                if(idx == elem)
+                if (idx == elem)
                 {
                     areas[idx].SetGenerateItem();
                 }

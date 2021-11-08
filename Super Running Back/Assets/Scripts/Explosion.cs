@@ -37,6 +37,7 @@ public class Explosion : MonoBehaviour
     public void GenerateRagdoll()
     {
         var ragdollCnt = GameManager.Instance.player.stats.currentWeight;
+        ragdollCnt = Mathf.Clamp(ragdollCnt, 0, 50);
         for (int idx = 0; idx < ragdollCnt; idx++)
         {
             var randomValueX = Random.Range(minGenerateRange, maxGenerateRange);

@@ -62,6 +62,7 @@ MonoBehaviour:
   yardText: {fileID: 0}
   state: 0
   playTime: 0
+  isAdEnd: 0
   touchdownPrefab:
   - {fileID: 5666589745121082038, guid: ef26ccfaab33c0c44a7e3d0f36386a11, type: 3}
   - {fileID: 86554689759430281, guid: b3bf65b8225bb8d429c3537e42ef247d, type: 3}

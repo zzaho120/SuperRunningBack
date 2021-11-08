@@ -4,6 +4,8 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using GoogleMobileAds.Api;
 
 [System.Serializable]
 public class GameData
@@ -22,8 +24,8 @@ public static class DataManager
 {
     private static bool isLoadData = false;
     private static bool isLoadScene = false;
-    public static int maxChaperIdx = 5;
-    public static int maxStageIdx = 6;
+    public static readonly int maxChaperIdx = 5;
+    public static readonly int maxStageIdx = 6;
     private static int currentChapterIdx;
     public static int CurrentChapterIdx
     {
@@ -79,6 +81,8 @@ public static class DataManager
     public static int totalHoldEnemy;
     public static int totalKickEnemy;
     public static int totalScore;
+
+    
 
     public static void Init()
     {
@@ -155,10 +159,11 @@ public static class DataManager
 
     public static void LoadScene()
     {
-        if(!isLoadScene && CurrentChapterIdx != (int)SceneName.Elemantary)
+        if(!isLoadScene)
         {
             isLoadScene = true;
             Loader.Load(CurrentChapterIdx);
         }
     }
+
 }
