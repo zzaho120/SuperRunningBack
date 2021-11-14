@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   moveSpeed: 6
-  shapeSize: 1
+  shapeSize: 1.5
   weight: 1
   kickRate: 50
   divingRate: 30

@@ -6,6 +6,6 @@ public class IncreaseStatsByCollision : MonoBehaviour, ICollisable
 {
     public void onActionByCollision(GameObject other)
     {
-        GameManager.Instance.GetItemMsg();
+        GameManager.Instance.MsgGetItem();
     }
 }

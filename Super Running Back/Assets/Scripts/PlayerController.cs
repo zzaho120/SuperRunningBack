@@ -9,11 +9,10 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public PlayerStats stats;
     public UnityEvent onDieEvent;
+    public Transform toalShape;
+    public Transform variableThreeShape;
     public List<Transform> variableTwoShape;
-    public List<Transform> variableThreeShape;
     public List<Transform> armsShape;
-    public LevelUpText levelUptext;
-    public Transform originTr;
     public AudioClip GoVoice;
     public GameObject ragdolls;
     public float minDecreaseSpeed;
@@ -38,8 +37,6 @@ public class PlayerController : MonoBehaviour
     private float aniValue;
     private int fingerId;
 
-    public ParticleSystem levelUpParticle;
-
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -63,8 +60,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("StartGame", false);
         animator.SetBool("Dead", false);
 
-        transform.localPosition = originTr.localPosition;
-        transform.rotation = originTr.rotation;
         animator.applyRootMotion = false;
         ragdollIndex = 0;
         ragdolls.SetActive(true);
@@ -86,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        rigid.velocity = new Vector3(slideSpeed * speed, rigid.velocity.y, stats.currentLevel.moveSpeed * decreaseSpeed);
+        rigid.velocity = new Vector3(slideSpeed * speed, rigid.velocity.y, stats.currentSpeed * decreaseSpeed);
     }
 
     public void horizontalMove(Touch touch)
@@ -113,8 +108,7 @@ public class PlayerController : MonoBehaviour
                     }
                     touchPos = Camera.main.ScreenToViewportPoint(touch.position);
                     dir = touchPos - originTouchPos;
-                    slideSpeed = dir.x / 0.3f;
-                    Debug.Log(dir.x);
+                    slideSpeed = dir.x * 3f;
                     decreaseSpeed = Mathf.Lerp(1f, minDecreaseSpeed, Mathf.Abs(slideSpeed));
                 }
                 break;
@@ -161,7 +155,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (stats.currentWeight >= stats.currentLevel.power)
+            if (stats.currentSpeed < stats.gameoverSpeed)
             {
                 isDead = true;
                 onDieEvent.Invoke();
@@ -172,35 +166,34 @@ public class PlayerController : MonoBehaviour
     public void AnimationSpeedUp()
     {
         animator.SetFloat("MoveX", (float)Math.Round((double)slideSpeed, 1));
-        animator.SetFloat("Speed", runAniSpeed * (stats.currentLevel.level - 1));
+        //animator.SetFloat("Speed", runAniSpeed * (stats.currentLevel.level - 1));
     }
 
     public void SetActiveRagdoll(EnemyStats stats)
     {
-        var maxCnt = this.stats.currentRagdollCnt;
-        for (; ragdollIndex < maxCnt; ragdollIndex++)
-        {
-            ragdollObjs[ragdollIndex].SetActive(true);
-            ragdollObjs[ragdollIndex].GetComponent<RagdollManager>().SetStats(stats);
-        }
+        //var maxCnt = this.stats.currentRagdollCnt;
+        //for (; ragdollIndex < maxCnt; ragdollIndex++)
+        //{
+        //    ragdollObjs[ragdollIndex].SetActive(true);
+        //    ragdollObjs[ragdollIndex].GetComponent<RagdollManager>().SetStats(stats);
+        //}
     }
 
     public void SizeSetting()
     {
-        var size = stats.currentLevel.shapeSize;
+        var currentScale = stats.currentScale;
+        var currentTotalScale = stats.currentTotalScale;
         foreach (var twoValueShape in variableTwoShape)
         {
-            twoValueShape.localScale = new Vector3(size, twoValueShape.localScale.y, size);
+            twoValueShape.localScale = new Vector3(currentScale, twoValueShape.localScale.y, currentScale);
         }
 
-        foreach (var threeValueShape in variableThreeShape)
-        {
-            threeValueShape.localScale = new Vector3(size, size, size);
-        }
+        variableThreeShape.localScale = new Vector3(currentScale, currentScale, currentScale);
+        toalShape.localScale = new Vector3(currentTotalScale, currentTotalScale, currentTotalScale);
 
         foreach (var armShape in armsShape)
         {
-            armShape.localScale = new Vector3(armShape.localScale.x, stats.currentLevel.armSize, armShape.localScale.z);
+            armShape.localScale = new Vector3(armShape.localScale.x, stats.currentArmScale, armShape.localScale.z);
         }
     }
 
@@ -221,15 +214,15 @@ public class PlayerController : MonoBehaviour
         audioSource.PlayOneShot(GoVoice);
     }
 
-    public void SetLevelUpEffect()
+    public void MsgGetItem()
     {
-        var originScale = 0.5f;
-        var scale = levelUpParticle.gameObject.transform.localScale;
-        var level = stats.currentLevel.level - 2;
-        levelUpParticle.gameObject.transform.localScale = new Vector3 (originScale, originScale, originScale) + new Vector3(0.075f, 0.075f, 0.075f) * level;
+        stats.MsgGetItem();
+        SizeSetting();
+    }
 
-        levelUpParticle.Play();
-        levelUptext.ShowLevelUp();
-        audioSource.Play();
+    public void MsgGetPenalty()
+    {
+        stats.MsgGetPenalty();
+        SizeSetting();
     }
 }

@@ -26,8 +26,7 @@ public class ActionByCollision : MonoBehaviour, ICollisable
             var player = other.GetComponent<PlayerController>();
             var scoreManager = GameManager.Instance.scoreManager;
 
-            var isKick = player.stats.currentLevel.level >= enemyStats.level &&
-                Random.Range(0, 100) < enemyStats.kickRate;
+            var isKick = Random.Range(0, 100) < enemyStats.kickRate;
 
             GameObject effectObj = null;
             GameObject soundObj = null;
@@ -44,8 +43,6 @@ public class ActionByCollision : MonoBehaviour, ICollisable
                 var ragdollMgr = ragdoll.GetComponent<RagdollManager>();
 
                 ragdollMgr.SetStats(enemyStats);
-
-                player.stats.KickScoreUp(enemyStats.level);
                 scoreManager.AddKickEnemyNumber();
 
                 var dir = ragdoll.transform.position - other.transform.position;
@@ -66,18 +63,15 @@ public class ActionByCollision : MonoBehaviour, ICollisable
 
                 var playerStat = player.stats;
 
-                if (playerStat.currentRagdollCnt < playerStat.currentLevel.ragdollCount)
-                    playerStat.currentRagdollCnt++;
-
-                playerStat.currentWeight += enemyStats.weight;
+                player.MsgGetPenalty();
 
                 player.SetActiveRagdoll(enemyStats);
                 scoreManager.AddHoldEnemyWeight(enemyStats.weight);
             }
 
             var effect = effectObj.GetComponent<ParticleSystem>();
-            effect.Play();
             var sound = soundObj.GetComponent<AudioSource>();
+            effect.Play();
             sound.Play();
             GameManager.Instance.InplayPrintScore();
         }

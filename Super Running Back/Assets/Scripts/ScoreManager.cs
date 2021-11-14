@@ -102,11 +102,6 @@ public class ScoreManager : MonoBehaviour
         totalScore += itemScore;
     }
 
-    public void SetPlayerLevel(int level)
-    {
-        if (level > 0)
-            playerLevel = level;
-    }
     public void SetTotalScore()
     {
         if (ScoreList == null)

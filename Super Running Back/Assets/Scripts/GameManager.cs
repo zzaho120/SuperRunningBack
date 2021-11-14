@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
     private bool isTutorial = true;
     private bool isTouchdown;
 
-    public GameObject[] touchdownPrefab;
-    public GameObject[] touchdownPosition;
+    public GameObject touchdownPrefab;
+    public GameObject touchdownPosition;
 
     private void Awake()
     {
@@ -70,10 +70,6 @@ public class GameManager : MonoBehaviour
         player.enabled = true;
         startGameTimeLine.gameObject.SetActive(true);
         cinemachineBrain.enabled = true;
-
-        var level = player.stats.currentLevel.level;
-        mainCamera.SetPlayerLevel(level);
-        scoreManager.SetPlayerLevel(level);
     }
 
     private void Update()
@@ -141,20 +137,6 @@ public class GameManager : MonoBehaviour
         inputManager.enabled = false;
     }
 
-    public void PlayerLevelUpMsg()
-    {
-        player.AnimationSpeedUp();
-        player.SizeSetting();
-        player.SetLevelUpEffect();
-
-        var level = player.stats.currentLevel.level;
-        var ui = UI.GetUI(UIs.Game) as GameUIContorller;
-
-        mainCamera.SetPlayerLevel(level);
-        scoreManager.SetPlayerLevel(level);
-        ui.SetSizeStatusBar();
-    }
-
     public void GameStart()
     {
         state = GameState.Game;
@@ -195,14 +177,9 @@ public class GameManager : MonoBehaviour
             scoreManager.holdEnemyWeight, scoreManager.kickEnemyNumber, scoreManager.totalScore);
         DataManager.NextStage();
 
-        for (int idx = 0; idx < touchdownPosition.Length; idx++)
-        {
-            Destroy(touchdownPosition[idx].transform.GetChild(0).gameObject);
-        }
-        for (int idx = 0; idx < touchdownPosition.Length; idx++)
-        {
-            Instantiate(touchdownPrefab[idx], touchdownPosition[idx].transform);
-        }
+        Destroy(touchdownPosition.transform.GetChild(0).gameObject);
+        Instantiate(touchdownPrefab, touchdownPosition.transform);
+        
 
         isTouchdown = false;
         foreach (var touchdown in touchdowns)
@@ -262,10 +239,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GetItemMsg()
+    public void MsgGetItem()
     {
-        player.stats.currentItemCnt++;
-        player.stats.CheckItem();
+        player.MsgGetItem();
         scoreManager.AddItemNumber();
 
         var soundObj = ObjectPool.GetObject(PoolName.ItemSound);

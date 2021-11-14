@@ -8,20 +8,18 @@ public class GameUIContorller : UIController
     private PlayerController player;
     private GameObject EndLine;
 
-    private Slider[] sliders;
-    private Text[] texts;
+    public Slider destinationBar;
+    public Slider tutorialBar;
+    public Text timeText;
+    public Text scoreText;
     private float totalDistance;
     private Vector3 startPosition;
-    private Transform dumbbelUI;
     private float totalScoreDelayTime = 0.5f;
-    private float statusWidth = 200f;
-    private float growWidth = 80f;
-    private float statusHeight = 120f;
 
     private int startTotalScore;
-    private PlayerStats playerStats;
 
     private bool tutorialValueDirection;
+
     public float DistanceToEndLine
     {
         get
@@ -47,17 +45,11 @@ public class GameUIContorller : UIController
         base.Open();
         player = GameManager.Instance.player;
         EndLine = GameObject.FindWithTag("Finish");
-        sliders = GetComponentsInChildren<Slider>();
-        texts = GetComponentsInChildren<Text>();
-        dumbbelUI = sliders[2].transform;
-        playerStats = player.stats;
 
         totalDistance = DistanceToEndLine;
         startPosition = player.transform.position;
 
-        SetSizeStatusBar();
-
-        texts[5].text = $"0";
+        scoreText.text = $"0";
     }
 
     public override void Close()
@@ -67,31 +59,17 @@ public class GameUIContorller : UIController
 
     private void Update()
     {
-        sliders[0].value = DistanceToStartLine / totalDistance;
-        sliders[1].value = playerStats.CurrentWeightByPower;
-        sliders[2].value = playerStats.CurrentItemByNextLevel;
+        destinationBar.value = DistanceToStartLine / totalDistance;
 
-        texts[0].text = $"{GameManager.Instance.playTime}";
-        texts[2].text = $"{playerStats.currentWeight}";
-        texts[3].text = $"{playerStats.currentLevel.power}";
-        texts[4].text = $"{playerStats.currentLevel.level} Level";
+        timeText.text = $"{GameManager.Instance.playTime}";
 
-        if(sliders.Length > 3)
-        {
-            if (tutorialValueDirection)
-                sliders[3].value -= Time.deltaTime;
-            else
-                sliders[3].value += Time.deltaTime;
+        if (tutorialValueDirection)
+            tutorialBar.value -= Time.deltaTime;
+        else
+            tutorialBar.value += Time.deltaTime;
 
-            if (sliders[3].value >= 1.0f || sliders[3].value <= 0f)
-                tutorialValueDirection = !tutorialValueDirection;
-
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        //dumbbelUI.position += new Vector3(0, -1f - 0.4f * player.stats.currentLevel.level, 0);
+        if (tutorialBar.value >= 1.0f || tutorialBar.value <= 0f)
+            tutorialValueDirection = !tutorialValueDirection;
     }
 
     public void TutorialBarOff()
@@ -101,7 +79,7 @@ public class GameUIContorller : UIController
 
     private IEnumerator CoTutorialBarOff()
     {
-        var images = sliders[3].gameObject.GetComponentsInChildren<Image>();
+        var images = tutorialBar.gameObject.GetComponentsInChildren<Image>();
         var alpha = images[0].color.a;
         while (alpha >= 0f)
         {
@@ -133,19 +111,11 @@ public class GameUIContorller : UIController
             timer += Time.deltaTime;
 
             var score = (int)Mathf.Lerp(startTotalScore, totalScore, timer / totalScoreDelayTime);
-            texts[5].text = $"{score}";
+            scoreText.text = $"{score}";
 
             yield return null;
         }
 
         startTotalScore = totalScore;
-    }
-
-    public void SetSizeStatusBar()
-    {
-        var rectTr = sliders[1].GetComponent<RectTransform>();
-
-        var width = statusWidth + growWidth * (player.stats.currentLevel.level - 1);
-        rectTr.sizeDelta = new Vector2(width, statusHeight);
     }
 }
