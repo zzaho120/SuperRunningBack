@@ -869,7 +869,6 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 565ba4f6a3629214c867c2a808e56104, type: 2}
   detectDistance: 30
   player: {fileID: 0}
-  levelText: {fileID: 0}
 --- !u!114 &1914847095096297749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,7 +881,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7d19d807b9dea49ba8a7d836c2de07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ragdollPrefab: {fileID: 7407397830281441163, guid: f7b0682e4b0181a40bc8c194df1ea87d, type: 3}
+  kickRagdollPrefab: {fileID: 7407397830281441163, guid: f7b0682e4b0181a40bc8c194df1ea87d, type: 3}
+  holdRagdollPrefab: {fileID: 1877908036325388784, guid: ba2856d1cdf0e7b4291631f4b3ce4479, type: 3}
   forcePower: 600
 --- !u!114 &6630758052724922804
 MonoBehaviour:

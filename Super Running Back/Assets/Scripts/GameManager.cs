@@ -14,13 +14,13 @@ public class GameManager : MonoBehaviour
     public PlayerController player;
     public UIManager UI;
     public ScoreManager scoreManager;
-    public PlayableDirector startGameTimeLine;
+    public PlayableDirector startTimeLine;
+    public PlayableDirector finishTimeLine;
     public CinemachineBrain cinemachineBrain;
     
     public RandomGenerateStage randomGenerateStage;
     public StartSetting startSetting;
 
-    public List<PlayableDirector> touchdowns;
     public LinkedList<GameObject> enemys = new LinkedList<GameObject>();
     public LinkedList<GameObject> fixedEnemys = new LinkedList<GameObject>();
     public LinkedList<GameObject> items = new LinkedList<GameObject>();
@@ -33,9 +33,6 @@ public class GameManager : MonoBehaviour
     private float gameStartTime;
     private bool isTutorial = true;
     private bool isTouchdown;
-
-    public GameObject touchdownPrefab;
-    public GameObject touchdownPosition;
 
     private void Awake()
     {
@@ -68,7 +65,8 @@ public class GameManager : MonoBehaviour
         ListInit();
 
         player.enabled = true;
-        startGameTimeLine.gameObject.SetActive(true);
+        startTimeLine.gameObject.SetActive(true);
+        finishTimeLine.gameObject.SetActive(false);
         cinemachineBrain.enabled = true;
     }
 
@@ -143,7 +141,7 @@ public class GameManager : MonoBehaviour
         
         UI.Open(UIs.Game);
 
-        startGameTimeLine.gameObject.SetActive(false);
+        startTimeLine.gameObject.SetActive(false);
         cinemachineBrain.enabled = false;
 
         inputManager.enabled = true;
@@ -177,15 +175,7 @@ public class GameManager : MonoBehaviour
             scoreManager.holdEnemyWeight, scoreManager.kickEnemyNumber, scoreManager.totalScore);
         DataManager.NextStage();
 
-        Destroy(touchdownPosition.transform.GetChild(0).gameObject);
-        Instantiate(touchdownPrefab, touchdownPosition.transform);
-        
-
         isTouchdown = false;
-        foreach (var touchdown in touchdowns)
-        {
-            touchdown.gameObject.SetActive(false);
-        }
 
         Init();
     }
@@ -208,7 +198,7 @@ public class GameManager : MonoBehaviour
     public void PlayStartGameTimeLine()
     {
         UI.Close();
-        startGameTimeLine.Play();
+        startTimeLine.Play();
     }
 
     public void PlayTouchdown()
@@ -226,7 +216,8 @@ public class GameManager : MonoBehaviour
             scoreManager.SetTotalScore();
 
             var totalScore = scoreManager.GetTotalScore();
-            PlayTouchdownByScore(totalScore);
+            finishTimeLine.gameObject.SetActive(true);
+            finishTimeLine.Play();
         }
     }
 
@@ -248,25 +239,6 @@ public class GameManager : MonoBehaviour
         var sound = soundObj.GetComponent<AudioSource>();
         sound.Play();
         InplayPrintScore();
-    }
-  
-    private void PlayTouchdownByScore(int score)
-    {
-        PlayableDirector touchdown;
-        if(score < 25000)
-        {
-            touchdown = touchdowns[(int)Touchdown.Weak];
-        }
-        else if(score < 30000)
-        {
-            touchdown = touchdowns[(int)Touchdown.Middle];
-        }
-        else
-        {
-            touchdown = touchdowns[(int)Touchdown.Strong];
-        }
-        touchdown.gameObject.SetActive(true);
-        touchdown.Play();
     }
 
     private void ReturnListAllObject()

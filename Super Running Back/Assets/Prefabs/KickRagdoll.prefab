@@ -3195,7 +3195,7 @@ GameObject:
   - component: {fileID: 7892432693493560625}
   - component: {fileID: -4115130056234305570}
   m_Layer: 0
-  m_Name: CrushRagdoll
+  m_Name: KickRagdoll
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

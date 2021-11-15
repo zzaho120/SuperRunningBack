@@ -51,24 +51,15 @@ MonoBehaviour:
   player: {fileID: 0}
   UI: {fileID: 0}
   scoreManager: {fileID: 0}
-  startGameTimeLine: {fileID: 0}
+  startTimeLine: {fileID: 0}
+  finishTimeLine: {fileID: 0}
   cinemachineBrain: {fileID: 0}
   randomGenerateStage: {fileID: 1471523730}
   startSetting: {fileID: 1736579285}
-  touchdowns:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   yardText: {fileID: 0}
   state: 0
   playTime: 0
   isAdEnd: 0
-  touchdownPrefab:
-  - {fileID: 5666589745121082038, guid: ef26ccfaab33c0c44a7e3d0f36386a11, type: 3}
-  - {fileID: 86554689759430281, guid: b3bf65b8225bb8d429c3537e42ef247d, type: 3}
-  touchdownPosition:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &1667864381
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,35 +6,33 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
     public PlayerStats stats;
-    public UnityEvent onDieEvent;
     public Transform toalShape;
     public Transform variableThreeShape;
     public List<Transform> variableTwoShape;
     public List<Transform> armsShape;
     public AudioClip GoVoice;
-    public GameObject ragdolls;
-    public float minDecreaseSpeed;
+    public GameObject ragdollObject;
+    public UnityEvent onDieEvent;
+    
 
     private Rigidbody rigid;
     private Animator animator;
     private AudioSource audioSource;
-    private GameObject[] ragdollObjs;
-    private float slideSpeed;
-    private float runAniSpeed = 0.17f;
-    private float animaitorNomalize = 10f;
 
-    private int ragdollIndex;
-    private float decreaseSpeed = 1f;
     private bool isPlaying;
     private bool isDead;
 
+    // input and move
     private bool isFirstTouch;
     private Vector2 originTouchPos;
     private Vector2 touchPos;
+    private float slideSpeed;
+    private float speed = 15f;
+    private float decreaseSpeed = 1f;
     private float maxMoveDistance = 24.5f;
-    private float aniValue;
+    private float rotSpeed = 30f;
+    private float minDecreaseSpeed = 0.75f;
     private int fingerId;
 
     private void Awake()
@@ -42,7 +40,6 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        ragdollObjs = GameObject.FindGameObjectsWithTag("EnemyRagdoll");
     }
 
 
@@ -61,12 +58,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Dead", false);
 
         animator.applyRootMotion = false;
-        ragdollIndex = 0;
-        ragdolls.SetActive(true);
-        foreach (var elem in ragdollObjs)
-        {
-            elem.SetActive(false);
-        }
         stats.Init();
         SizeSetting();
     }
@@ -121,12 +112,14 @@ public class PlayerController : MonoBehaviour
                 slideSpeed = 0;
                 break;
         }
-        AnimationSpeedUp();
 
         var leftMoveLimit = dir.x < 0f && transform.position.x < -maxMoveDistance;
         var rightMoveLimit = dir.x > 0f && transform.position.x > maxMoveDistance;
         if (leftMoveLimit || rightMoveLimit)
             slideSpeed = 0;
+
+        var rot = Mathf.Clamp(slideSpeed * rotSpeed, -20f, 20f);
+        transform.rotation = Quaternion.Euler(0f, rot, 0f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -161,22 +154,6 @@ public class PlayerController : MonoBehaviour
                 onDieEvent.Invoke();
             }
         }
-    }
-
-    public void AnimationSpeedUp()
-    {
-        animator.SetFloat("MoveX", (float)Math.Round((double)slideSpeed, 1));
-        //animator.SetFloat("Speed", runAniSpeed * (stats.currentLevel.level - 1));
-    }
-
-    public void SetActiveRagdoll(EnemyStats stats)
-    {
-        //var maxCnt = this.stats.currentRagdollCnt;
-        //for (; ragdollIndex < maxCnt; ragdollIndex++)
-        //{
-        //    ragdollObjs[ragdollIndex].SetActive(true);
-        //    ragdollObjs[ragdollIndex].GetComponent<RagdollManager>().SetStats(stats);
-        //}
     }
 
     public void SizeSetting()
