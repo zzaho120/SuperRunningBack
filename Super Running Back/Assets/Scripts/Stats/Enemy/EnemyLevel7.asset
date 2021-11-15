@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyLevel7
   m_EditorClassIdentifier: 
   level: 7
-  moveSpeed: 18
+  moveSpeed: 22
   shapeSize: 2.7
   weight: 7
   kickRate: 20

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyLevel5
   m_EditorClassIdentifier: 
   level: 5
-  moveSpeed: 14
+  moveSpeed: 18
   shapeSize: 2.3
   weight: 5
   kickRate: 30
