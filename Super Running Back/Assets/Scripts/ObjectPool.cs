@@ -45,7 +45,7 @@ public class ObjectPool : MonoBehaviour
     {
         for (int idx = 0; idx < initCnt; idx++)
         {
-            queue.Enqueue(Create(obj));
+            //queue.Enqueue(Create(obj));
         }
     }
 

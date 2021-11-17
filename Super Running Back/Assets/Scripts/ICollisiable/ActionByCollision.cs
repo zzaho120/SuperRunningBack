@@ -5,7 +5,6 @@ using UnityEngine;
 public class ActionByCollision : MonoBehaviour, ICollisable
 {
     public GameObject kickRagdollPrefab;
-    public GameObject holdRagdollPrefab;
     public float forcePower;
     private bool isAction;
     public void Init()
@@ -65,16 +64,7 @@ public class ActionByCollision : MonoBehaviour, ICollisable
                 var playerStat = player.stats;
 
                 player.MsgGetPenalty();
-
-                var randomY = Random.Range(-0.5f, 0.5f);
-                var randomZ = Random.Range(-0.5f, 0.5f);
-                var newPos = player.ragdollObject.transform.position + new Vector3(0f, randomY, randomZ);
-                var ragdoll = Instantiate(holdRagdollPrefab, newPos, Quaternion.Euler(0f, 90f, 0f));
-
-                ragdoll.transform.SetParent(player.ragdollObject.transform);
-                var ragdollMgr = ragdoll.GetComponent<RagdollManager>();
-                ragdollMgr.SetJoint(other.GetComponentInChildren<Rigidbody>());
-
+                player.MsgGetRagdoll(enemyStats);
                 scoreManager.AddHoldEnemyWeight(enemyStats.weight);
             }
 

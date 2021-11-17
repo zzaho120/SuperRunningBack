@@ -384,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938544127134915320}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.8900001, z: -0.40000007}
+  m_LocalPosition: {x: -0, y: 0.8900001, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3158422668133522451}
@@ -1023,7 +1023,7 @@ MonoBehaviour:
   - {fileID: 5595521848454478750}
   - {fileID: 3793806725629798037}
   GoVoice: {fileID: 8300000, guid: 11c45ef6a5f74d74784c732d07266af9, type: 3}
-  ragdollPosition: {fileID: 4064744343033900664}
+  ragdollObject: {fileID: 938544127134915320}
   onDieEvent:
     m_PersistentCalls:
       m_Calls:

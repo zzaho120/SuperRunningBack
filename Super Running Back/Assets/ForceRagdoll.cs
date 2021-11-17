@@ -13,14 +13,14 @@ public class ForceRagdoll : MonoBehaviour
         {
             var randomX = Random.Range(-1f, 1f);
             var randomZ = Random.Range(-1f, 1f);
-            var newPos = transform.position + new Vector3(randomX, 5f, randomZ);
+            var newPos = transform.position + new Vector3(randomX, 4f, randomZ);
 
             var newGo = Instantiate(ragdollPrefab, newPos, Quaternion.identity);
 
             var dir = newGo.transform.position - transform.position;
             var ragdollMgr = newGo.GetComponent<RagdollManager>();
             var rigid = ragdollMgr.rigid;
-            rigid.AddForce(dir * 10f, ForceMode.Impulse);
+            rigid.AddForce(dir * 55f, ForceMode.Impulse);
         }
     }
 }

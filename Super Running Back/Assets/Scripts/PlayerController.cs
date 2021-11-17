@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private float minDecreaseSpeed = 0.75f;
     private int fingerId;
 
+    private int ragdollIdx;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -60,6 +62,13 @@ public class PlayerController : MonoBehaviour
         animator.applyRootMotion = false;
         stats.Init();
         SizeSetting();
+
+        ragdollIdx = 0;
+        for(int idx = 0; idx < ragdollObject.transform.childCount; idx++)
+        {
+            var ragdoll = ragdollObject.transform.GetChild(idx);
+            ragdoll.gameObject.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
@@ -194,12 +203,32 @@ public class PlayerController : MonoBehaviour
     public void MsgGetItem()
     {
         stats.MsgGetItem();
+        var ragdollTr = ragdollObject.transform;
+        var ragdollPos = ragdollTr.position;
+        ragdollTr.position = new Vector3(ragdollPos.x, ragdollPos.y + 0.2f, ragdollPos.z);
         SizeSetting();
     }
 
     public void MsgGetPenalty()
     {
         stats.MsgGetPenalty();
+        var ragdollTr = ragdollObject.transform;
+        var ragdollPos = ragdollTr.position;
+        ragdollTr.position = new Vector3(ragdollPos.x, ragdollPos.y - 0.1f, ragdollPos.z);
         SizeSetting();
+    }
+
+    public void MsgGetRagdoll(EnemyStats stats)
+    {
+        if(ragdollIdx < ragdollObject.transform.childCount)
+        {
+            var ragdoll = ragdollObject.transform.GetChild(ragdollIdx);
+            ragdoll.gameObject.SetActive(true);
+
+            var ragdollMgr = ragdoll.GetComponent<RagdollManager>();
+            ragdollMgr.SetStats(stats);
+
+            ragdollIdx++;
+        }
     }
 }
