@@ -131,6 +131,14 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, rot, 0f);
     }
 
+    public void horizontalMove(float h)
+    {
+        slideSpeed = h;
+
+        var rot = Mathf.Clamp(slideSpeed * rotSpeed, -20f, 20f);
+        transform.rotation = Quaternion.Euler(0f, rot, 0f);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(!isDead)

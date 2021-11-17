@@ -139,6 +139,7 @@ public class EnemyController : MonoBehaviour
 
     private void TraceUpdate()
     {
+        transform.LookAt(player);
         rigid.velocity = DirectionFromPlayer.normalized * stats.moveSpeed;
 
         animator.SetFloat("MoveX", SetAnimationValue(DirectionFromPlayer.x));
