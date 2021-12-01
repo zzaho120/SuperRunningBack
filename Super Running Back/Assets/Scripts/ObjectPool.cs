@@ -33,11 +33,10 @@ public class ObjectPool : MonoBehaviour
 
         queueInit(maxitemCnt, prefabs[PoolName.Item], pool[PoolName.Item]);
         queueInit(maxitemCnt, prefabs[PoolName.ItemSound], pool[PoolName.ItemSound]);
+        queueInit(maxitemCnt, prefabs[PoolName.ItemParticle], pool[PoolName.ItemParticle]);
 
-        queueInit(maxParticleCnt, prefabs[PoolName.KickParticle], pool[PoolName.KickParticle]);
+        queueInit(maxParticleCnt, prefabs[PoolName.EnemyParticle], pool[PoolName.EnemyParticle]);
         queueInit(0, prefabs[PoolName.KickSound], pool[PoolName.KickSound]);
-
-        queueInit(maxParticleCnt, prefabs[PoolName.HoldParticle], pool[PoolName.HoldParticle]);
         queueInit(0, prefabs[PoolName.HoldSound], pool[PoolName.HoldSound]);
     }
 
@@ -45,7 +44,7 @@ public class ObjectPool : MonoBehaviour
     {
         for (int idx = 0; idx < initCnt; idx++)
         {
-            //queue.Enqueue(Create(obj));
+            queue.Enqueue(Create(obj));
         }
     }
 

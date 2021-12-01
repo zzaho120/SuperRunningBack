@@ -214,6 +214,13 @@ public class PlayerController : MonoBehaviour
         var ragdollTr = ragdollObject.transform;
         var ragdollPos = ragdollTr.position;
         ragdollTr.position = new Vector3(ragdollPos.x, ragdollPos.y + 0.2f, ragdollPos.z);
+
+        var particleObj = ObjectPool.GetObject(PoolName.ItemParticle);
+        var particle = particleObj.GetComponent<ParticleSystem>();
+
+        particleObj.transform.position = gameObject.transform.position + new Vector3(0f, 2f);
+        particleObj.transform.SetParent(gameObject.transform);
+        particle.Play();
         SizeSetting();
     }
 

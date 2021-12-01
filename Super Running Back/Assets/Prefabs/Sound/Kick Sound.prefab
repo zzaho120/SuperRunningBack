@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.3052497, y: -2.0017095, z: 4.975772}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -140,4 +141,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75641a4b83c874d47adaf000a44d1695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolName: 5
+  poolName: 6

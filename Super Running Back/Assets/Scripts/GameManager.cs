@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public void ListInit()
     {
         var tempEnemys = GameObject.FindWithTag("Enemys").GetComponentsInChildren<EnemyController>();
@@ -116,8 +117,6 @@ public class GameManager : MonoBehaviour
 
     public void Finish()
     {
-        var ui = UI.GetUI(UIs.Game) as GameUIContorller;
-        ui.StopIncreasceScore();
         UI.Open(UIs.Result);
 
         ReturnListAllObject();
@@ -125,9 +124,6 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDieMsg()
     {
-        var ui = UI.GetUI(UIs.Game) as GameUIContorller;
-        ui.StopIncreasceScore();
-
         UI.Open(UIs.Gameover);
         state = GameState.Gameover;
         player.PlayerDead();
@@ -221,24 +217,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void InplayPrintScore()
-    {
-        if (!isTouchdown)
-        {
-            var ui = UI.GetUI(UIs.Game) as GameUIContorller;
-            ui.IncreaseScore();
-        }
-    }
-
     public void MsgGetItem()
     {
         player.MsgGetItem();
         scoreManager.AddItemNumber();
+        var ui = UI.GetUI(UIs.Game) as GameUIContorller;
+        ui.MsgGetItem();
 
         var soundObj = ObjectPool.GetObject(PoolName.ItemSound);
         var sound = soundObj.GetComponent<AudioSource>();
+
+        
         sound.Play();
-        InplayPrintScore();
+    }
+
+    public void MsgGetPenalty()
+    {
+        player.MsgGetPenalty(); 
+        var ui = UI.GetUI(UIs.Game) as GameUIContorller;
+        ui.MsgGetPenalty();
     }
 
     private void ReturnListAllObject()

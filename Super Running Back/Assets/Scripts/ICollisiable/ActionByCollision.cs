@@ -33,7 +33,7 @@ public class ActionByCollision : MonoBehaviour, ICollisable
             if (isKick)
             {
                 var effectPos = transform.position + new Vector3(0f, 5f, 2f);
-                effectObj = ObjectPool.GetObject(PoolName.KickParticle);
+                effectObj = ObjectPool.GetObject(PoolName.EnemyParticle);
                 effectObj.transform.position = effectPos;
 
                 soundObj = ObjectPool.GetObject(PoolName.KickSound);
@@ -54,8 +54,8 @@ public class ActionByCollision : MonoBehaviour, ICollisable
             }
             else
             {
-                var effectPos = transform.position + new Vector3(0f, 3f, 0f);
-                effectObj = ObjectPool.GetObject(PoolName.HoldParticle);
+                var effectPos = transform.position + new Vector3(0f, 3f, 2f);
+                effectObj = ObjectPool.GetObject(PoolName.EnemyParticle);
                 effectObj.transform.position = effectPos;
 
                 soundObj = ObjectPool.GetObject(PoolName.HoldSound);
@@ -63,7 +63,7 @@ public class ActionByCollision : MonoBehaviour, ICollisable
 
                 var playerStat = player.stats;
 
-                player.MsgGetPenalty();
+                GameManager.Instance.MsgGetPenalty();
                 player.MsgGetRagdoll(enemyStats);
                 scoreManager.AddHoldEnemyWeight(enemyStats.weight);
             }
@@ -72,7 +72,6 @@ public class ActionByCollision : MonoBehaviour, ICollisable
             var sound = soundObj.GetComponent<AudioSource>();
             effect.Play();
             sound.Play();
-            GameManager.Instance.InplayPrintScore();
         }
     }
 }

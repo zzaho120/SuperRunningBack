@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameUIContorller : UIController
 {
@@ -10,15 +11,21 @@ public class GameUIContorller : UIController
 
     public Slider destinationBar;
     public Slider tutorialBar;
-    public Text timeText;
-    public Text scoreText;
+    public Slider playerStatusBar;
+    public TextMeshProUGUI playerStatusText;
     private float totalDistance;
     private Vector3 startPosition;
-    private float totalScoreDelayTime = 0.5f;
-
-    private int startTotalScore;
-
     private bool tutorialValueDirection;
+
+    private enum PlayerPower
+    {
+        Weak = 2,
+        Normal = 6,
+        Strong = 9,
+        VeryStrong = 13,
+        Powerfull = 18
+    }
+
 
     public float DistanceToEndLine
     {
@@ -49,7 +56,7 @@ public class GameUIContorller : UIController
         totalDistance = DistanceToEndLine;
         startPosition = player.transform.position;
 
-        scoreText.text = $"0";
+        ChangePlayerStatusBar();
     }
 
     public override void Close()
@@ -60,8 +67,6 @@ public class GameUIContorller : UIController
     private void Update()
     {
         destinationBar.value = DistanceToStartLine / totalDistance;
-
-        timeText.text = $"{GameManager.Instance.playTime}";
 
         if (tutorialValueDirection)
             tutorialBar.value -= Time.deltaTime;
@@ -92,30 +97,44 @@ public class GameUIContorller : UIController
         }
     }
 
-    public void IncreaseScore()
+    public void MsgGetItem()
     {
-        StartCoroutine(CoPrintScore());
+        var rectTr = playerStatusBar.GetComponent<RectTransform>();
+        rectTr.anchoredPosition += new Vector2(0f, 15f);
+
+        ChangePlayerStatusBar();
     }
 
-    public void StopIncreasceScore()
+    public void MsgGetPenalty()
     {
-        StopAllCoroutines();
+        var rectTr = playerStatusBar.GetComponent<RectTransform>();
+        rectTr.anchoredPosition += new Vector2(0f, -7.5f);
+
+        ChangePlayerStatusBar();
     }
 
-    private IEnumerator CoPrintScore()
+    public void ChangePlayerStatusBar()
     {
-        var timer = 0f;
-        var totalScore = GameManager.Instance.scoreManager.totalScore;
-        while (timer < totalScoreDelayTime)
-        {
-            timer += Time.deltaTime;
+        var playerStats = GameManager.Instance.player.stats;
+        var max = playerStats.maxSpeed - playerStats.gameoverSpeed;
+        var curSpeed = playerStats.currentSpeed - playerStats.gameoverSpeed;
+        var t = curSpeed / max;
+        playerStatusBar.value = t;
 
-            var score = (int)Mathf.Lerp(startTotalScore, totalScore, timer / totalScoreDelayTime);
-            scoreText.text = $"{score}";
+        ChangePlayerStatusText((int)curSpeed);
+    }
 
-            yield return null;
-        }
-
-        startTotalScore = totalScore;
+    public void ChangePlayerStatusText(int curSpeed)
+    {
+        if (curSpeed <= (int)PlayerPower.Weak)
+            playerStatusText.text = "Weak";
+        else if (curSpeed <= (int)PlayerPower.Normal)
+            playerStatusText.text = "Normal";
+        else if (curSpeed <= (int)PlayerPower.Strong)
+            playerStatusText.text = "Strong";
+        else if (curSpeed <= (int)PlayerPower.VeryStrong)
+            playerStatusText.text = "Very Strong";
+        else if (curSpeed <= (int)PlayerPower.Powerfull)
+            playerStatusText.text = "Powerfull";
     }
 }

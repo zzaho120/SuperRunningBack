@@ -25,6 +25,7 @@ public class PlayerStats : ScriptableObject
     public float decreaseArmScale;
 
     public float gameoverSpeed;
+    public float maxSpeed;
 
     public void Init()
     {
