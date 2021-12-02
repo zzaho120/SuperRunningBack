@@ -35,7 +35,8 @@ public class ObjectPool : MonoBehaviour
         queueInit(maxitemCnt, prefabs[PoolName.ItemSound], pool[PoolName.ItemSound]);
         queueInit(maxitemCnt, prefabs[PoolName.ItemParticle], pool[PoolName.ItemParticle]);
 
-        queueInit(maxParticleCnt, prefabs[PoolName.EnemyParticle], pool[PoolName.EnemyParticle]);
+        queueInit(maxParticleCnt, prefabs[PoolName.EnemyParticle0], pool[PoolName.EnemyParticle0]);
+        queueInit(maxParticleCnt, prefabs[PoolName.EnemyParticle1], pool[PoolName.EnemyParticle1]);
         queueInit(0, prefabs[PoolName.KickSound], pool[PoolName.KickSound]);
         queueInit(0, prefabs[PoolName.HoldSound], pool[PoolName.HoldSound]);
     }

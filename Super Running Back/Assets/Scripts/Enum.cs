@@ -36,7 +36,8 @@ public enum PoolName
 	Item,
 	ItemSound,
 	ItemParticle,
-	EnemyParticle,
+	EnemyParticle0,
+	EnemyParticle1,
 	KickSound,
 	HoldSound,
 	PoolNameMax

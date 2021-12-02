@@ -28,13 +28,15 @@ public class ActionByCollision : MonoBehaviour, ICollisable
 
             var isKick = Random.Range(0, 100) < enemyStats.kickRate;
 
-            GameObject effectObj = null;
+            GameObject effectObj0 = ObjectPool.GetObject(PoolName.EnemyParticle0);
+            GameObject effectObj1 = ObjectPool.GetObject(PoolName.EnemyParticle1);
             GameObject soundObj = null;
+
             if (isKick)
             {
                 var effectPos = transform.position + new Vector3(0f, 5f, 2f);
-                effectObj = ObjectPool.GetObject(PoolName.EnemyParticle);
-                effectObj.transform.position = effectPos;
+                effectObj0.transform.position = effectPos;
+                effectObj1.transform.position = effectPos;
 
                 soundObj = ObjectPool.GetObject(PoolName.KickSound);
                 soundObj.transform.position = transform.position;
@@ -55,8 +57,8 @@ public class ActionByCollision : MonoBehaviour, ICollisable
             else
             {
                 var effectPos = transform.position + new Vector3(0f, 3f, 2f);
-                effectObj = ObjectPool.GetObject(PoolName.EnemyParticle);
-                effectObj.transform.position = effectPos;
+                effectObj0.transform.position = effectPos;
+                effectObj1.transform.position = effectPos;
 
                 soundObj = ObjectPool.GetObject(PoolName.HoldSound);
                 soundObj.transform.position = transform.position;
@@ -68,9 +70,11 @@ public class ActionByCollision : MonoBehaviour, ICollisable
                 scoreManager.AddHoldEnemyWeight(enemyStats.weight);
             }
 
-            var effect = effectObj.GetComponent<ParticleSystem>();
+            var effect0 = effectObj0.GetComponent<ParticleSystem>();
+            var effect1 = effectObj1.GetComponent<ParticleSystem>();
             var sound = soundObj.GetComponent<AudioSource>();
-            effect.Play();
+            effect0.Play();
+            effect1.Play();
             sound.Play();
         }
     }

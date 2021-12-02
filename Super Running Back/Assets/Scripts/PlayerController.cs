@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (stats.currentSpeed < stats.gameoverSpeed)
+            if (stats.currentSpeed <= stats.gameoverSpeed)
             {
                 isDead = true;
                 onDieEvent.Invoke();
