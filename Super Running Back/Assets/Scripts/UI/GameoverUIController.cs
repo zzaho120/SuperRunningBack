@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class GameoverUIController : UIController
 {
     private Image[] images;
     private Text[] texts;
+    private TextMeshProUGUI[] tmps;
     private bool isAlphaValue;
     public override void Open()
     {
