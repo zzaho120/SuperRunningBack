@@ -10,14 +10,22 @@ public class AreaManager : MonoBehaviour
 
     private bool isGenerateFixedEnemy;
     private bool isGenerateItem;
+    private bool isGenerateLargeItem;
     private RandomGenerateStage randomGenerateStage;
+
+    // for ad
+    private bool isCenterItem;
 
     private int generateCnt;
     private int generateCost;
 
     public void Generate()
     {
-        var emptyOrItemPart = Random.Range(0, parts.Count);
+        int emptyOrItemPart = 1;
+
+        if (!isCenterItem)
+            emptyOrItemPart = Random.Range(0, parts.Count);
+
         var fixedEnemyIdx = Random.Range(1, parts.Count);
         randomGenerateStage = GameManager.Instance.randomGenerateStage;
 
@@ -30,14 +38,17 @@ public class AreaManager : MonoBehaviour
             {
                 if(emptyOrItemPart == idx)
                 {
-                    GenerateItem(parts[idx]);
+                    if (!isGenerateLargeItem)
+                        GenerateItem(parts[idx]);
+                    else
+                        GenerateItem();
                 }
                 else
                     GenerateEnemy(parts[idx]);
             }
             else
             {
-                if (emptyOrItemPart != idx)
+                //if (emptyOrItemPart != idx)
                     GenerateEnemy(parts[idx]);
             }
 
@@ -98,8 +109,25 @@ public class AreaManager : MonoBehaviour
 
             newGo.transform.SetParent(randomGenerateStage.items);
 
-            var pos = part.transform.position + new Vector3(0f, 1f, -5f);
-            newGo.transform.position = pos + new Vector3(0f, 0f, 5f * i);
+            var pos = part.transform.position + new Vector3(0f, 1f, -10f);
+            newGo.transform.position = pos + new Vector3(0f, 0f, 10f * i);
+        }
+    }
+
+    private void GenerateItem()
+    {
+        foreach(var part in parts)
+        {
+            for(int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    var newGo = ObjectPool.GetObject(PoolName.Item);
+                    newGo.transform.SetParent(randomGenerateStage.items);
+                    var pos = part.transform.position + new Vector3(-9f, 1f, -10f);
+                    newGo.transform.position = pos + new Vector3(3f * i, 0f, 2.5f * j);
+                }
+            }
         }
     }
 
@@ -132,8 +160,10 @@ public class AreaManager : MonoBehaviour
         isGenerateFixedEnemy = true;
     }
 
-    public void SetGenerateItem()
+    public void SetGenerateItem(bool isCenter = false, bool isLarge = false)
     {
         isGenerateItem = true;
+        isCenterItem = isCenter;
+        isGenerateLargeItem = isLarge;
     }
 }

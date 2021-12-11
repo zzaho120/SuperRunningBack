@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087f797a6112d44478eb168ebe55bd61, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  currentSpeed: 18
-  currentScale: 1.6500002
-  currentTotalScale: 2.1499999
-  currentArmScale: 0.9099999
+  currentSpeed: 27
+  currentScale: 2.5500007
+  currentTotalScale: 3.0500011
+  currentArmScale: 0.6399998
   initSpeed: 15
   initScale: 1.5
   initTotalScale: 2
   initArmScale: 1
   increaseSpeed: 2
-  increaseTotalScale: 0.2
+  increaseTotalScale: 0.15
   increaseArmScale: 0.06
   decreaseSpeed: 1
   decreaseTotalScale: 0.05

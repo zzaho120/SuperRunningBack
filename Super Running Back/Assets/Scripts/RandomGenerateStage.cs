@@ -14,6 +14,7 @@ public class RandomGenerateStage : MonoBehaviour
     public Transform enemys;
     public Transform items;
     public Transform fixedEnemys;
+    public bool isGenerateLarge;
 
     private int generateFixedEnemyCnt;
 
@@ -22,13 +23,13 @@ public class RandomGenerateStage : MonoBehaviour
         currentStageInfo = stageInfos[DataManager.CurrentStageIdx];
         currentStageInfo.Init();
         // 해당 스테이지의 칸 레벨을 섞는다.
-        currentStageInfo.RandomSortLevelArray();
+        //currentStageInfo.RandomSortLevelArray();
         var maxAreaCnt = (int)(currentStageInfo.yard * 0.1f) + 1;
         //고정 수비수 칸을 정한다.
         while (randomFixedEnemyIndex.Count < currentStageInfo.fixedEnemyAreaCnt)
         {
             var isOverlapValue = false;
-            var randomValue = Random.Range(0, maxAreaCnt);
+            var randomValue = Random.Range(1, maxAreaCnt - 2);
 
             foreach (var elem in itemIndex)
             {
@@ -40,25 +41,28 @@ public class RandomGenerateStage : MonoBehaviour
                 randomFixedEnemyIndex.Add(randomValue);
         }
 
-        while (itemIndex.Count < currentStageInfo.itemAreaCnt)
-        {
-            var isOverlapValue = false;
-            var randomValue = Random.Range(1, maxAreaCnt);
+        itemIndex.Add(maxAreaCnt - 1);
+        itemIndex.Add(1);
+        itemIndex.Add(3);
+        //while (itemIndex.Count < currentStageInfo.itemAreaCnt)
+        //{
+        //    var isOverlapValue = false;
+        //    var randomValue = Random.Range(1, maxAreaCnt - 3);
 
-            foreach (var elem in itemIndex)
-            {
-                if (elem == randomValue)
-                    isOverlapValue = true;
-            }
+        //    foreach (var elem in itemIndex)
+        //    {
+        //        if (elem == randomValue)
+        //            isOverlapValue = true;
+        //    }
 
-            if (!isOverlapValue)
-                itemIndex.Add(randomValue);
-        }
+        //    if (!isOverlapValue)
+        //        itemIndex.Add(randomValue);
+        //}
 
         //// 각 야드 영역마다 난이도 설정을 하고 랜덤 생성을 수행한다.
         for (int idx = 0; idx < maxAreaCnt; idx++)
         {
-            var difficultyIndex = currentStageInfo.stageLevelArray[idx] - 1;
+            var difficultyIndex = currentStageInfo.stageLevelArray[idx];
             areas[idx].difficulty = difficulties[difficultyIndex];
 
             foreach (var elem in randomFixedEnemyIndex)
@@ -73,7 +77,10 @@ public class RandomGenerateStage : MonoBehaviour
             {
                 if (idx == elem)
                 {
-                    areas[idx].SetGenerateItem();
+                    if (idx == maxAreaCnt - 1)
+                        areas[idx].SetGenerateItem(true, isGenerateLarge);
+                    else
+                        areas[idx].SetGenerateItem();
                 }
             }
 
