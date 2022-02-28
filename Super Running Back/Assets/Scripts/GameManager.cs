@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
     {
         DataManager.LoadData();
         DataManager.LoadScene();
-        AdManager.AdInit();
         Init();
     }
 
@@ -271,15 +270,5 @@ public class GameManager : MonoBehaviour
                 items.Remove(items.Find(obj));
                 break;
         }
-    }
-
-    public void PlayAd()
-    {
-        AdManager.OnClickInterstitial();
-    }
-
-    public void PlayRewardAd()
-    {
-        AdManager.OnClickReward();
     }
 }

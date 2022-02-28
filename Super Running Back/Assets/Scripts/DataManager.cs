@@ -5,7 +5,6 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using GoogleMobileAds.Api;
 
 [System.Serializable]
 public class GameData
@@ -93,7 +92,7 @@ public static class DataManager
     public static void NextStage()
     {
         CurrentStageIdx++;
-        DataManager.SaveData();
+        SaveData();
     }
 
     public static void SaveCareer(int time, int item, int hold, int kick, int score)

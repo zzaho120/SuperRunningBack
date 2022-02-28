@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Restart", false);
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
-        //audioSource.PlayOneShot(GoVoice);
+        audioSource.PlayOneShot(GoVoice);
     }
 
     public void MsgGetItem()
