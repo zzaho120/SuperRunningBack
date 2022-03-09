@@ -709,7 +709,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.35
+  m_Intensity: 0.4
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1171,7 +1171,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.35
+  m_Intensity: 0.4
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1277,31 +1277,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6870511167698967179, guid: 2d4fdb730e24caa45801d0857682f434, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.9758167
       objectReference: {fileID: 0}
     - target: {fileID: 6870511167698967179, guid: 2d4fdb730e24caa45801d0857682f434, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 2.8424404
       objectReference: {fileID: 0}
     - target: {fileID: 6870511167698967179, guid: 2d4fdb730e24caa45801d0857682f434, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 220.81
+      value: -20.855494
       objectReference: {fileID: 0}
     - target: {fileID: 6870511167698967179, guid: 2d4fdb730e24caa45801d0857682f434, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.00011331495
+      value: -0.71476984
       objectReference: {fileID: 0}
     - target: {fileID: 6870511167698967179, guid: 2d4fdb730e24caa45801d0857682f434, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.00000015632821
+      value: -0.084236294
       objectReference: {fileID: 0}
     - target: {fileID: 6870511167698967179, guid: 2d4fdb730e24caa45801d0857682f434, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99999905
+      value: -0.6894966
       objectReference: {fileID: 0}
     - target: {fileID: 6870511167698967179, guid: 2d4fdb730e24caa45801d0857682f434, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0013795891
+      value: 0.08125731
       objectReference: {fileID: 0}
     - target: {fileID: 6870511167698967179, guid: 2d4fdb730e24caa45801d0857682f434, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1361,7 +1361,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.35
+  m_Intensity: 0.4
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1941,7 +1941,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.35
+  m_Intensity: 0.4
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
