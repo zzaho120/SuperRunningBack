@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Difficulty Level6
   m_EditorClassIdentifier: 
   difficulty: 6
-  maxCost: 400
+  maxCost: 350
   minEnemyLevel: 3
   maxEnemyLevel: 7
   minEnemyNumber: 10

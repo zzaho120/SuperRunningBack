@@ -12,10 +12,12 @@ public class GameUIContorller : UIController
     public Slider destinationBar;
     public Slider tutorialBar;
     public Slider playerStatusBar;
+    public TextMeshProUGUI stageNameText;
     public TextMeshProUGUI playerStatusText;
     private float totalDistance;
     private Vector3 startPosition;
     private bool tutorialValueDirection;
+    public RectTransform statusObjTr;
 
     private enum PlayerPower
     {
@@ -55,6 +57,8 @@ public class GameUIContorller : UIController
 
         totalDistance = DistanceToEndLine;
         startPosition = player.transform.position;
+        stageNameText.text = $"STAGE {DataManager.StageIdx}";
+        statusObjTr.anchoredPosition = new Vector2(0f, 100f);
 
         ChangePlayerStatusBar();
     }
@@ -100,7 +104,7 @@ public class GameUIContorller : UIController
     public void MsgGetItem()
     {
         var rectTr = playerStatusBar.GetComponent<RectTransform>();
-        rectTr.anchoredPosition += new Vector2(0f, 15f);
+        rectTr.anchoredPosition += new Vector2(0f, 40f);
 
         ChangePlayerStatusBar();
     }
@@ -108,7 +112,7 @@ public class GameUIContorller : UIController
     public void MsgGetPenalty()
     {
         var rectTr = playerStatusBar.GetComponent<RectTransform>();
-        rectTr.anchoredPosition += new Vector2(0f, -7.5f);
+        rectTr.anchoredPosition += new Vector2(0f, -15f);
 
         ChangePlayerStatusBar();
     }

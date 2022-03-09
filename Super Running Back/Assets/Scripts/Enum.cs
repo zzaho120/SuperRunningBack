@@ -40,6 +40,7 @@ public enum PoolName
 	EnemyParticle1,
 	KickSound,
 	HoldSound,
+	FinishRagdoll,
 	PoolNameMax
 }
 
@@ -57,4 +58,17 @@ public enum SceneName
 	High,
 	Colleage,
 	Pro,
+}
+
+public enum GenerateList
+{
+	Enemy,
+	FixedEnemy,
+	Item
+}
+
+public enum LevelList
+{
+	Enemy,
+	FixedEnemy
 }

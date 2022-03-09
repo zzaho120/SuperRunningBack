@@ -246,6 +246,7 @@ MonoBehaviour:
   - {fileID: 1622754654}
   - {fileID: 465847038}
   difficulty: {fileID: 0}
+  isFinishArea: 0
 --- !u!1 &118126792
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,6 +494,7 @@ MonoBehaviour:
   - {fileID: 1672608139}
   - {fileID: 575497976}
   difficulty: {fileID: 0}
+  isFinishArea: 1
 --- !u!1 &291556989
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,6 +547,7 @@ MonoBehaviour:
   - {fileID: 1899927362}
   - {fileID: 1296269435}
   difficulty: {fileID: 0}
+  isFinishArea: 0
 --- !u!1 &325395045
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +642,7 @@ MonoBehaviour:
   - {fileID: 1164639199}
   - {fileID: 1223473695}
   difficulty: {fileID: 0}
+  isFinishArea: 0
 --- !u!1 &341587782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,6 +1631,7 @@ MonoBehaviour:
   - {fileID: 1426727816}
   - {fileID: 1426808354}
   difficulty: {fileID: 0}
+  isFinishArea: 0
 --- !u!1 &925796531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,6 +1732,7 @@ MonoBehaviour:
   - {fileID: 1943021980}
   - {fileID: 78037967}
   difficulty: {fileID: 0}
+  isFinishArea: 0
 --- !u!1 &1013256735
 GameObject:
   m_ObjectHideFlags: 0
@@ -2146,6 +2152,7 @@ MonoBehaviour:
   - {fileID: 351202342}
   - {fileID: 1367492890}
   difficulty: {fileID: 0}
+  isFinishArea: 0
 --- !u!1 &1253235907
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,6 +2205,7 @@ MonoBehaviour:
   - {fileID: 1287251364}
   - {fileID: 1716064375}
   difficulty: {fileID: 0}
+  isFinishArea: 0
 --- !u!1 &1287251364
 GameObject:
   m_ObjectHideFlags: 0
@@ -3157,6 +3165,7 @@ MonoBehaviour:
   - {fileID: 1717216497}
   - {fileID: 118126792}
   difficulty: {fileID: 0}
+  isFinishArea: 0
 --- !u!1 &1549307339
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,6 +3585,7 @@ MonoBehaviour:
   - {fileID: 63240170}
   - {fileID: 341587782}
   difficulty: {fileID: 0}
+  isFinishArea: 0
 --- !u!1 &1716064375
 GameObject:
   m_ObjectHideFlags: 0
@@ -4289,6 +4299,7 @@ MonoBehaviour:
   - {fileID: 5899653921704659677}
   - {fileID: 5822180671118186852}
   difficulty: {fileID: 0}
+  isFinishArea: 0
 --- !u!1 &3600924568060828150
 GameObject:
   m_ObjectHideFlags: 0

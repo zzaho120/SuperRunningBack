@@ -126,7 +126,8 @@ public class EnemyController : MonoBehaviour
 
     private void IdleUpdate()
     {
-        if (Camera.main.WorldToViewportPoint(transform.position).y < 1f)
+        //if (Camera.main.WorldToViewportPoint(transform.position).y < 1f)
+        if (DistanceFromPlayer < 60f)
             State = STATE.MOVE;
     }
     private void MoveUpdate()

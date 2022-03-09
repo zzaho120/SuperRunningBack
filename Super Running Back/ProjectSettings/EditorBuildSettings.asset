@@ -7,17 +7,17 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Elemantary League.unity
-    guid: aaab78907eb6c374f8a408dcfacf8875
+    guid: c5a56772e2fdccf4cbf0333f7f34b54c
   - enabled: 1
     path: Assets/Scenes/Middle League.unity
-    guid: 5eb51c7df6f01b34c834b4ff3c648cdd
+    guid: 766d0ad68de3cf3418ce1215734b9827
   - enabled: 1
     path: Assets/Scenes/High League.unity
-    guid: 80a6d7a9b46a1b640bb0ce92a8c79748
+    guid: 3beefd52ed611d246a6beea341da0534
   - enabled: 1
     path: Assets/Scenes/College League.unity
-    guid: 7ef8f7dace65d8747a3341461bb865a6
+    guid: 6aebef67e036b484aa0dc3b8e144124b
   - enabled: 1
     path: Assets/Scenes/Pro League.unity
-    guid: 479070ffc7b0e2540bbf03c627e650c1
+    guid: defbc5f0460c79c48b14dd35837ddd10
   m_configObjects: {}

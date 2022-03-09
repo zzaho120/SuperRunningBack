@@ -16,9 +16,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 000
+  - SuperRunningBack
   appLabels:
-  - App Name
+  - Super Running Back
   cookie: 1
   logging: 1
   status: 1

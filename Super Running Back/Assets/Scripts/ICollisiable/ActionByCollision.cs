@@ -63,8 +63,6 @@ public class ActionByCollision : MonoBehaviour, ICollisable
                 soundObj = ObjectPool.GetObject(PoolName.HoldSound);
                 soundObj.transform.position = transform.position;
 
-                var playerStat = player.stats;
-
                 GameManager.Instance.MsgGetPenalty();
                 player.MsgGetRagdoll(enemyStats);
                 scoreManager.AddHoldEnemyWeight(enemyStats.weight);

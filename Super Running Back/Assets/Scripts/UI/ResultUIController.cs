@@ -47,13 +47,11 @@ public class ResultUIController : UIController
 
         texts[2].text = $"Time : {min} min {sec} sec";
 
-        texts[3].text = $"Player level : {scoreManager.playerLevel}";
+        texts[3].text = $"Item : {scoreManager.itemNumber}";
 
-        texts[4].text = $"Item : {scoreManager.itemNumber}";
+        texts[4].text = $"Hold Enemy : {scoreManager.holdEnemyWeight}";
 
-        texts[5].text = $"Hold Enemy : {scoreManager.holdEnemyWeight}";
-
-        texts[6].text = $"Kick Enemy : {scoreManager.kickEnemyNumber}";
+        texts[5].text = $"Kick Enemy : {scoreManager.kickEnemyNumber}";
         
         StartCoroutine(CoStartShowResult());
     }

@@ -64,9 +64,14 @@ public class PlayerController : MonoBehaviour
         SizeSetting();
 
         ragdollIdx = 0;
-        for(int idx = 0; idx < ragdollObject.transform.childCount; idx++)
+        for(var idx = 0; idx < ragdollObject.transform.childCount; idx++)
         {
             var ragdoll = ragdollObject.transform.GetChild(idx);
+            var ragdollMgr = ragdoll.GetComponent<RagdollManager>();
+            var rigid = ragdollMgr.rigid;
+            rigid.velocity = Vector3.zero;
+            rigid.angularVelocity = Vector3.zero;
+            rigid.Sleep();
             ragdoll.gameObject.SetActive(false);
         }
     }
@@ -241,6 +246,7 @@ public class PlayerController : MonoBehaviour
             ragdoll.gameObject.SetActive(true);
 
             var ragdollMgr = ragdoll.GetComponent<RagdollManager>();
+            ragdollMgr.rigid.WakeUp();
             ragdollMgr.SetStats(stats);
 
             ragdollIdx++;

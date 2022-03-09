@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfcf417bceeba474b8d12501c906cef3, type: 3}
   m_Name: YCConfigData
   m_EditorClassIdentifier: 
-  gameYcId: 
-  SoundEffect: 0
-  SoundMusic: 0
+  gameYcId: 3a31b5
   InAppRemoveAds: 
   InAppRemoveAdsCanRemoveInBanner: 1
   ABVersion: 1
@@ -23,12 +21,12 @@ MonoBehaviour:
   BannerDisplayOnInit: 1
   BannerDisplayOnInitEditor: 1
   InterstitialInterval: 20
-  Name: 
-  FbAppId: 
+  Name: Super Running Back
+  FbAppId: SuperRunningBack
   appleId: 
   MmpAdjust: 0
   MmpAdjustAppToken: 
-  MmpTenjin: 0
+  MmpTenjin: 1
   AdMobAndroidAppId: 
   AdMobIosAppId: 
   IosInterstitial: 

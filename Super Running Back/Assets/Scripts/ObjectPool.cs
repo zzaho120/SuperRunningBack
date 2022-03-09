@@ -39,6 +39,7 @@ public class ObjectPool : MonoBehaviour
         queueInit(maxParticleCnt, prefabs[PoolName.EnemyParticle1], pool[PoolName.EnemyParticle1]);
         queueInit(0, prefabs[PoolName.KickSound], pool[PoolName.KickSound]);
         queueInit(0, prefabs[PoolName.HoldSound], pool[PoolName.HoldSound]);
+        queueInit(maxEnemyCnt, prefabs[PoolName.FinishRagdoll], pool[PoolName.FinishRagdoll]);
     }
 
     private void queueInit(int initCnt, GameObject obj, Queue<GameObject> queue)

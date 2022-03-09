@@ -16,75 +16,114 @@ public class RandomGenerateStage : MonoBehaviour
     public Transform fixedEnemys;
     public bool isGenerateLarge;
 
-    private int generateFixedEnemyCnt;
+    public List<(Vector3, int)> enemyInfoList = new List<(Vector3, int)>();
+    public List<(Vector3, int)> fixedEnemyInfoList = new List<(Vector3, int)>();
+    public List<Vector3> itemInfoList = new List<Vector3>();
 
     public void Generate() 
     {
-        currentStageInfo = stageInfos[DataManager.CurrentStageIdx];
-        currentStageInfo.Init();
-        // 해당 스테이지의 칸 레벨을 섞는다.
-        //currentStageInfo.RandomSortLevelArray();
-        var maxAreaCnt = (int)(currentStageInfo.yard * 0.1f) + 1;
-        //고정 수비수 칸을 정한다.
-        while (randomFixedEnemyIndex.Count < currentStageInfo.fixedEnemyAreaCnt)
+        var gameMgr = GameManager.Instance;
+        
+        if (gameMgr.isGenerate)
         {
-            var isOverlapValue = false;
-            var randomValue = Random.Range(1, maxAreaCnt - 2);
-
-            foreach (var elem in itemIndex)
+            var enemyInfoListCount = enemyInfoList.Count;
+            for (var idx = 0; idx < enemyInfoListCount; ++idx)
             {
-                if (elem == randomValue)
-                    isOverlapValue = true;
+                var newGo = ObjectPool.GetObject(PoolName.Enemy);
+
+                var enemy = newGo.GetComponent<EnemyController>();
+                enemy.Init(enemyInfoList[idx].Item2);
+                newGo.transform.SetParent(enemys);
+                newGo.transform.position = enemyInfoList[idx].Item1;
             }
 
-            if (!isOverlapValue)
-                randomFixedEnemyIndex.Add(randomValue);
+            var fixedEnemyInfoListCount = fixedEnemyInfoList.Count;
+            for (var idx = 0; idx < fixedEnemyInfoListCount; ++idx)
+            {
+                var newGo = ObjectPool.GetObject(PoolName.FixedEnemy);
+                var enemy = newGo.GetComponent<FixedEnemyController>();
+                enemy.Init(fixedEnemyInfoList[idx].Item2); 
+                newGo.transform.SetParent(fixedEnemys);
+                newGo.transform.position = fixedEnemyInfoList[idx].Item1;
+            }
+
+            var itemInfoListCount = itemInfoList.Count;
+            for (var idx = 0; idx < itemInfoListCount; ++idx)
+            {
+                var newGo = ObjectPool.GetObject(PoolName.Item);
+                newGo.transform.SetParent(items);
+                newGo.transform.position = itemInfoList[idx];
+            }
         }
-
-        itemIndex.Add(maxAreaCnt - 1);
-        itemIndex.Add(1);
-        itemIndex.Add(3);
-        //while (itemIndex.Count < currentStageInfo.itemAreaCnt)
-        //{
-        //    var isOverlapValue = false;
-        //    var randomValue = Random.Range(1, maxAreaCnt - 3);
-
-        //    foreach (var elem in itemIndex)
-        //    {
-        //        if (elem == randomValue)
-        //            isOverlapValue = true;
-        //    }
-
-        //    if (!isOverlapValue)
-        //        itemIndex.Add(randomValue);
-        //}
-
-        //// 각 야드 영역마다 난이도 설정을 하고 랜덤 생성을 수행한다.
-        for (int idx = 0; idx < maxAreaCnt; idx++)
+        else
         {
-            var difficultyIndex = currentStageInfo.stageLevelArray[idx];
-            areas[idx].difficulty = difficulties[difficultyIndex];
+            enemyInfoList.Clear();
+            fixedEnemyInfoList.Clear();
+            itemInfoList.Clear();
 
-            foreach (var elem in randomFixedEnemyIndex)
+            currentStageInfo = stageInfos[DataManager.CurrentStageIdx];
+            currentStageInfo.Init();
+            // 해당 스테이지의 칸 레벨을 섞는다.
+            //currentStageInfo.RandomSortLevelArray();
+            var maxAreaCnt = (int)(currentStageInfo.yard * 0.1f) + 1;
+            //고정 수비수 칸을 정한다.
+            while (randomFixedEnemyIndex.Count < currentStageInfo.fixedEnemyAreaCnt)
             {
-                if (idx == elem)
+                var isOverlapValue = false;
+                var randomValue = Random.Range(1, maxAreaCnt - 2);
+
+                foreach (var elem in itemIndex)
                 {
-                    areas[idx].SetGenerateFixedEnemy();
+                    if (elem == randomValue)
+                        isOverlapValue = true;
                 }
+
+                if (!isOverlapValue)
+                    randomFixedEnemyIndex.Add(randomValue);
             }
 
-            foreach (var elem in itemIndex)
+            while (itemIndex.Count < currentStageInfo.itemAreaCnt)
             {
-                if (idx == elem)
+                var isOverlapValue = false;
+                var randomValue = Random.Range(1, maxAreaCnt);
+
+                foreach (var elem in itemIndex)
                 {
-                    if (idx == maxAreaCnt - 1)
-                        areas[idx].SetGenerateItem(true, isGenerateLarge);
-                    else
-                        areas[idx].SetGenerateItem();
+                    if (elem == randomValue)
+                        isOverlapValue = true;
                 }
+
+                if (!isOverlapValue)
+                    itemIndex.Add(randomValue);
             }
 
-            areas[idx].Generate();
+            //// 각 야드 영역마다 난이도 설정을 하고 랜덤 생성을 수행한다.
+            for (int idx = 0; idx < maxAreaCnt; idx++)
+            {
+                var difficultyIndex = currentStageInfo.stageLevelArray[idx];
+                areas[idx].difficulty = difficulties[difficultyIndex];
+
+                foreach (var elem in randomFixedEnemyIndex)
+                {
+                    if (idx == elem)
+                    {
+                        areas[idx].SetGenerateFixedEnemy();
+                    }
+                }
+
+                foreach (var elem in itemIndex)
+                {
+                    if (idx == elem)
+                    {
+                        if (idx == maxAreaCnt - 1)
+                            areas[idx].SetGenerateItem(true, isGenerateLarge);
+                        else
+                            areas[idx].SetGenerateItem();
+                    }
+                }
+
+                areas[idx].Generate();
+            }
         }
     }
 }

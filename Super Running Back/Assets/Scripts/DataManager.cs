@@ -66,6 +66,14 @@ public static class DataManager
         }
     }
 
+    public static int StageIdx
+    {
+        get
+        {
+            return CurrentChapterIdx * maxChaperIdx + CurrentStageIdx + 1;
+        }
+    }
+
     public static bool IsMaxStage
     {
         get

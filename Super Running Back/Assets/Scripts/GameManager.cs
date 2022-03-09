@@ -29,10 +29,12 @@ public class GameManager : MonoBehaviour
     public GameState state;
     public int playTime;
     public bool isAdEnd;
-
+    public bool isGenerate;
     private float gameStartTime;
     private bool isTutorial = true;
     private bool isTouchdown;
+    
+    
 
     private void Awake()
     {
@@ -54,8 +56,13 @@ public class GameManager : MonoBehaviour
         state = GameState.MainMenu;
         UI.Open(UIs.MainMenu);
 
+        inputManager.enabled = false;
+        player.enabled = true;
         ReturnListAllObject();
+
         randomGenerateStage.Generate();
+        isGenerate = true;
+
         player.Init();
         startSetting.GameStartInit();
         startSetting.Init();
@@ -63,10 +70,10 @@ public class GameManager : MonoBehaviour
         yardText.Init();
         ListInit();
 
-        player.enabled = true;
-        startTimeLine.gameObject.SetActive(true);
-        finishTimeLine.gameObject.SetActive(false);
         cinemachineBrain.enabled = true;
+        finishTimeLine.gameObject.SetActive(false);
+        startTimeLine.gameObject.SetActive(true);
+        YsoCorp.GameUtils.YCManager.instance.OnGameStarted(DataManager.StageIdx);
     }
 
     private void Update()
@@ -82,9 +89,9 @@ public class GameManager : MonoBehaviour
                 {
                     isAdEnd = false;
                     if (DataManager.IsMaxStage)
-                        GameManager.Instance.NextChapter();
+                        NextChapter();
                     else
-                        GameManager.Instance.NextStage();
+                        NextStage();
                 }
                 break;
             case GameState.Game:
@@ -117,12 +124,12 @@ public class GameManager : MonoBehaviour
     public void Finish()
     {
         UI.Open(UIs.Result);
-
         ReturnListAllObject();
     }
 
     public void PlayerDieMsg()
     {
+        YsoCorp.GameUtils.YCManager.instance.OnGameFinished(false);
         UI.Open(UIs.Gameover);
         state = GameState.Gameover;
         player.PlayerDead();
@@ -171,7 +178,7 @@ public class GameManager : MonoBehaviour
         DataManager.NextStage();
 
         isTouchdown = false;
-
+        isGenerate = false;
         Init();
     }
 
@@ -200,6 +207,7 @@ public class GameManager : MonoBehaviour
     {
         if(!isTouchdown)
         {
+            YsoCorp.GameUtils.YCManager.instance.OnGameFinished(true);
             isTouchdown = true;
             state = GameState.Result;
             ReturnListAllObject();
@@ -210,7 +218,6 @@ public class GameManager : MonoBehaviour
             scoreManager.SetFinishTime(playTime);
             scoreManager.SetTotalScore();
 
-            var totalScore = scoreManager.GetTotalScore();
             finishTimeLine.gameObject.SetActive(true);
             finishTimeLine.Play();
         }
@@ -218,15 +225,17 @@ public class GameManager : MonoBehaviour
 
     public void MsgGetItem()
     {
-        player.MsgGetItem();
-        scoreManager.AddItemNumber();
         var ui = UI.GetUI(UIs.Game) as GameUIContorller;
-        ui.MsgGetItem();
+        if (ui.playerStatusBar.value < 1f)
+        {
+            player.MsgGetItem();
+            ui.MsgGetItem();
+        }
 
+        scoreManager.AddItemNumber();
         var soundObj = ObjectPool.GetObject(PoolName.ItemSound);
         var sound = soundObj.GetComponent<AudioSource>();
 
-        
         sound.Play();
     }
 
