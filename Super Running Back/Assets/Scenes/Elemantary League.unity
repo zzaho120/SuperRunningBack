@@ -278,11 +278,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!224 &279816378 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1330482693028249630, guid: 66c01342045c0c7479d47539f008836c, type: 3}
-  m_PrefabInstance: {fileID: 761574023}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &291556991 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 291556991, guid: 2db883c091fbceb4abab15a013807a5a, type: 3}
@@ -508,7 +503,7 @@ PrefabInstance:
       objectReference: {fileID: 835889077}
     - target: {fileID: 309103898, guid: 66c01342045c0c7479d47539f008836c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 691057530, guid: 66c01342045c0c7479d47539f008836c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -518,6 +513,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 15084044}
+    - target: {fileID: 971068422, guid: 66c01342045c0c7479d47539f008836c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 971068423, guid: 66c01342045c0c7479d47539f008836c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 240
+      objectReference: {fileID: 0}
     - target: {fileID: 1436095338, guid: 66c01342045c0c7479d47539f008836c, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -650,10 +653,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4510902699555847978, guid: 66c01342045c0c7479d47539f008836c, type: 3}
-      propertyPath: statusObjTr
-      value: 
-      objectReference: {fileID: 279816378}
     - target: {fileID: 7986024837645788164, guid: 66c01342045c0c7479d47539f008836c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

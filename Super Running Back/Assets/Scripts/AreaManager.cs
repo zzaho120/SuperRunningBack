@@ -29,7 +29,6 @@ public class AreaManager : MonoBehaviour
         if (!isCenterItem)
             emptyOrItemPart = Random.Range(0, parts.Count);
 
-        var fixedEnemyIdx = Random.Range(1, parts.Count);
         var gameMgr = GameManager.Instance;
         randomGenerateStage = GameManager.Instance.randomGenerateStage;
 
@@ -49,13 +48,12 @@ public class AreaManager : MonoBehaviour
                 }
             }
             GenerateEnemy(parts[idx]);
+        }
 
-
-            if (isGenerateFixedEnemy && idx == fixedEnemyIdx)
-            {
-                GenerateFixedEnemy(parts[idx]);
-                isGenerateFixedEnemy = false;
-            }
+        if (isGenerateFixedEnemy)
+        {
+            GenerateFixedEnemy();
+            isGenerateFixedEnemy = false;
         }
 
         if (!isFinishArea)
@@ -170,29 +168,51 @@ public class AreaManager : MonoBehaviour
         }
     }
 
-    private void GenerateFixedEnemy(GameObject part)
+    private void GenerateFixedEnemy()
     {
-        var originPosition = part.transform.position;
-        var rangeCollider = part.GetComponent<BoxCollider>();
+        var fixedEnemyIdx = Random.Range(0, parts.Count);
 
-        var rangeX = rangeCollider.bounds.size.x;
-        var rangeZ = rangeCollider.bounds.size.z;
-
-        var stageInfo = randomGenerateStage.currentStageInfo;
-        var maxEnemyCnt = stageInfo.fixedEnemyNumCnt;
-        var distance = rangeX / maxEnemyCnt;
-        var enemyLevel = stageInfo.fixedEnemyLevel - 1;
-        var fixedEnemyInfoList = GameManager.Instance.randomGenerateStage.fixedEnemyInfoList;
-        for (int idx = 0; idx < maxEnemyCnt; idx++)
+        switch (fixedEnemyIdx)
         {
-            var position = new Vector3(-rangeX * 0.5f + distance * idx, 0f, -rangeZ * 0.5f);
-            var respawnPosition = originPosition + position;
-            var newGo = ObjectPool.GetObject(PoolName.FixedEnemy);
-            var enemy = newGo.GetComponent<FixedEnemyController>();
-            enemy.Init(enemyLevel);
-            newGo.transform.SetParent(randomGenerateStage.fixedEnemys);
-            newGo.transform.position = respawnPosition;
-            fixedEnemyInfoList.Add((respawnPosition, enemyLevel));
+            case 0:
+                GenerateFixedEnemyByIdx(0, 1);
+                break;
+            case 1:
+                GenerateFixedEnemyByIdx(1, 1);
+                break;
+            case 2:
+                GenerateFixedEnemyByIdx(1, 2);
+                break;
+        }
+    }
+
+    private void GenerateFixedEnemyByIdx(int minIdx, int maxIdx)
+    {
+        for (var partIdx = minIdx; partIdx < maxIdx + 1; ++partIdx)
+        {
+            var part = parts[partIdx];
+            var originPosition = part.transform.position;
+            var rangeCollider = part.GetComponent<BoxCollider>();
+
+            var rangeX = rangeCollider.bounds.size.x;
+            var rangeZ = rangeCollider.bounds.size.z;
+
+            var stageInfo = randomGenerateStage.currentStageInfo;
+            var maxEnemyCnt = stageInfo.fixedEnemyNumCnt;
+            var distance = rangeX / maxEnemyCnt;
+            var enemyLevel = stageInfo.fixedEnemyLevel - 1;
+            var fixedEnemyInfoList = GameManager.Instance.randomGenerateStage.fixedEnemyInfoList;
+            for (int idx = 0; idx < maxEnemyCnt; ++idx)
+            {
+                var position = new Vector3(-rangeX * 0.5f + distance * idx, 0f, -rangeZ * 0.5f);
+                var respawnPosition = originPosition + position;
+                var newGo = ObjectPool.GetObject(PoolName.FixedEnemy);
+                var enemy = newGo.GetComponent<FixedEnemyController>();
+                enemy.Init(enemyLevel);
+                newGo.transform.SetParent(randomGenerateStage.fixedEnemys);
+                newGo.transform.position = respawnPosition;
+                fixedEnemyInfoList.Add((respawnPosition, enemyLevel));
+            }
         }
     }
 

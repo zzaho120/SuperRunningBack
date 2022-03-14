@@ -9703,9 +9703,9 @@ MonoBehaviour:
   destinationBar: {fileID: 4510902698133085053}
   tutorialBar: {fileID: 971068424}
   playerStatusBar: {fileID: 3272933432730605805}
-  originStatusTr: {fileID: 1330482693028249630}
   stageNameText: {fileID: 8460259506683267644}
   playerStatusText: {fileID: 8422458308389485135}
+  statusObjTr: {fileID: 1330482693028249630}
 --- !u!1 &5066675917779967724
 GameObject:
   m_ObjectHideFlags: 0
