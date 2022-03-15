@@ -6,12 +6,12 @@ public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance;
     public int maxEnemyCnt;
-    public int maxitemCnt;
-    public int maxfixedEnemyCnt;
+    public int maxItemCnt;
+    public int maxFixedEnemyCnt;
     public int maxParticleCnt;
     public int maxSoundCnt;
 
-    public List<GameObject> nonSettingPrefabs;
+    public List<GameObject> prefabsList;
 
     public Dictionary<PoolName, Queue<GameObject>> pool = new Dictionary<PoolName, Queue<GameObject>>();
     public Dictionary<PoolName, GameObject> prefabs = new Dictionary<PoolName, GameObject>();
@@ -25,15 +25,15 @@ public class ObjectPool : MonoBehaviour
         for(int idx = 0; idx < poolNameCount; idx++)
         {
             pool.Add((PoolName)idx, new Queue<GameObject>());
-            prefabs.Add((PoolName)idx, nonSettingPrefabs[idx]);
+            prefabs.Add((PoolName)idx, prefabsList[idx]);
         }
 
         queueInit(maxEnemyCnt, prefabs[PoolName.Enemy], pool[PoolName.Enemy]);
-        queueInit(maxfixedEnemyCnt, prefabs[PoolName.FixedEnemy], pool[PoolName.FixedEnemy]);
+        queueInit(maxFixedEnemyCnt, prefabs[PoolName.FixedEnemy], pool[PoolName.FixedEnemy]);
 
-        queueInit(maxitemCnt, prefabs[PoolName.Item], pool[PoolName.Item]);
-        queueInit(maxitemCnt, prefabs[PoolName.ItemSound], pool[PoolName.ItemSound]);
-        queueInit(maxitemCnt, prefabs[PoolName.ItemParticle], pool[PoolName.ItemParticle]);
+        queueInit(maxItemCnt, prefabs[PoolName.Item], pool[PoolName.Item]);
+        queueInit(maxItemCnt, prefabs[PoolName.ItemSound], pool[PoolName.ItemSound]);
+        queueInit(maxItemCnt, prefabs[PoolName.ItemParticle], pool[PoolName.ItemParticle]);
 
         queueInit(maxParticleCnt, prefabs[PoolName.EnemyParticle0], pool[PoolName.EnemyParticle0]);
         queueInit(maxParticleCnt, prefabs[PoolName.EnemyParticle1], pool[PoolName.EnemyParticle1]);

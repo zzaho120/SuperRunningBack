@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c8341cd14951342ad1d878606d42a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemyCnt: 10
-  maxitemCnt: 10
-  maxfixedEnemyCnt: 10
-  maxParticleCnt: 10
-  maxSoundCnt: 10
-  nonSettingPrefabs:
+  maxEnemyCnt: 50
+  maxItemCnt: 20
+  maxFixedEnemyCnt: 40
+  maxParticleCnt: 5
+  maxSoundCnt: 5
+  prefabsList:
   - {fileID: 1877908036325388784, guid: 27faae98c980af54eb3f2e9c6193290a, type: 3}
   - {fileID: 2772911091036784005, guid: 4b2c9bdbb3a95ab4d814c38ac477cddf, type: 3}
   - {fileID: 8401274934262048309, guid: 96e4697dcaae4e043b13e9ab089c9102, type: 3}
