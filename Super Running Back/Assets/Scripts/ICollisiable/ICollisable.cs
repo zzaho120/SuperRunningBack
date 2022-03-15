@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ICollisable
 {
-    void onActionByCollision(GameObject other);
+    void OnActionByCollision(GameObject other);
 }

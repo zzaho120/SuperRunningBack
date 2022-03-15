@@ -11,7 +11,7 @@ public class ActionByCollision : MonoBehaviour, ICollisable
     {
         isAction = false;
     }
-    public void onActionByCollision(GameObject other)
+    public void OnActionByCollision(GameObject other)
     {
         if(!isAction)
         {

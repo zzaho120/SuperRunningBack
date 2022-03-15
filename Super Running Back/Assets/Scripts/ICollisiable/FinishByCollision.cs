@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class FinishByCollision : MonoBehaviour, ICollisable
 {
     public UnityEvent onFinishEvent;
-    public void onActionByCollision(GameObject other)
+    public void OnActionByCollision(GameObject other)
     {
         onFinishEvent.Invoke();
     }

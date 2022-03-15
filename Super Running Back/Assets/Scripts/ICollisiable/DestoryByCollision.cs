@@ -12,7 +12,7 @@ public class DestoryByCollision : MonoBehaviour, ICollisable
     {
         isDestroy = false;
     }
-    public void onActionByCollision(GameObject other)
+    public void OnActionByCollision(GameObject other)
     {
         if(!isDestroy)
         {

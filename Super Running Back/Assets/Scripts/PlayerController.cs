@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 originTouchPos;
     private Vector2 touchPos;
     private float slideSpeed;
-    private float speed = 15f;
+    private float moveXSpeed = 45f;
     private float decreaseSpeed = 1f;
     private float maxMoveDistance = 24.5f;
     private float rotSpeed = 30f;
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        rigid.velocity = new Vector3(slideSpeed * speed, rigid.velocity.y, stats.currentSpeed * decreaseSpeed);
+        rigid.velocity = new Vector3(slideSpeed, rigid.velocity.y, stats.currentSpeed * decreaseSpeed);
     }
 
     public void horizontalMove(Touch touch)
@@ -96,11 +96,9 @@ public class PlayerController : MonoBehaviour
         {
             case TouchPhase.Began:
                 isFirstTouch = true;
-                originTouchPos = Camera.main.ScreenToViewportPoint(touch.position);
                 if (fingerId == int.MinValue)
-                {
                     fingerId = touch.fingerId;
-                }
+                originTouchPos = Camera.main.ScreenToViewportPoint(touch.position);
                 break;
             case TouchPhase.Moved:
             case TouchPhase.Stationary:
@@ -113,7 +111,7 @@ public class PlayerController : MonoBehaviour
                     }
                     touchPos = Camera.main.ScreenToViewportPoint(touch.position);
                     dir = touchPos - originTouchPos;
-                    slideSpeed = dir.x * 3f;
+                    slideSpeed = dir.x * moveXSpeed;
                     decreaseSpeed = Mathf.Lerp(1f, minDecreaseSpeed, Mathf.Abs(slideSpeed));
                 }
                 break;
@@ -157,7 +155,7 @@ public class PlayerController : MonoBehaviour
                     
                     foreach(var elem in collisable)
                     {
-                        elem.onActionByCollision(gameObject);
+                        elem.OnActionByCollision(gameObject);
                     }
                 }
             }
@@ -166,7 +164,7 @@ public class PlayerController : MonoBehaviour
                 var collisable = other.GetComponents<ICollisable>();
                 foreach (var elem in collisable)
                 {
-                    elem.onActionByCollision(gameObject);
+                    elem.OnActionByCollision(gameObject);
                 }
             }
 

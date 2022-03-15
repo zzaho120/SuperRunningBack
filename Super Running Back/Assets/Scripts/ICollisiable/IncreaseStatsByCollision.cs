@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IncreaseStatsByCollision : MonoBehaviour, ICollisable
 {
-    public void onActionByCollision(GameObject other)
+    public void OnActionByCollision(GameObject other)
     {
         GameManager.Instance.MsgGetItem();
     }
